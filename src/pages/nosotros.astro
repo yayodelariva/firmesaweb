@@ -1,64 +1,64 @@
 ---
 import Base from '../layouts/Base.astro';
-import EncabezadoPagina from '../components/EncabezadoPagina.astro';
-import { site, anios, FUNDACION } from '../data/site';
+import PageHeader from '../components/PageHeader.astro';
+import { site, years, FOUNDED } from '../data/site';
 
-const hitos = [
+const milestones = [
   {
-    anio: '1972',
-    titulo: 'Nace Firmesa',
-    texto:
+    year: '1972',
+    title: 'Nace Firmesa',
+    text:
       'El 19 de julio se constituye Funcionamiento Íntegro de Radiodifusoras Mexicanas Enlazadas, S.A., con el propósito de prestar servicios de representación profesional a nivel nacional.',
   },
   {
-    anio: 'Crecimiento',
-    titulo: 'Presencia corporativa nacional',
-    texto:
+    year: 'Crecimiento',
+    title: 'Presencia corporativa nacional',
+    text:
       'La casa suma emisoras en más de diez estados de la República, la mayoría de ellas únicas o líderes en su plaza.',
   },
   {
-    anio: 'Hoy',
-    titulo: 'Radio, producción y streaming',
-    texto:
+    year: 'Hoy',
+    title: 'Radio, producción y streaming',
+    text:
       'A la representación de medios se suman un estudio de grabación digital y la transmisión por internet de todas nuestras señales.',
   },
 ];
 
-const valores = [
+const values = [
   {
-    titulo: 'Confianza de largo plazo',
-    texto:
+    title: 'Confianza de largo plazo',
+    text:
       'Más de medio siglo de relaciones con radiodifusoras, agencias y anunciantes. Nuestro negocio se sostiene en la palabra cumplida.',
   },
   {
-    titulo: 'Conocimiento de plaza',
-    texto:
+    title: 'Conocimiento de plaza',
+    text:
       'Sabemos qué se escucha en cada ciudad, en qué horario y a qué público. Esa lectura local es lo que hace rendir cada peso de la pauta.',
   },
   {
-    titulo: 'Servicio integral',
-    texto:
+    title: 'Servicio integral',
+    text:
       'Creatividad, producción, compra de medios y distribución de materiales bajo un mismo techo, con un solo interlocutor.',
   },
 ];
 ---
 
 <Base
-  titulo="Nosotros"
-  ruta="/nosotros/"
-  descripcion={`Firmesa: ${anios()} años de representación profesional de radiodifusoras mexicanas. Historia, valores y forma de trabajo.`}
+  title="Nosotros"
+  path="/nosotros/"
+  description={`Firmesa: ${years()} años de representación profesional de radiodifusoras mexicanas. Historia, valores y forma de trabajo.`}
 >
-  <EncabezadoPagina
-    eyebrow={`Desde ${FUNDACION}`}
-    titulo={`${anios()} años enlazando marcas con la radio mexicana.`}
-    entrada={site.razonSocial}
+  <PageHeader
+    eyebrow={`Desde ${FOUNDED}`}
+    title={`${years()} años enlazando marcas con la radio mexicana.`}
+    intro={site.legalName}
   />
 
-  <section class="contenedor py-20 md:py-24">
+  <section class="wrapper py-20 md:py-24">
     <div class="grid gap-14 lg:grid-cols-[1.2fr_1fr]">
-      <div class="prosa space-y-6 text-lg leading-relaxed text-ink-600">
+      <div class="readable space-y-6 text-lg leading-relaxed text-ink-600">
         <p>
-          Firmesa fue fundada el 19 de julio de {FUNDACION} para prestar servicios de representación
+          Firmesa fue fundada el 19 de julio de {FOUNDED} para prestar servicios de representación
           profesional a nivel nacional. Desde entonces conectamos a los anunciantes con las
           radiodifusoras que verdaderamente escuchan sus mercados.
         </p>
@@ -80,11 +80,11 @@ const valores = [
         <dl class="mt-6 space-y-5 text-sm">
           <div>
             <dt class="font-semibold text-ink-400">Razón social</dt>
-            <dd class="mt-1 text-ink-800">{site.razonSocial}</dd>
+            <dd class="mt-1 text-ink-800">{site.legalName}</dd>
           </div>
           <div>
             <dt class="font-semibold text-ink-400">Fundación</dt>
-            <dd class="mt-1 text-ink-800">19 de julio de {FUNDACION}</dd>
+            <dd class="mt-1 text-ink-800">19 de julio de {FOUNDED}</dd>
           </div>
           <div>
             <dt class="font-semibold text-ink-400">Actividad</dt>
@@ -102,17 +102,17 @@ const valores = [
   </section>
 
   <section class="border-y border-ink-100 bg-ink-50">
-    <div class="contenedor py-20 md:py-24">
+    <div class="wrapper py-20 md:py-24">
       <h2 class="font-display text-3xl font-extrabold text-ink-900 md:text-4xl">Nuestra historia</h2>
       <ol class="mt-12 grid gap-8 md:grid-cols-3">
         {
-          hitos.map(({ anio, titulo, texto }) => (
+          milestones.map(({ year, title, text }) => (
             <li class="border-t-2 border-brand-600 bg-white p-8">
               <p class="font-display text-sm font-bold uppercase tracking-[0.16em] text-brand-600">
-                {anio}
+                {year}
               </p>
-              <h3 class="mt-3 font-display text-xl font-bold text-ink-900">{titulo}</h3>
-              <p class="mt-3 leading-relaxed text-ink-600">{texto}</p>
+              <h3 class="mt-3 font-display text-xl font-bold text-ink-900">{title}</h3>
+              <p class="mt-3 leading-relaxed text-ink-600">{text}</p>
             </li>
           ))
         }
@@ -120,16 +120,16 @@ const valores = [
     </div>
   </section>
 
-  <section class="contenedor py-20 md:py-24">
+  <section class="wrapper py-20 md:py-24">
     <h2 class="font-display text-3xl font-extrabold text-ink-900 md:text-4xl">
       Por qué los anunciantes vuelven
     </h2>
     <div class="mt-12 grid gap-10 md:grid-cols-3">
       {
-        valores.map(({ titulo, texto }) => (
+        values.map(({ title, text }) => (
           <article>
-            <h3 class="font-display text-xl font-bold text-ink-900">{titulo}</h3>
-            <p class="mt-3 leading-relaxed text-ink-600">{texto}</p>
+            <h3 class="font-display text-xl font-bold text-ink-900">{title}</h3>
+            <p class="mt-3 leading-relaxed text-ink-600">{text}</p>
           </article>
         ))
       }

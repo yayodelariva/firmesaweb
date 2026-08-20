@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 @theme {
-  /* Identidad Firmesa — rojo tomado del logotipo institucional */
+  /* Firmesa identity — red sampled from the institutional logo */
   --color-brand-50: #fdf2f5;
   --color-brand-100: #fbe3ea;
   --color-brand-200: #f6c6d4;
@@ -52,7 +52,8 @@
 }
 
 @layer components {
-  .contenedor {
+  /* Page gutter. Named `wrapper` so it never collides with Tailwind's own `container`. */
+  .wrapper {
     width: 100%;
     margin-inline: auto;
     max-width: 78rem;
@@ -60,10 +61,10 @@
   }
 
   @media (min-width: 768px) {
-    .contenedor { padding-inline: 2rem; }
+    .wrapper { padding-inline: 2rem; }
   }
 
-  .prosa p { max-width: 65ch; }
+  .readable p { max-width: 65ch; }
 }
 
 @media (prefers-reduced-motion: reduce) {

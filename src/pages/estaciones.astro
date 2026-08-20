@@ -1,42 +1,42 @@
 ---
 import Base from '../layouts/Base.astro';
-import EncabezadoPagina from '../components/EncabezadoPagina.astro';
+import PageHeader from '../components/PageHeader.astro';
 import { site, url } from '../data/site';
-import estados from '../data/estaciones.json';
+import states from '../data/stations.json';
 
-const totalEstaciones = estados.reduce(
-  (n, e) => n + e.ciudades.reduce((m, c) => m + c.estaciones.length, 0),
+const totalStations = states.reduce(
+  (n, state) => n + state.cities.reduce((m, city) => m + city.stations.length, 0),
   0,
 );
-const totalCiudades = estados.reduce((n, e) => n + e.ciudades.length, 0);
+const totalCities = states.reduce((n, state) => n + state.cities.length, 0);
 
-/** Cadena de búsqueda sin acentos ni mayúsculas. */
-const normalizar = (s: string) =>
-  s.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+/** Search key: lowercased and stripped of accents. */
+const normalize = (value: string) =>
+  value.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
 
-const banda = (frecuencia: string) => {
-  const am = /\bAM\b/.test(frecuencia);
-  const fm = /\bFM\b/.test(frecuencia);
+const band = (frequency: string) => {
+  const am = /\bAM\b/.test(frequency);
+  const fm = /\bFM\b/.test(frequency);
   return am && fm ? 'AM · FM' : am ? 'AM' : 'FM';
 };
 ---
 
 <Base
-  titulo="Nuestras estaciones"
-  ruta="/estaciones/"
-  descripcion={`Directorio de las ${totalEstaciones} radiodifusoras representadas por Firmesa en ${estados.length} estados de México: frecuencia, siglas, programación y transmisión en vivo.`}
+  title="Nuestras estaciones"
+  path="/estaciones/"
+  description={`Directorio de las ${totalStations} radiodifusoras representadas por Firmesa en ${states.length} estados de México: frecuencia, siglas, programación y transmisión en vivo.`}
 >
-  <EncabezadoPagina
+  <PageHeader
     eyebrow="Cobertura nacional"
-    titulo="Nuestras estaciones"
-    entrada={`${totalEstaciones} radiodifusoras en ${totalCiudades} ciudades de ${estados.length} estados. Consulte frecuencia, siglas, programación y escuche cada señal en vivo.`}
+    title="Nuestras estaciones"
+    intro={`${totalStations} radiodifusoras en ${totalCities} ciudades de ${states.length} estados. Consulte frecuencia, siglas, programación y escuche cada señal en vivo.`}
   />
 
-  <!-- Mapa -->
-  <section class="contenedor py-12">
+  <!-- Coverage map -->
+  <section class="wrapper py-12">
     <div class="overflow-hidden rounded-lg border border-ink-200">
       <iframe
-        src={site.mapaCobertura}
+        src={site.coverageMap}
         title="Mapa de cobertura de las estaciones de Firmesa"
         loading="lazy"
         class="h-[440px] w-full"
@@ -44,13 +44,13 @@ const banda = (frecuencia: string) => {
     </div>
   </section>
 
-  <!-- Controles -->
+  <!-- Filters -->
   <section class="sticky top-18 z-30 border-y border-ink-100 bg-white/95 backdrop-blur">
-    <div class="contenedor flex flex-wrap items-center gap-4 py-4">
+    <div class="wrapper flex flex-wrap items-center gap-4 py-4">
       <div class="min-w-56 flex-1">
-        <label for="buscar" class="sr-only">Buscar estación, ciudad o programación</label>
+        <label for="search" class="sr-only">Buscar estación, ciudad o programación</label>
         <input
-          id="buscar"
+          id="search"
           type="search"
           placeholder="Buscar estación, ciudad, siglas o programación…"
           autocomplete="off"
@@ -59,65 +59,74 @@ const banda = (frecuencia: string) => {
       </div>
 
       <div>
-        <label for="filtro-estado" class="sr-only">Filtrar por estado</label>
+        <label for="state-filter" class="sr-only">Filtrar por estado</label>
         <select
-          id="filtro-estado"
+          id="state-filter"
           class="rounded-md border border-ink-200 bg-white px-4 py-2.5 text-sm font-medium text-ink-900 focus:border-brand-600 focus:outline-none"
         >
           <option value="">Todos los estados</option>
-          {estados.map((e) => <option value={e.estado}>{e.estado}</option>)}
+          {states.map((state) => <option value={state.state}>{state.state}</option>)}
         </select>
       </div>
 
-      <p id="conteo" class="text-sm text-ink-400" aria-live="polite">
-        {totalEstaciones} estaciones
+      <p id="result-count" class="text-sm text-ink-400" aria-live="polite">
+        {totalStations} estaciones
       </p>
     </div>
   </section>
 
-  <!-- Directorio -->
-  <div class="contenedor py-12">
+  <!-- Directory -->
+  <div class="wrapper py-12">
     {
-      estados.map((e) => (
-        <section data-estado={e.estado} class="mb-16">
+      states.map((state) => (
+        <section data-state={state.state} class="mb-16">
           <h2 class="font-display text-2xl font-extrabold text-ink-900 md:text-3xl">
-            {e.estado}
+            {state.state}
           </h2>
 
-          {e.ciudades.map((c) => (
-            <div data-ciudad class="mt-10">
+          {state.cities.map((city) => (
+            <div data-city class="mt-10">
               <h3 class="text-xs font-semibold uppercase tracking-[0.16em] text-brand-600">
-                {c.ciudad}
+                {city.city}
               </h3>
 
               <ul class="mt-4 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
-                {c.estaciones.map((s) => (
+                {city.stations.map((station) => (
                   <li
-                    data-estacion
-                    data-buscar={normalizar(
-                      [s.nombre, s.siglas, s.frecuencia, s.programacion, c.ciudad, e.estado].join(' '),
+                    data-station
+                    data-search={normalize(
+                      [
+                        station.name,
+                        station.callSign,
+                        station.frequency,
+                        station.programming,
+                        city.city,
+                        state.state,
+                      ].join(' '),
                     )}
                     class="flex h-full flex-col rounded-lg border border-ink-200 bg-white p-6 transition-colors hover:border-brand-300"
                   >
                     <div class="flex items-start justify-between gap-4">
                       <h4 class="font-display text-lg font-bold leading-tight text-ink-900">
-                        {s.nombre}
+                        {station.name}
                       </h4>
                       <span class="shrink-0 rounded bg-brand-50 px-2 py-1 text-[0.6875rem] font-bold uppercase tracking-wider text-brand-700">
-                        {banda(s.frecuencia)}
+                        {band(station.frequency)}
                       </span>
                     </div>
 
                     <p class="mt-2 font-display text-xl font-extrabold text-brand-600">
-                      {s.frecuencia}
+                      {station.frequency}
                     </p>
                     <p class="mt-1 text-xs font-medium uppercase tracking-[0.12em] text-ink-400">
-                      {s.siglas}
+                      {station.callSign}
                     </p>
-                    <p class="mt-4 flex-1 text-sm leading-relaxed text-ink-600">{s.programacion}</p>
+                    <p class="mt-4 flex-1 text-sm leading-relaxed text-ink-600">
+                      {station.programming}
+                    </p>
 
                     <a
-                      href={s.stream}
+                      href={station.stream}
                       target="_blank"
                       rel="noopener noreferrer"
                       class="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-brand-600 hover:text-brand-700"
@@ -126,7 +135,7 @@ const banda = (frecuencia: string) => {
                         <path d="M8 5v14l11-7z" />
                       </svg>
                       Escuchar en vivo
-                      <span class="sr-only">— {s.nombre}, {c.ciudad}</span>
+                      <span class="sr-only">— {station.name}, {city.city}</span>
                     </a>
                   </li>
                 ))}
@@ -137,13 +146,13 @@ const banda = (frecuencia: string) => {
       ))
     }
 
-    <p id="sin-resultados" hidden class="py-16 text-center text-ink-400">
+    <p id="no-results" hidden class="py-16 text-center text-ink-400">
       No encontramos estaciones con esos criterios. Pruebe con otra ciudad o tipo de programación.
     </p>
   </div>
 
   <section class="bg-brand-600">
-    <div class="contenedor flex flex-wrap items-center justify-between gap-8 py-14">
+    <div class="wrapper flex flex-wrap items-center justify-between gap-8 py-14">
       <h2 class="max-w-xl font-display text-2xl font-extrabold text-white md:text-3xl">
         ¿No encuentra su plaza? Escríbanos y revisamos alternativas de cobertura.
       </h2>
@@ -158,47 +167,48 @@ const banda = (frecuencia: string) => {
 </Base>
 
 <script>
-  const buscar = document.getElementById('buscar') as HTMLInputElement | null;
-  const filtroEstado = document.getElementById('filtro-estado') as HTMLSelectElement | null;
-  const conteo = document.getElementById('conteo');
-  const vacio = document.getElementById('sin-resultados');
-  const secciones = Array.from(document.querySelectorAll<HTMLElement>('[data-estado]'));
+  const searchInput = document.getElementById('search') as HTMLInputElement | null;
+  const stateFilter = document.getElementById('state-filter') as HTMLSelectElement | null;
+  const resultCount = document.getElementById('result-count');
+  const noResults = document.getElementById('no-results');
+  const sections = Array.from(document.querySelectorAll<HTMLElement>('[data-state]'));
 
-  const normalizar = (s: string) =>
-    s.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+  const normalize = (value: string) =>
+    value.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
 
-  function aplicar() {
-    const texto = normalizar(buscar?.value.trim() ?? '');
-    const estado = filtroEstado?.value ?? '';
-    let visibles = 0;
+  function applyFilters() {
+    const term = normalize(searchInput?.value.trim() ?? '');
+    const state = stateFilter?.value ?? '';
+    let visible = 0;
 
-    for (const seccion of secciones) {
-      const coincideEstado = !estado || seccion.dataset.estado === estado;
-      let enSeccion = 0;
+    for (const section of sections) {
+      const stateMatches = !state || section.dataset.state === state;
+      let inSection = 0;
 
-      for (const grupo of seccion.querySelectorAll<HTMLElement>('[data-ciudad]')) {
-        let enGrupo = 0;
+      for (const group of section.querySelectorAll<HTMLElement>('[data-city]')) {
+        let inGroup = 0;
 
-        for (const tarjeta of grupo.querySelectorAll<HTMLElement>('[data-estacion]')) {
-          const ok = coincideEstado && (!texto || (tarjeta.dataset.buscar ?? '').includes(texto));
-          tarjeta.hidden = !ok;
-          if (ok) enGrupo++;
+        for (const card of group.querySelectorAll<HTMLElement>('[data-station]')) {
+          const matches = stateMatches && (!term || (card.dataset.search ?? '').includes(term));
+          card.hidden = !matches;
+          if (matches) inGroup++;
         }
 
-        grupo.hidden = enGrupo === 0;
-        enSeccion += enGrupo;
+        group.hidden = inGroup === 0;
+        inSection += inGroup;
       }
 
-      seccion.hidden = enSeccion === 0;
-      visibles += enSeccion;
+      section.hidden = inSection === 0;
+      visible += inSection;
     }
 
-    if (conteo) {
-      conteo.textContent = visibles === 1 ? '1 estación' : `${visibles} estaciones`;
+    // Visible copy stays in Spanish.
+    if (resultCount) {
+      resultCount.textContent = visible === 1 ? '1 estación' : `${visible} estaciones`;
     }
-    if (vacio) vacio.hidden = visibles > 0;
+    if (noResults) noResults.hidden = visible > 0;
   }
 
-  buscar?.addEventListener('input', aplicar);
-  filtroEstado?.addEventListener('change', aplicar);
+  searchInput?.addEventListener('input', applyFilters);
+  stateFilter?.addEventListener('change', applyFilters);
 </script>

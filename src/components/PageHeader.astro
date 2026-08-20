@@ -1,18 +1,18 @@
 ---
 interface Props {
   eyebrow: string;
-  titulo: string;
-  entrada?: string;
+  title: string;
+  intro?: string;
 }
-const { eyebrow, titulo, entrada } = Astro.props;
+const { eyebrow, title, intro } = Astro.props;
 ---
 
 <section class="border-b border-ink-100 bg-ink-50">
-  <div class="contenedor py-16 md:py-20">
+  <div class="wrapper py-16 md:py-20">
     <p class="text-xs font-semibold uppercase tracking-[0.22em] text-brand-600">{eyebrow}</p>
     <h1 class="mt-4 max-w-3xl font-display text-4xl font-extrabold leading-tight text-ink-900 md:text-5xl">
-      {titulo}
+      {title}
     </h1>
-    {entrada && <p class="mt-5 max-w-2xl text-lg leading-relaxed text-ink-600">{entrada}</p>}
+    {intro && <p class="mt-5 max-w-2xl text-lg leading-relaxed text-ink-600">{intro}</p>}
   </div>
 </section>

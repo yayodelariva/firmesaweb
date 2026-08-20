@@ -1,28 +1,28 @@
 ---
 import Base from '../layouts/Base.astro';
-import EncabezadoPagina from '../components/EncabezadoPagina.astro';
-import { servicios, url } from '../data/site';
+import PageHeader from '../components/PageHeader.astro';
+import { services, url } from '../data/site';
 
-const imagenes: Record<string, string> = {
+const images: Record<string, string> = {
   representacion: '/img/digital-radio.jpg',
   estudio: '/img/estudio.jpg',
 };
 ---
 
 <Base
-  titulo="Servicios"
-  ruta="/servicios/"
-  descripcion="Representación de radiodifusoras, agencia de publicidad y contratación de medios, estudio de grabación digital y audio para marcas."
+  title="Servicios"
+  path="/servicios/"
+  description="Representación de radiodifusoras, agencia de publicidad y contratación de medios, estudio de grabación digital y audio para marcas."
 >
-  <EncabezadoPagina
+  <PageHeader
     eyebrow="Servicios"
-    titulo="Todo lo que su campaña necesita para sonar."
-    entrada="Desde la creatividad y la producción del spot hasta la compra de espacios y la distribución del material a cada estación."
+    title="Todo lo que su campaña necesita para sonar."
+    intro="Desde la creatividad y la producción del spot hasta la compra de espacios y la distribución del material a cada estación."
   />
 
-  <div class="contenedor divide-y divide-ink-100">
+  <div class="wrapper divide-y divide-ink-100">
     {
-      servicios.map(({ slug, titulo, resumen, detalle, puntos }, i) => (
+      services.map(({ slug, title, summary, detail, points }, i) => (
         <section id={slug} class="scroll-mt-24 py-16 md:py-20">
           <div class="grid gap-12 lg:grid-cols-[1fr_1.1fr] lg:items-start">
             <div>
@@ -30,12 +30,12 @@ const imagenes: Record<string, string> = {
                 {String(i + 1).padStart(2, '0')}
               </p>
               <h2 class="mt-3 font-display text-3xl font-extrabold leading-tight text-ink-900">
-                {titulo}
+                {title}
               </h2>
-              <p class="mt-5 text-lg leading-relaxed text-ink-600">{resumen}</p>
-              {imagenes[slug] && (
+              <p class="mt-5 text-lg leading-relaxed text-ink-600">{summary}</p>
+              {images[slug] && (
                 <img
-                  src={url(imagenes[slug])}
+                  src={url(images[slug])}
                   alt=""
                   loading="lazy"
                   class="mt-8 w-full rounded-lg border border-ink-200 object-cover"
@@ -44,9 +44,9 @@ const imagenes: Record<string, string> = {
             </div>
 
             <div class="rounded-lg border border-ink-200 bg-ink-50 p-8 md:p-10">
-              <p class="leading-relaxed text-ink-600">{detalle}</p>
+              <p class="leading-relaxed text-ink-600">{detail}</p>
               <ul class="mt-8 space-y-4">
-                {puntos.map((p) => (
+                {points.map((point) => (
                   <li class="flex gap-3.5">
                     <svg
                       width="20"
@@ -60,7 +60,7 @@ const imagenes: Record<string, string> = {
                     >
                       <path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round" />
                     </svg>
-                    <span class="text-ink-800">{p}</span>
+                    <span class="text-ink-800">{point}</span>
                   </li>
                 ))}
               </ul>
@@ -72,7 +72,7 @@ const imagenes: Record<string, string> = {
   </div>
 
   <section class="border-t border-ink-100 bg-ink-900">
-    <div class="contenedor py-16 md:py-20">
+    <div class="wrapper py-16 md:py-20">
       <div class="grid gap-10 lg:grid-cols-2 lg:items-center">
         <div>
           <p class="text-xs font-semibold uppercase tracking-[0.22em] text-brand-300">Tarifas</p>

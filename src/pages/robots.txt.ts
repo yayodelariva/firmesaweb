@@ -1,6 +1,6 @@
 import type { APIRoute } from 'astro';
 
-/** robots.txt generado para que apunte siempre al dominio del despliegue. */
+/** robots.txt generated so it always points at the deployment's own sitemap. */
 export const GET: APIRoute = ({ site }) => {
   const sitemap = new URL(`${import.meta.env.BASE_URL}sitemap-index.xml`, site).href;
 

@@ -1,42 +1,42 @@
 ---
 import Base from '../layouts/Base.astro';
-import { site, servicios, anios, url } from '../data/site';
-import estados from '../data/estaciones.json';
+import { site, services, years, url } from '../data/site';
+import states from '../data/stations.json';
 
-const totalEstados = estados.length;
-const totalCiudades = estados.reduce((n, e) => n + e.ciudades.length, 0);
-const totalEstaciones = estados.reduce(
-  (n, e) => n + e.ciudades.reduce((m, c) => m + c.estaciones.length, 0),
+const totalStates = states.length;
+const totalCities = states.reduce((n, state) => n + state.cities.length, 0);
+const totalStations = states.reduce(
+  (n, state) => n + state.cities.reduce((m, city) => m + city.stations.length, 0),
   0,
 );
 
-const cifras = [
-  { valor: `${anios()}`, etiqueta: 'años de vida comercial' },
-  { valor: `${totalEstaciones}`, etiqueta: 'estaciones representadas' },
-  { valor: `${totalCiudades}`, etiqueta: 'ciudades con cobertura' },
-  { valor: `${totalEstados}`, etiqueta: 'estados de la República' },
+const stats = [
+  { value: `${years()}`, label: 'años de vida comercial' },
+  { value: `${totalStations}`, label: 'estaciones representadas' },
+  { value: `${totalCities}`, label: 'ciudades con cobertura' },
+  { value: `${totalStates}`, label: 'estados de la República' },
 ];
 
-const pilares = [
+const pillars = [
   {
-    titulo: 'Radio',
-    texto:
+    title: 'Radio',
+    text:
       'Nuestras radiodifusoras, ubicadas a lo largo y ancho del territorio nacional, permiten al anunciante seleccionar el área adecuada para difundir su campaña con la penetración e impacto de mayor efectividad.',
   },
   {
-    titulo: 'Exclusividad',
-    texto:
+    title: 'Exclusividad',
+    text:
       'La mayoría de nuestras emisoras son únicas o líderes en su plaza. Donde otros medios no llegan, la radio sigue siendo la voz de la comunidad.',
   },
   {
-    titulo: 'Cobertura global',
-    texto:
+    title: 'Cobertura global',
+    text:
       'Todas nuestras señales transmiten en vivo por internet, extendiendo el alcance de su mensaje mucho más allá del radio de la antena.',
   },
 ];
 ---
 
-<Base titulo="Inicio" ruta="/">
+<Base title="Inicio" path="/">
   <!-- Hero -->
   <section class="relative overflow-hidden bg-ink-900">
     <img
@@ -47,7 +47,7 @@ const pilares = [
     />
     <div class="absolute inset-0 bg-gradient-to-br from-ink-900 via-ink-900/95 to-brand-900/80"></div>
 
-    <div class="contenedor relative py-24 md:py-32">
+    <div class="wrapper relative py-24 md:py-32">
       <p class="text-xs font-semibold uppercase tracking-[0.22em] text-brand-300">
         Desde 1972 · Representación de radiodifusoras
       </p>
@@ -76,14 +76,14 @@ const pilares = [
 
       <dl class="mt-16 grid grid-cols-2 gap-8 border-t border-white/15 pt-10 md:grid-cols-4">
         {
-          cifras.map(({ valor, etiqueta }) => (
+          stats.map(({ value, label }) => (
             <div>
-              <dt class="sr-only">{etiqueta}</dt>
+              <dt class="sr-only">{label}</dt>
               <dd>
                 <span class="block font-display text-4xl font-extrabold text-white md:text-5xl">
-                  {valor}
+                  {value}
                 </span>
-                <span class="mt-2 block text-sm leading-snug text-ink-400">{etiqueta}</span>
+                <span class="mt-2 block text-sm leading-snug text-ink-400">{label}</span>
               </dd>
             </div>
           ))
@@ -92,12 +92,12 @@ const pilares = [
     </div>
   </section>
 
-  <!-- Agradecimiento -->
+  <!-- Anniversary note -->
   <section class="border-b border-ink-100 bg-brand-50">
-    <div class="contenedor py-16 md:py-20">
+    <div class="wrapper py-16 md:py-20">
       <blockquote class="mx-auto max-w-4xl text-center">
         <p class="font-display text-xl font-medium leading-relaxed text-ink-800 md:text-2xl">
-          Al cumplir {anios()} años de vida comercial, reiteramos nuestro
+          Al cumplir {years()} años de vida comercial, reiteramos nuestro
           <strong class="text-brand-600">agradecimiento</strong> a los medios publicitarios, así como
           a todos los clientes y amigos, quienes con su confianza y apoyo nos permiten promover sus
           productos y servicios profesionales en beneficio del público en general.
@@ -109,26 +109,26 @@ const pilares = [
     </div>
   </section>
 
-  <!-- Pilares -->
-  <section class="contenedor py-20 md:py-28">
+  <!-- Pillars -->
+  <section class="wrapper py-20 md:py-28">
     <div class="grid gap-12 md:grid-cols-3">
       {
-        pilares.map(({ titulo, texto }, i) => (
+        pillars.map(({ title, text }, i) => (
           <article>
             <span class="font-display text-sm font-bold text-brand-600">
               0{i + 1}
             </span>
-            <h2 class="mt-3 font-display text-2xl font-bold text-ink-900">{titulo}</h2>
-            <p class="mt-4 leading-relaxed text-ink-600">{texto}</p>
+            <h2 class="mt-3 font-display text-2xl font-bold text-ink-900">{title}</h2>
+            <p class="mt-4 leading-relaxed text-ink-600">{text}</p>
           </article>
         ))
       }
     </div>
   </section>
 
-  <!-- Servicios -->
+  <!-- Services -->
   <section class="border-y border-ink-100 bg-ink-50">
-    <div class="contenedor py-20 md:py-28">
+    <div class="wrapper py-20 md:py-28">
       <div class="flex flex-wrap items-end justify-between gap-6">
         <div>
           <p class="text-xs font-semibold uppercase tracking-[0.22em] text-brand-600">Servicios</p>
@@ -143,15 +143,15 @@ const pilares = [
 
       <div class="mt-12 grid gap-6 md:grid-cols-2">
         {
-          servicios.map(({ slug, titulo, resumen }) => (
+          services.map(({ slug, title, summary }) => (
             <a
               href={url(`/servicios/#${slug}`)}
               class="group rounded-lg border border-ink-200 bg-white p-8 transition-colors hover:border-brand-300"
             >
               <h3 class="font-display text-xl font-bold text-ink-900 group-hover:text-brand-600">
-                {titulo}
+                {title}
               </h3>
-              <p class="mt-3 leading-relaxed text-ink-600">{resumen}</p>
+              <p class="mt-3 leading-relaxed text-ink-600">{summary}</p>
             </a>
           ))
         }
@@ -159,13 +159,13 @@ const pilares = [
     </div>
   </section>
 
-  <!-- Cobertura -->
-  <section class="contenedor py-20 md:py-28">
+  <!-- Coverage -->
+  <section class="wrapper py-20 md:py-28">
     <div class="grid items-center gap-14 lg:grid-cols-2">
       <div>
         <p class="text-xs font-semibold uppercase tracking-[0.22em] text-brand-600">Cobertura</p>
         <h2 class="mt-3 font-display text-3xl font-extrabold text-ink-900 md:text-4xl">
-          {totalEstaciones} estaciones en {totalEstados} estados de la República.
+          {totalStations} estaciones en {totalStates} estados de la República.
         </h2>
         <p class="mt-5 leading-relaxed text-ink-600">
           Consulte el directorio completo con frecuencia, siglas, tipo de programación y enlace de
@@ -181,7 +181,7 @@ const pilares = [
 
       <div class="overflow-hidden rounded-lg border border-ink-200">
         <iframe
-          src={site.mapaCobertura}
+          src={site.coverageMap}
           title="Mapa de cobertura de las estaciones de Firmesa"
           loading="lazy"
           class="h-[420px] w-full"
@@ -190,9 +190,9 @@ const pilares = [
     </div>
   </section>
 
-  <!-- CTA -->
+  <!-- Closing CTA -->
   <section class="bg-brand-600">
-    <div class="contenedor flex flex-wrap items-center justify-between gap-8 py-16">
+    <div class="wrapper flex flex-wrap items-center justify-between gap-8 py-16">
       <div>
         <h2 class="font-display text-3xl font-extrabold text-white">¿Listo para salir al aire?</h2>
         <p class="mt-3 max-w-xl text-brand-100">

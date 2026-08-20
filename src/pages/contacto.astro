@@ -1,25 +1,25 @@
 ---
 import Base from '../layouts/Base.astro';
-import EncabezadoPagina from '../components/EncabezadoPagina.astro';
+import PageHeader from '../components/PageHeader.astro';
 import { site } from '../data/site';
 
-const correoPrincipal = site.correos[0];
+const primaryEmail = site.emails[0];
 ---
 
 <Base
-  titulo="Contacto"
-  ruta="/contacto/"
-  descripcion="Contacte a Firmesa para cotizar una campaña de radio, solicitar tarifas o producir su spot. Teléfonos, correos y formulario."
+  title="Contacto"
+  path="/contacto/"
+  description="Contacte a Firmesa para cotizar una campaña de radio, solicitar tarifas o producir su spot. Teléfonos, correos y formulario."
 >
-  <EncabezadoPagina
+  <PageHeader
     eyebrow="Contacto"
-    titulo="Hablemos de su próxima campaña."
-    entrada="Cuéntenos a quién quiere llegar, en qué plazas y con qué presupuesto. Le preparamos una propuesta de pauta con tarifas vigentes."
+    title="Hablemos de su próxima campaña."
+    intro="Cuéntenos a quién quiere llegar, en qué plazas y con qué presupuesto. Le preparamos una propuesta de pauta con tarifas vigentes."
   />
 
-  <section class="contenedor py-16 md:py-24">
+  <section class="wrapper py-16 md:py-24">
     <div class="grid gap-14 lg:grid-cols-[1fr_1.1fr]">
-      <!-- Datos directos -->
+      <!-- Direct contact details -->
       <div>
         <h2 class="font-display text-2xl font-bold text-ink-900">Atención directa</h2>
 
@@ -28,13 +28,13 @@ const correoPrincipal = site.correos[0];
             <h3 class="text-xs font-semibold uppercase tracking-[0.16em] text-ink-400">Teléfonos</h3>
             <ul class="mt-3 space-y-2">
               {
-                site.telefonos.map((t) => (
+                site.phones.map((phone) => (
                   <li>
                     <a
-                      href={`tel:+52${t.replace(/\s/g, '')}`}
+                      href={`tel:+52${phone.replace(/\s/g, '')}`}
                       class="font-display text-xl font-bold text-ink-900 hover:text-brand-600"
                     >
-                      {t}
+                      {phone}
                     </a>
                   </li>
                 ))
@@ -48,10 +48,10 @@ const correoPrincipal = site.correos[0];
             </h3>
             <ul class="mt-3 space-y-2">
               {
-                site.correos.map((c) => (
+                site.emails.map((email) => (
                   <li>
-                    <a href={`mailto:${c}`} class="break-all text-lg text-ink-900 hover:text-brand-600">
-                      {c}
+                    <a href={`mailto:${email}`} class="break-all text-lg text-ink-900 hover:text-brand-600">
+                      {email}
                     </a>
                   </li>
                 ))
@@ -77,20 +77,20 @@ const correoPrincipal = site.correos[0];
         <div class="mt-10 rounded-lg border border-ink-200 bg-ink-50 p-6">
           <p class="text-sm leading-relaxed text-ink-600">
             Para producción de spots, jingles o podcast, escriba directamente a
-            <a href={`mailto:${correoPrincipal}`} class="font-semibold text-brand-600">
-              {correoPrincipal}
+            <a href={`mailto:${primaryEmail}`} class="font-semibold text-brand-600">
+              {primaryEmail}
             </a>
             e indique el material que necesita.
           </p>
         </div>
       </div>
 
-      <!-- Formulario -->
+      <!-- Form. Field names stay in Spanish: they label the submissions Firmesa staff read. -->
       <div class="rounded-lg border border-ink-200 bg-white p-8 md:p-10">
         <h2 class="font-display text-2xl font-bold text-ink-900">Cuéntenos qué necesita</h2>
 
         <form
-          id="form-contacto"
+          id="contact-form"
           class="mt-8 space-y-6"
           method="post"
           action={site.formEndpoint || undefined}
@@ -181,26 +181,28 @@ const correoPrincipal = site.correos[0];
   </section>
 </Base>
 
-<script is:inline define:vars={{ endpoint: site.formEndpoint, destino: correoPrincipal }}>
-  // Sin endpoint configurado, el formulario abre el cliente de correo del visitante.
+<script is:inline define:vars={{ endpoint: site.formEndpoint, recipient: primaryEmail }}>
+  // With no endpoint configured, the form opens the visitor's mail client instead.
   if (!endpoint) {
-    const form = document.getElementById('form-contacto');
+    const form = document.getElementById('contact-form');
 
-    form?.addEventListener('submit', (evento) => {
-      evento.preventDefault();
-      const datos = new FormData(form);
-      const cuerpo = [
-        `Nombre: ${datos.get('nombre') ?? ''}`,
-        `Correo: ${datos.get('correo') ?? ''}`,
-        `Teléfono: ${datos.get('telefono') || 'No proporcionado'}`,
-        `Interés: ${datos.get('interes') ?? ''}`,
+    form?.addEventListener('submit', (event) => {
+      event.preventDefault();
+      const data = new FormData(form);
+
+      // Labels stay in Spanish: Firmesa staff read these messages.
+      const body = [
+        `Nombre: ${data.get('nombre') ?? ''}`,
+        `Correo: ${data.get('correo') ?? ''}`,
+        `Teléfono: ${data.get('telefono') || 'No proporcionado'}`,
+        `Interés: ${data.get('interes') ?? ''}`,
         '',
-        String(datos.get('mensaje') ?? ''),
+        String(data.get('mensaje') ?? ''),
       ].join('\n');
 
-      const asunto = `Solicitud desde firmesa.mx — ${datos.get('interes') ?? 'Contacto'}`;
+      const subject = `Solicitud desde firmesa.mx — ${data.get('interes') ?? 'Contacto'}`;
       window.location.href =
-        `mailto:${destino}?subject=${encodeURIComponent(asunto)}&body=${encodeURIComponent(cuerpo)}`;
+        `mailto:${recipient}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
     });
   }
 </script>

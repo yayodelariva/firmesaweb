@@ -1,4 +1,4 @@
-name: Desplegar a GitHub Pages
+name: Deploy to GitHub Pages
 
 on:
   push:
@@ -10,7 +10,7 @@ permissions:
   pages: write
   id-token: write
 
-# Un despliegue a la vez; no cancelamos los que ya están en curso.
+# One deployment at a time; never cancel one already in flight.
 concurrency:
   group: pages
   cancel-in-progress: false

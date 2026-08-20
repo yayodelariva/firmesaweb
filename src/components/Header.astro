@@ -2,14 +2,14 @@
 import { nav, site, url } from '../data/site';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
-// Ruta actual sin el prefijo `base`, para comparar contra el nav.
-const actual = Astro.url.pathname.slice(base.length) || '/';
-const activo = (href: string) => (href === '/' ? actual === '/' : actual.startsWith(href));
+// Current path without the `base` prefix, so it can be compared against the nav.
+const current = Astro.url.pathname.slice(base.length) || '/';
+const isActive = (href: string) => (href === '/' ? current === '/' : current.startsWith(href));
 ---
 
 <header class="sticky top-0 z-40 border-b border-ink-100 bg-white/90 backdrop-blur">
-  <div class="contenedor flex h-18 items-center justify-between gap-6 py-3">
-    <a href={url('/')} class="flex items-center gap-3" aria-label={`${site.nombre} — Inicio`}>
+  <div class="wrapper flex h-18 items-center justify-between gap-6 py-3">
+    <a href={url('/')} class="flex items-center gap-3" aria-label={`${site.name} — Inicio`}>
       <img src={url('/img/logo-firmesa.png')} alt="" width="44" height="44" class="h-11 w-11" />
       <span class="flex flex-col leading-none">
         <span class="font-display text-xl font-extrabold tracking-tight text-ink-900">FIRMESA</span>
@@ -24,10 +24,10 @@ const activo = (href: string) => (href === '/' ? actual === '/' : actual.startsW
         nav.map(({ href, label }) => (
           <a
             href={url(href)}
-            aria-current={activo(href) ? 'page' : undefined}
+            aria-current={isActive(href) ? 'page' : undefined}
             class:list={[
               'rounded-md px-3 py-2 text-sm font-medium transition-colors',
-              activo(href)
+              isActive(href)
                 ? 'text-brand-600'
                 : 'text-ink-600 hover:bg-ink-50 hover:text-ink-900',
             ]}
@@ -46,10 +46,10 @@ const activo = (href: string) => (href === '/' ? actual === '/' : actual.startsW
 
     <button
       type="button"
-      id="menu-boton"
+      id="menu-button"
       class="inline-flex items-center gap-2 rounded-md border border-ink-200 px-3 py-2 text-sm font-medium text-ink-800 lg:hidden"
       aria-expanded="false"
-      aria-controls="menu-movil"
+      aria-controls="mobile-menu"
     >
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
         <path d="M4 7h16M4 12h16M4 17h16" stroke-linecap="round" />
@@ -58,17 +58,17 @@ const activo = (href: string) => (href === '/' ? actual === '/' : actual.startsW
     </button>
   </div>
 
-  <nav id="menu-movil" aria-label="Principal móvil" hidden class="border-t border-ink-100 bg-white lg:hidden">
-    <ul class="contenedor flex flex-col py-2">
+  <nav id="mobile-menu" aria-label="Principal móvil" hidden class="border-t border-ink-100 bg-white lg:hidden">
+    <ul class="wrapper flex flex-col py-2">
       {
         nav.map(({ href, label }) => (
           <li>
             <a
               href={url(href)}
-              aria-current={activo(href) ? 'page' : undefined}
+              aria-current={isActive(href) ? 'page' : undefined}
               class:list={[
                 'block border-b border-ink-100 py-3.5 text-base font-medium',
-                activo(href) ? 'text-brand-600' : 'text-ink-800',
+                isActive(href) ? 'text-brand-600' : 'text-ink-800',
               ]}
             >
               {label}
@@ -89,12 +89,12 @@ const activo = (href: string) => (href === '/' ? actual === '/' : actual.startsW
 </header>
 
 <script>
-  const boton = document.getElementById('menu-boton');
-  const menu = document.getElementById('menu-movil');
+  const button = document.getElementById('menu-button');
+  const menu = document.getElementById('mobile-menu');
 
-  boton?.addEventListener('click', () => {
-    const abierto = boton.getAttribute('aria-expanded') === 'true';
-    boton.setAttribute('aria-expanded', String(!abierto));
-    menu?.toggleAttribute('hidden', abierto);
+  button?.addEventListener('click', () => {
+    const isOpen = button.getAttribute('aria-expanded') === 'true';
+    button.setAttribute('aria-expanded', String(!isOpen));
+    menu?.toggleAttribute('hidden', isOpen);
   });
 </script>
