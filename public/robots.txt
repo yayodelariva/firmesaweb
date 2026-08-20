@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://firmesa.mx/sitemap-index.xml

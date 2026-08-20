@@ -1,0 +1,204 @@
+---
+import Base from '../layouts/Base.astro';
+import EncabezadoPagina from '../components/EncabezadoPagina.astro';
+import { site } from '../data/site';
+import estados from '../data/estaciones.json';
+
+const totalEstaciones = estados.reduce(
+  (n, e) => n + e.ciudades.reduce((m, c) => m + c.estaciones.length, 0),
+  0,
+);
+const totalCiudades = estados.reduce((n, e) => n + e.ciudades.length, 0);
+
+/** Cadena de búsqueda sin acentos ni mayúsculas. */
+const normalizar = (s: string) =>
+  s.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+
+const banda = (frecuencia: string) => {
+  const am = /\bAM\b/.test(frecuencia);
+  const fm = /\bFM\b/.test(frecuencia);
+  return am && fm ? 'AM · FM' : am ? 'AM' : 'FM';
+};
+---
+
+<Base
+  titulo="Nuestras estaciones"
+  ruta="/estaciones/"
+  descripcion={`Directorio de las ${totalEstaciones} radiodifusoras representadas por Firmesa en ${estados.length} estados de México: frecuencia, siglas, programación y transmisión en vivo.`}
+>
+  <EncabezadoPagina
+    eyebrow="Cobertura nacional"
+    titulo="Nuestras estaciones"
+    entrada={`${totalEstaciones} radiodifusoras en ${totalCiudades} ciudades de ${estados.length} estados. Consulte frecuencia, siglas, programación y escuche cada señal en vivo.`}
+  />
+
+  <!-- Mapa -->
+  <section class="contenedor py-12">
+    <div class="overflow-hidden rounded-lg border border-ink-200">
+      <iframe
+        src={site.mapaCobertura}
+        title="Mapa de cobertura de las estaciones de Firmesa"
+        loading="lazy"
+        class="h-[440px] w-full"
+      ></iframe>
+    </div>
+  </section>
+
+  <!-- Controles -->
+  <section class="sticky top-18 z-30 border-y border-ink-100 bg-white/95 backdrop-blur">
+    <div class="contenedor flex flex-wrap items-center gap-4 py-4">
+      <div class="min-w-56 flex-1">
+        <label for="buscar" class="sr-only">Buscar estación, ciudad o programación</label>
+        <input
+          id="buscar"
+          type="search"
+          placeholder="Buscar estación, ciudad, siglas o programación…"
+          autocomplete="off"
+          class="w-full rounded-md border border-ink-200 bg-white px-4 py-2.5 text-sm text-ink-900 placeholder:text-ink-400 focus:border-brand-600 focus:outline-none"
+        />
+      </div>
+
+      <div>
+        <label for="filtro-estado" class="sr-only">Filtrar por estado</label>
+        <select
+          id="filtro-estado"
+          class="rounded-md border border-ink-200 bg-white px-4 py-2.5 text-sm font-medium text-ink-900 focus:border-brand-600 focus:outline-none"
+        >
+          <option value="">Todos los estados</option>
+          {estados.map((e) => <option value={e.estado}>{e.estado}</option>)}
+        </select>
+      </div>
+
+      <p id="conteo" class="text-sm text-ink-400" aria-live="polite">
+        {totalEstaciones} estaciones
+      </p>
+    </div>
+  </section>
+
+  <!-- Directorio -->
+  <div class="contenedor py-12">
+    {
+      estados.map((e) => (
+        <section data-estado={e.estado} class="mb-16">
+          <h2 class="font-display text-2xl font-extrabold text-ink-900 md:text-3xl">
+            {e.estado}
+          </h2>
+
+          {e.ciudades.map((c) => (
+            <div data-ciudad class="mt-10">
+              <h3 class="text-xs font-semibold uppercase tracking-[0.16em] text-brand-600">
+                {c.ciudad}
+              </h3>
+
+              <ul class="mt-4 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+                {c.estaciones.map((s) => (
+                  <li
+                    data-estacion
+                    data-buscar={normalizar(
+                      [s.nombre, s.siglas, s.frecuencia, s.programacion, c.ciudad, e.estado].join(' '),
+                    )}
+                    class="flex h-full flex-col rounded-lg border border-ink-200 bg-white p-6 transition-colors hover:border-brand-300"
+                  >
+                    <div class="flex items-start justify-between gap-4">
+                      <h4 class="font-display text-lg font-bold leading-tight text-ink-900">
+                        {s.nombre}
+                      </h4>
+                      <span class="shrink-0 rounded bg-brand-50 px-2 py-1 text-[0.6875rem] font-bold uppercase tracking-wider text-brand-700">
+                        {banda(s.frecuencia)}
+                      </span>
+                    </div>
+
+                    <p class="mt-2 font-display text-xl font-extrabold text-brand-600">
+                      {s.frecuencia}
+                    </p>
+                    <p class="mt-1 text-xs font-medium uppercase tracking-[0.12em] text-ink-400">
+                      {s.siglas}
+                    </p>
+                    <p class="mt-4 flex-1 text-sm leading-relaxed text-ink-600">{s.programacion}</p>
+
+                    <a
+                      href={s.stream}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-brand-600 hover:text-brand-700"
+                    >
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                        <path d="M8 5v14l11-7z" />
+                      </svg>
+                      Escuchar en vivo
+                      <span class="sr-only">— {s.nombre}, {c.ciudad}</span>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </section>
+      ))
+    }
+
+    <p id="sin-resultados" hidden class="py-16 text-center text-ink-400">
+      No encontramos estaciones con esos criterios. Pruebe con otra ciudad o tipo de programación.
+    </p>
+  </div>
+
+  <section class="bg-brand-600">
+    <div class="contenedor flex flex-wrap items-center justify-between gap-8 py-14">
+      <h2 class="max-w-xl font-display text-2xl font-extrabold text-white md:text-3xl">
+        ¿No encuentra su plaza? Escríbanos y revisamos alternativas de cobertura.
+      </h2>
+      <a
+        href="/contacto/"
+        class="rounded-md bg-white px-6 py-3.5 text-sm font-semibold text-brand-700 transition-colors hover:bg-brand-50"
+      >
+        Contactar a Firmesa
+      </a>
+    </div>
+  </section>
+</Base>
+
+<script>
+  const buscar = document.getElementById('buscar') as HTMLInputElement | null;
+  const filtroEstado = document.getElementById('filtro-estado') as HTMLSelectElement | null;
+  const conteo = document.getElementById('conteo');
+  const vacio = document.getElementById('sin-resultados');
+  const secciones = Array.from(document.querySelectorAll<HTMLElement>('[data-estado]'));
+
+  const normalizar = (s: string) =>
+    s.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+
+  function aplicar() {
+    const texto = normalizar(buscar?.value.trim() ?? '');
+    const estado = filtroEstado?.value ?? '';
+    let visibles = 0;
+
+    for (const seccion of secciones) {
+      const coincideEstado = !estado || seccion.dataset.estado === estado;
+      let enSeccion = 0;
+
+      for (const grupo of seccion.querySelectorAll<HTMLElement>('[data-ciudad]')) {
+        let enGrupo = 0;
+
+        for (const tarjeta of grupo.querySelectorAll<HTMLElement>('[data-estacion]')) {
+          const ok = coincideEstado && (!texto || (tarjeta.dataset.buscar ?? '').includes(texto));
+          tarjeta.hidden = !ok;
+          if (ok) enGrupo++;
+        }
+
+        grupo.hidden = enGrupo === 0;
+        enSeccion += enGrupo;
+      }
+
+      seccion.hidden = enSeccion === 0;
+      visibles += enSeccion;
+    }
+
+    if (conteo) {
+      conteo.textContent = visibles === 1 ? '1 estación' : `${visibles} estaciones`;
+    }
+    if (vacio) vacio.hidden = visibles > 0;
+  }
+
+  buscar?.addEventListener('input', aplicar);
+  filtroEstado?.addEventListener('change', aplicar);
+</script>
