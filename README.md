@@ -1,16 +1,14 @@
 # firmesa.mx
 
-Website for **Firmesa** — *Funcionamiento Íntegro de Radiodifusoras Mexicanas Enlazadas, S.A.*,
-a radio station representation firm founded on 19 July 1972.
+Website for **Firmesa** — central de medios y partner estratégico, founded 19 July 1972.
+Built from the brand presentation `present página web.pdf` (34 slides, Adobe Illustrator).
 
-Built with [Astro](https://astro.build) + [Tailwind CSS](https://tailwindcss.com).
-Fully static output: deployable to Vercel, Netlify, Cloudflare Pages, GitHub Pages, or any
-plain file host.
+Astro + Tailwind, fully static.
 
 **Language convention:** the code is English — identifiers, comments, commit messages, this file.
 Everything a visitor or a Firmesa staff member reads is Spanish — page copy, `alt` text,
 `aria-label`s, form field names (they label the submissions staff receive), and the page
-filenames, since those are the public URLs (`/estaciones/`, `/servicios/`).
+filenames, since those are the public URLs (`/quienes-somos/`, `/medios-masivos/`).
 
 ## Commands
 
@@ -26,40 +24,51 @@ filenames, since those are the public URLs (`/estaciones/`, `/servicios/`).
 
 ```
 src/
-├── components/   Header, Footer, PageHeader
-├── data/
-│   ├── site.ts         Contact details, nav, and the service catalogue
-│   └── stations.json   Station directory (state → city → station)
-├── layouts/Base.astro  HTML shell, SEO, Open Graph, and JSON-LD
-├── pages/        index, nosotros, servicios, estaciones, contacto, 404, robots.txt
-└── styles/global.css   Brand tokens and base styles
-public/img/       Logo and photography
+├── components/   Header, Footer, Loops (the brand's interlocking-curve motif)
+├── data/site.ts  Contact details, nav, and every content list on the site
+├── layouts/Base.astro  HTML shell, SEO, Open Graph, JSON-LD
+├── pages/        index, quienes-somos, firmesa-digital, medios-masivos,
+│                 contacto, 404, robots.txt
+└── styles/global.css   Brand tokens, .wrapper, .pill, .band, .statement
+public/img/       Logo and the 40 photographs lifted from the presentation
 ```
+
+## Brand
+
+- **Crimson** sampled from the logotype: `#901830`, gradient `#5e0d1e → #a11838`
+  (`--color-brand-*`, and the `.band` gradient).
+- **Logo** extracted from page 1 of the PDF, which holds it as vector art.
+  `logo-firmesa.png` (colour), `logo-firmesa-blanco.png` (white, for dark sections),
+  `marca.png` (the mark alone, used as favicon).
+- **Type:** the deck uses **Avenir** (Light→Black) plus Archivo SemiBold. Avenir is a licensed
+  Linotype family and is not on Google Fonts, so the site ships **Nunito Sans**, the closest free
+  equivalent. Licensing real Avenir and swapping `--font-sans` is a drop-in change.
+- **Photography** comes from the PDF's embedded JPEGs at native resolution, resized to 1600 px
+  and re-encoded at quality 82.
 
 ## Editing the content
 
-- **Phones, emails, social links, coverage map:** `src/data/site.ts`.
-- **Services:** the `services` array in `src/data/site.ts`. Each `slug` becomes the anchor
-  `/servicios/#slug`.
-- **Stations:** `src/data/stations.json`. Every station needs `name`, `frequency`, `callSign`,
-  `stream`, and `programming`. The homepage figures (stations, cities, states) are derived from
-  this file, so adding a station updates them automatically.
-- **Years in business:** computed by `years()` from `FOUNDED = 1972` — nothing to bump annually.
+Everything lives in `src/data/site.ts`: contact details, nav, `worlds`, `territory`, `traits`,
+`model360`, `digitalServices`, `digitalBestSellers`, `process`, `massBestSellers`, `services`,
+and `sectors`. The pages only lay these out.
+
+Years in business are computed from `FOUNDED = 1972`: `years()` gives the exact figure and
+`decades()` rounds down to the decade, which is what the deck's approved copy uses
+("más de 50 años").
 
 ## Contact form
 
 The site is static, so there is no backend. While `site.formEndpoint` is empty, submitting opens
-the visitor's mail client with the message pre-filled. To collect submissions by email or in a
-dashboard instead, set `formEndpoint` to a Formspree, Netlify Forms, or Web3Forms URL — the form
-will `POST` there automatically.
+the visitor's mail client with the message pre-filled. Set `formEndpoint` to a Formspree, Netlify
+Forms, or Web3Forms URL and the form will `POST` there instead.
 
 ## Deployment
 
 Pushing to `main` triggers `.github/workflows/deploy.yml`, which builds and publishes to GitHub
 Pages at https://yayodelariva.github.io/firmesaweb/.
 
-`site` and `base` come from the `SITE_URL` and `BASE_PATH` environment variables, defaulting to
-the GitHub Pages values. To serve from the real domain, build with:
+`site` and `base` come from `SITE_URL` and `BASE_PATH`, defaulting to the GitHub Pages values.
+To serve from the real domain:
 
 ```sh
 SITE_URL=https://firmesa.mx BASE_PATH=/ npm run build
@@ -71,7 +80,4 @@ current WordPress.com site offline.
 
 ## Open items
 
-- Rate cards (Radio and Autobuses) as downloadable PDFs.
-- Client logos for the "Algunos de nuestros clientes" section.
-- Office address, if it should appear on the contact page.
-- A form endpoint, to replace the mail-client fallback.
+See `NOTES.md`.

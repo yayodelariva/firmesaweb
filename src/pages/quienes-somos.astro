@@ -1,0 +1,165 @@
+---
+import Base from '../layouts/Base.astro';
+import Loops from '../components/Loops.astro';
+import { traits, model360, years, decades, FOUNDED, url } from '../data/site';
+
+const historyPoints = [
+  'Necesitan posicionamiento.',
+  'Nuestra historia comienza en el radio.',
+  'Un medio que no interrumpe, acompaña.',
+  'Que no se ve, pero se queda.',
+];
+
+const learnings = [
+  'El valor del mensaje, el poder del timing y la importancia de estar en el lugar correcto.',
+  'El radio no solo fue nuestro origen.',
+  'Fue la escuela que definió nuestro estándar.',
+];
+---
+
+<Base
+  title="¿Quiénes somos?"
+  path="/quienes-somos/"
+  description={`Firmesa nace desde el entendimiento profundo de los medios. ${years()} años trabajando con marcas que necesitan algo más que visibilidad.`}
+>
+  <!-- Intro -->
+  <section class="relative overflow-hidden bg-brand-800">
+    <img src={url('/img/diferentes.jpg')} alt="" class="absolute inset-0 h-full w-full object-cover opacity-30" fetchpriority="high" />
+    <div class="absolute inset-0 bg-gradient-to-r from-brand-900 via-brand-800/85 to-brand-900"></div>
+    <Loops class="text-white" opacity={0.18} />
+
+    <div class="wrapper relative py-20 text-center md:py-28">
+      <p class="pill mx-auto text-white/75">¿Quiénes somos?</p>
+      <h1 class="mt-8 text-4xl font-black uppercase leading-[1.05] tracking-tight text-white md:text-6xl">
+        ¿Qué nos hace<br />diferentes?
+      </h1>
+      <p class="mx-auto mt-8 max-w-2xl text-lg leading-relaxed text-white/85">
+        Firmesa nace desde el entendimiento profundo de los medios.
+      </p>
+    </div>
+  </section>
+
+  <!-- Nuestra historia -->
+  <section class="bg-white">
+    <div class="wrapper grid items-center gap-12 py-16 md:py-24 lg:grid-cols-2">
+      <img
+        src={url('/img/historia.jpg')}
+        alt=""
+        loading="lazy"
+        class="w-full rounded-3xl object-cover shadow-sm"
+      />
+
+      <div>
+        <p class="pill border-ink-300 text-ink-800">Nuestra historia</p>
+
+        <p class="mt-8 text-lg leading-relaxed text-ink-800">
+          Durante más de {decades()} años hemos trabajado con marcas que necesitan algo más que
+          visibilidad:
+        </p>
+        <ul class="mt-5 space-y-3">
+          {
+            historyPoints.map((point) => (
+              <li class="flex gap-3 text-ink-600">
+                <span class="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-brand-600" />
+                <span>{point}</span>
+              </li>
+            ))
+          }
+        </ul>
+
+        <p class="mt-8 text-lg font-bold text-ink-900">Ahí aprendimos lo esencial:</p>
+        <ul class="mt-5 space-y-3">
+          {
+            learnings.map((point) => (
+              <li class="flex gap-3 text-ink-600">
+                <span class="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-brand-600" />
+                <span>{point}</span>
+              </li>
+            ))
+          }
+        </ul>
+
+        <p class="mt-8 text-sm text-ink-400">Firmesa fue constituida el 19 de julio de {FOUNDED}.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Evolución -->
+  <section class="relative overflow-hidden bg-ink-900">
+    <img src={url('/img/evolucion.jpg')} alt="" loading="lazy" class="absolute inset-0 h-full w-full object-cover opacity-45" />
+    <div class="absolute inset-0 bg-gradient-to-l from-ink-900 via-ink-900/70 to-ink-900/40"></div>
+
+    <div class="wrapper relative py-20 md:py-28">
+      <div class="ml-auto max-w-xl rounded-3xl border border-white/25 bg-ink-900/70 p-8 backdrop-blur-sm md:p-10">
+        <p class="pill text-white/80">Evolución</p>
+
+        <div class="mt-8 space-y-5 text-white/90">
+          <p>Ese conocimiento evolucionó.</p>
+          <p class="text-lg font-bold text-white">De radio a medios masivos.</p>
+          <p>De medios masivos a ecosistemas digitales.</p>
+          <p>
+            <strong class="font-bold text-white">Pero la lógica nunca cambió:</strong>
+            {' '}saber dónde estar, cómo aparecer y por qué hacerlo.
+          </p>
+          <p>Hoy integramos medios, creatividad, estrategia y data en un solo sistema.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Qué nos define -->
+  <section class="bg-field">
+    <div class="wrapper py-16 md:py-20">
+      <p class="pill mx-auto block w-fit border-ink-300 text-ink-800">Qué nos define</p>
+
+      <ul class="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        {
+          traits.map((trait, i) => (
+            <li
+              class:list={[
+                'relative overflow-hidden rounded-3xl p-8 text-center text-xl font-bold leading-snug text-white',
+                i % 3 === 1 ? 'bg-brand-500' : i % 3 === 2 ? 'bg-brand-900' : 'bg-brand-700',
+              ]}
+            >
+              <Loops class="text-white" opacity={0.22} />
+              <span class="relative">{trait}</span>
+            </li>
+          ))
+        }
+      </ul>
+
+      <p class="pill mx-auto mt-12 block w-fit border-ink-800 text-ink-900">
+        Construimos posicionamiento
+      </p>
+    </div>
+  </section>
+
+  <!-- Modelo 360 -->
+  <section class="relative overflow-hidden bg-ink-900">
+    <img src={url('/img/modelo-360.jpg')} alt="" loading="lazy" class="absolute inset-0 h-full w-full object-cover opacity-40" />
+    <div class="absolute inset-0 bg-ink-900/60"></div>
+
+    <div class="relative">
+      <div class="band py-6">
+        <div class="wrapper text-center">
+          <p class="pill mx-auto text-white/85">Modelo 360°</p>
+          <p class="statement mt-5 text-base text-white md:text-xl">Las marcas no crecen por partes.</p>
+        </div>
+      </div>
+
+      <div class="wrapper py-16 text-center md:py-20">
+        <p class="text-sm font-bold uppercase tracking-[0.2em] text-white/70">Por eso integramos</p>
+        <ul class="mt-8 flex flex-wrap justify-center gap-3">
+          {model360.map((item) => <li class="pill text-white">{item}</li>)}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Cierre -->
+  <section class="band">
+    <p class="wrapper py-14 text-center text-lg leading-relaxed text-white md:text-2xl">
+      Es experiencia con dirección. Ejecución con criterio. Comunicación que funciona.
+    </p>
+  </section>
+</Base>

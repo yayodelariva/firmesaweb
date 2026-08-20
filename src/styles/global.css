@@ -1,28 +1,31 @@
 @import "tailwindcss";
 
 @theme {
-  /* Firmesa identity — red sampled from the institutional logo */
-  --color-brand-50: #fdf2f5;
-  --color-brand-100: #fbe3ea;
-  --color-brand-200: #f6c6d4;
-  --color-brand-300: #ec93ae;
-  --color-brand-400: #dd5580;
-  --color-brand-500: #c22a5c;
-  --color-brand-600: #990033;
-  --color-brand-700: #7d002a;
-  --color-brand-800: #5e0020;
-  --color-brand-900: #430017;
+  /* Crimson sampled from the new logotype (gradient #5e0d1e → #a11838) */
+  --color-brand-50: #fbf1f4;
+  --color-brand-100: #f6dfe5;
+  --color-brand-200: #ecbdc9;
+  --color-brand-300: #d98ba0;
+  --color-brand-400: #c33a58;
+  --color-brand-500: #a11838;
+  --color-brand-600: #901830;
+  --color-brand-700: #75122a;
+  --color-brand-800: #5e0d1e;
+  --color-brand-900: #3f0812;
 
-  --color-ink-50: #f7f6f5;
-  --color-ink-100: #eceae8;
-  --color-ink-200: #d8d4d1;
-  --color-ink-400: #8d8783;
-  --color-ink-600: #57514e;
-  --color-ink-800: #2a2523;
-  --color-ink-900: #1a1615;
+  --color-ink-50: #f6f5f5;
+  --color-ink-100: #e9e7e7;
+  --color-ink-200: #d5d2d2;
+  --color-ink-300: #b4afaf;
+  --color-ink-400: #8a8484;
+  --color-ink-600: #565050;
+  --color-ink-800: #2a2426;
+  --color-ink-900: #171316;
 
-  --font-display: "Archivo", ui-sans-serif, system-ui, sans-serif;
-  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  /* Deck's neutral field */
+  --color-field: #e3e1e1;
+
+  --font-sans: "Nunito Sans", ui-sans-serif, system-ui, -apple-system, sans-serif;
 }
 
 @layer base {
@@ -40,13 +43,12 @@
   }
 
   h1, h2, h3, h4 {
-    font-family: var(--font-display);
-    letter-spacing: -0.02em;
     text-wrap: balance;
+    letter-spacing: -0.01em;
   }
 
   :focus-visible {
-    outline: 2px solid var(--color-brand-600);
+    outline: 2px solid var(--color-brand-500);
     outline-offset: 3px;
   }
 }
@@ -56,7 +58,7 @@
   .wrapper {
     width: 100%;
     margin-inline: auto;
-    max-width: 78rem;
+    max-width: 80rem;
     padding-inline: 1.25rem;
   }
 
@@ -64,13 +66,47 @@
     .wrapper { padding-inline: 2rem; }
   }
 
-  .readable p { max-width: 65ch; }
+  /* The deck's signature outlined pill label. */
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid currentColor;
+    border-radius: 9999px;
+    padding: 0.55rem 1.6rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.22em;
+    line-height: 1;
+  }
+
+  /* Crimson band: dark at the edges, brighter through the middle. */
+  .band {
+    background-image: linear-gradient(
+      100deg,
+      var(--color-brand-900) 0%,
+      var(--color-brand-600) 35%,
+      var(--color-brand-500) 55%,
+      var(--color-brand-800) 100%
+    );
+  }
+
+  /* Wide letterspaced display line, used for the deck's statement rows. */
+  .statement {
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    font-weight: 800;
+    line-height: 1.25;
+    text-wrap: balance;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
 }

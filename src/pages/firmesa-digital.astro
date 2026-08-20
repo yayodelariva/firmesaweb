@@ -1,0 +1,154 @@
+---
+import Base from '../layouts/Base.astro';
+import Loops from '../components/Loops.astro';
+import { digitalServices, digitalBestSellers, process, url } from '../data/site';
+---
+
+<Base
+  title="Firmesa Digital"
+  path="/firmesa-digital/"
+  description="Firmesa Digital es la unidad diseñada para construir posicionamiento en digital con estrategia, creatividad y contenido: producción audiovisual, contenido para redes, podcast, branding y pauta."
+>
+  <!-- Hero -->
+  <section class="relative overflow-hidden bg-ink-900">
+    <img src={url('/img/digital-que-es.jpg')} alt="" class="absolute inset-0 h-full w-full object-cover opacity-55" fetchpriority="high" />
+    <div class="absolute inset-0 bg-gradient-to-t from-ink-900 via-ink-900/70 to-ink-900/40"></div>
+
+    <div class="wrapper relative py-20 md:py-28">
+      <img src={url('/img/logo-firmesa-blanco.png')} alt="" width="170" height="55" class="h-9 w-auto" />
+      <p class="pill mt-8 text-white/75">¿Qué es?</p>
+      <h1 class="mt-6 max-w-3xl text-3xl font-extrabold leading-tight text-white md:text-5xl">
+        Firmesa Digital es la evolución de Firmesa hacia el entorno actual.
+      </h1>
+      <p class="mt-6 max-w-2xl text-lg leading-relaxed text-white/85">
+        Una unidad diseñada para construir posicionamiento en digital con estrategia, creatividad y
+        contenido.
+      </p>
+    </div>
+  </section>
+
+  <!-- ¿Qué hacemos? -->
+  <section class="relative overflow-hidden bg-brand-600">
+    <Loops class="text-white" opacity={0.14} />
+
+    <div class="wrapper relative py-16 md:py-20">
+      <p class="pill mx-auto block w-fit text-white">¿Qué hacemos?</p>
+
+      <ul class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {
+          digitalServices.map(({ title, image }) => (
+            <li class="group relative overflow-hidden rounded-3xl">
+              <img
+                src={url(image)}
+                alt=""
+                loading="lazy"
+                class="h-56 w-full object-cover transition-transform duration-500 group-hover:scale-105"
+              />
+              <div class="absolute inset-0 flex items-center justify-center bg-ink-900/45 p-4">
+                <span class="pill border-white/80 bg-ink-900/35 text-center text-white backdrop-blur-sm">
+                  {title}
+                </span>
+              </div>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <!-- Best sellers -->
+  <section class="bg-field">
+    <div class="band relative overflow-hidden py-6">
+      <Loops class="text-white" opacity={0.2} />
+      <h2 class="wrapper statement relative text-center text-sm text-white md:text-xl">
+        Best sellers digitales
+      </h2>
+    </div>
+
+    <p class="wrapper py-6 text-center text-lg text-brand-700 md:text-xl">
+      Formatos probados para generar conexión, posicionamiento y resultados.
+    </p>
+
+    <div class="wrapper grid gap-4 pb-16 sm:grid-cols-2 lg:grid-cols-5 md:pb-20">
+      {
+        digitalBestSellers.map(({ title, text, image }) => (
+          <article class="relative overflow-hidden rounded-3xl bg-ink-900">
+            <img src={url(image)} alt="" loading="lazy" class="h-[26rem] w-full object-cover opacity-70" />
+            <div class="absolute inset-0 flex flex-col justify-between bg-gradient-to-b from-ink-900/60 via-transparent to-ink-900/90 p-5">
+              <span class="pill border-white/70 text-center text-[0.625rem] tracking-[0.14em] text-white">
+                {title}
+              </span>
+              <p class="text-center text-base font-bold leading-snug text-white">{text}</p>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+  </section>
+
+  <!-- Cómo trabajamos -->
+  <section class="bg-white">
+    <div class="wrapper pt-16 pb-10 md:pt-20 md:pb-12">
+      <p class="pill mx-auto block w-fit border-ink-800 text-ink-900">Cómo trabajamos</p>
+    </div>
+
+    <div class="band relative overflow-hidden py-12">
+      <Loops class="text-white" opacity={0.22} />
+      <ol class="wrapper relative flex flex-wrap items-center justify-center gap-3">
+        {
+          process.map((step, i) => (
+            <li class="flex items-center gap-3">
+              <span class="pill text-white">{step}</span>
+              {i < process.length - 1 && <span class="text-white/50" aria-hidden="true">→</span>}
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  <!-- Enfoque -->
+  <section class="bg-field">
+    <div class="wrapper py-16 md:py-20">
+      <p class="pill mx-auto block w-fit border-ink-800 text-ink-900">Enfoque</p>
+
+      <div class="mt-12 grid gap-6 md:grid-cols-2">
+        <article class="relative overflow-hidden rounded-3xl">
+          <img src={url('/img/enfoque-pieza.jpg')} alt="" loading="lazy" class="h-96 w-full object-cover" />
+          <div class="absolute inset-0 bg-ink-900/45 p-8">
+            <p class="statement text-center text-lg text-white md:text-2xl">
+              Cada pieza tiene una <em class="not-italic text-brand-300">intención</em>
+            </p>
+          </div>
+        </article>
+
+        <article class="relative overflow-hidden rounded-3xl">
+          <img src={url('/img/enfoque-decision.jpg')} alt="" loading="lazy" class="h-96 w-full object-cover" />
+          <div class="absolute inset-0 bg-ink-900/45 p-8">
+            <p class="statement text-center text-lg text-white md:text-2xl">
+              Cada decisión responde a una <em class="not-italic text-brand-300">estrategia</em>
+            </p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Cierre -->
+  <section class="relative overflow-hidden bg-ink-900">
+    <img src={url('/img/mockup-edificio.jpg')} alt="" loading="lazy" class="absolute inset-0 h-full w-full object-cover opacity-45" />
+    <div class="absolute inset-0 bg-ink-900/55"></div>
+
+    <div class="wrapper relative py-20 text-center md:py-28">
+      <p class="statement text-lg text-white md:text-3xl">
+        Digital no es volumen<br />es dirección
+      </p>
+      <a
+        href={url('/contacto/')}
+        class="mt-10 inline-block rounded-full bg-white px-8 py-4 text-xs font-bold uppercase tracking-[0.18em] text-brand-700 transition-colors hover:bg-brand-50"
+      >
+        Hablemos
+      </a>
+    </div>
+  </section>
+</Base>

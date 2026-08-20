@@ -4,83 +4,164 @@ export const site = {
   name: 'Firmesa',
   legalName: 'Funcionamiento Íntegro de Radiodifusoras Mexicanas Enlazadas, S.A.',
   domain: 'https://firmesa.mx',
+  tagline: 'Central de medios y partner estratégico',
   description:
-    'Representación de radiodifusoras en México. Creamos, ejecutamos y distribuimos campañas publicitarias en radio con cobertura nacional.',
+    'Firmesa es la central de medios y partner estratégico que posiciona marcas con precisión. Más de 50 años integrando medios masivos y digitales en un solo sistema.',
   phones: ['55 5250 7788', '55 5254 5937'],
   emails: ['radiodifusion@firmesa.com.mx', 'nacho@firmesa.com.mx'],
+  /** Pendiente: la presentación deja el campo de WhatsApp en blanco. */
+  whatsapp: '',
+  location: 'Polanco, CDMX',
   facebook: 'https://www.facebook.com/firmesaoficial/',
-  coverageMap:
-    'https://www.google.com/maps/d/embed?mid=1CkBrGi5yxEhOgwuGwXVACxp12g9tQo8&ehbc=2E312F',
   /** Form endpoint (Formspree, Netlify, etc.). Empty => falls back to the visitor's mail client. */
   formEndpoint: '',
 } as const;
 
 export const years = () => new Date().getFullYear() - FOUNDED;
 
+/** Trayectoria redondeada a la década, como en la presentación ("más de 50 años"). */
+export const decades = () => Math.floor(years() / 10) * 10;
+
 /** Paths stay in Spanish: they are the site's public URLs. */
 export const nav = [
   { href: '/', label: 'Inicio' },
-  { href: '/nosotros/', label: 'Nosotros' },
-  { href: '/servicios/', label: 'Servicios' },
-  { href: '/estaciones/', label: 'Estaciones' },
+  { href: '/quienes-somos/', label: '¿Quiénes somos?' },
+  { href: '/firmesa-digital/', label: 'Firmesa Digital' },
+  { href: '/medios-masivos/', label: 'Medios Masivos' },
   { href: '/contacto/', label: 'Contacto' },
 ] as const;
 
+/** Home: the two halves of the offering. */
+export const worlds = [
+  {
+    label: 'Medios Masivos',
+    href: '/medios-masivos/',
+    image: '/img/card-medios-masivos.jpg',
+    text: 'Alcance real a gran escala, con estrategia y control.',
+  },
+  {
+    label: 'Firmesa Digital',
+    href: '/firmesa-digital/',
+    image: '/img/card-firmesa-digital.jpg',
+    text: 'Creatividad, contenido y distribución para posicionar y convertir.',
+  },
+] as const;
+
+export const territory = [
+  { title: 'Estrategia que se ejecuta', image: '/img/territorio-estrategia.jpg' },
+  { title: 'Creatividad que posiciona', image: '/img/territorio-creatividad.jpg' },
+  { title: 'Medios que funcionan', image: '/img/territorio-medios.jpg' },
+] as const;
+
+/** ¿Quiénes somos?: what defines the house. */
+export const traits = [
+  'Experiencia que respalda decisiones.',
+  'Negociación que optimiza inversión.',
+  'Estrategia que da dirección.',
+  'Creatividad que construye valor.',
+  'Ejecución que asegura resultados.',
+  'No solo hacemos campañas: construimos posicionamiento.',
+] as const;
+
+export const model360 = [
+  'Estrategia',
+  'Data',
+  'Creatividad',
+  'Producción',
+  'Distribución',
+] as const;
+
+/** Firmesa Digital: ¿qué hacemos? */
+export const digitalServices = [
+  { title: 'Estrategia digital', image: '/img/sv-estrategia-digital.jpg' },
+  { title: 'Producción audiovisual', image: '/img/sv-produccion-audiovisual.jpg' },
+  { title: 'Contenido para redes', image: '/img/sv-contenido-redes.jpg' },
+  { title: 'Podcast', image: '/img/sv-podcast.jpg' },
+  { title: 'Branding', image: '/img/sv-branding.jpg' },
+  { title: 'Pauta y performance', image: '/img/sv-pauta-performance.jpg' },
+] as const;
+
+export const digitalBestSellers = [
+  {
+    title: 'Podcast',
+    text: 'Construye autoridad y cercanía de forma constante.',
+    image: '/img/bs-podcast.jpg',
+  },
+  {
+    title: 'Videos de venta',
+    text: 'Mensajes diseñados para explicar, convencer y generar acción.',
+    image: '/img/bs-videos-venta.jpg',
+  },
+  {
+    title: 'Jingles e identidad sonora',
+    text: 'Recordación que permanece más allá de la pantalla.',
+    image: '/img/bs-jingles.jpg',
+  },
+  {
+    title: 'Cobertura de eventos',
+    text: 'Contenido en tiempo real que convierte momentos en activos de marca.',
+    image: '/img/bs-eventos.jpg',
+  },
+  {
+    title: 'Campañas de reels',
+    text: 'Creatividad pensada para captar atención y mantenerse en la conversación.',
+    image: '/img/bs-reels.jpg',
+  },
+] as const;
+
+export const process = [
+  'Diagnóstico',
+  'Estrategia',
+  'Producción',
+  'Distribución',
+  'Optimización',
+] as const;
+
+/** Medios Masivos: best sellers. */
+export const massBestSellers = [
+  {
+    title: 'Campañas en radio',
+    subtitle: 'Presencia nacional',
+    text: 'El medio más íntimo con alcance masivo y alto nivel de recordación.',
+    image: '/img/bs-radio.jpg',
+  },
+  {
+    title: 'Parabuses y exterior',
+    subtitle: 'Puntos clave',
+    text: 'Impacto constante en puntos clave.',
+    image: '/img/bs-parabuses.jpg',
+  },
+  {
+    title: 'Publicidad en aviones',
+    subtitle: 'Audiencias de alto valor',
+    text: 'Audiencias de alto valor en momentos de máxima atención.',
+    image: '/img/bs-aviones.jpg',
+  },
+  {
+    title: 'Publicidad en autobuses',
+    subtitle: 'Cobertura en movimiento',
+    text: 'Cobertura amplia con presencia continua en movimiento.',
+    image: '/img/bs-autobuses.jpg',
+  },
+] as const;
+
+/** Full service list, from the billboard slide. */
 export const services = [
-  {
-    slug: 'representacion',
-    title: 'Representación de radiodifusoras',
-    summary:
-      'Comercializamos los espacios publicitarios de estaciones ubicadas a lo largo y ancho del territorio nacional.',
-    detail:
-      'El anunciante selecciona el área adecuada para la difusión de su campaña con la seguridad de que su mensaje logrará la penetración e impacto de mayor efectividad en el público radioescucha.',
-    points: [
-      'Estaciones únicas o líderes en cada plaza',
-      'Selección de plaza, horario y frecuencia',
-      'Cobertura AM, FM y streaming',
-    ],
-  },
-  {
-    slug: 'agencia',
-    title: 'Agencia de publicidad y contratación de medios',
-    summary:
-      'Creación, ejecución y distribución de campañas publicitarias con estrategias y tácticas novedosas que incrementan ventas.',
-    detail:
-      'Planeamos la campaña de principio a fin: definición de objetivos, selección de medios, negociación de tarifas, distribución de materiales y seguimiento de la pauta.',
-    points: [
-      'Planeación y compra de medios',
-      'Distribución de materiales a estaciones',
-      'Seguimiento y reporte de campaña',
-    ],
-  },
-  {
-    slug: 'estudio',
-    title: 'Estudio de grabación digital',
-    summary:
-      'Producción de spots, podcast, audiovisuales y cualquier idea en audio que pueda imaginar, con la mejor calidad.',
-    detail:
-      'Contamos con un equipo de profesionales, acceso a librerías de música y efectos especiales, y los mejores músicos para convertir sus ideas en jingles, audio firmas o producciones musicales completas.',
-    points: [
-      'Spots comerciales, guiones y creatividad',
-      'Cápsulas, programas en vivo o grabados y conceptos radiales',
-      'Jingles, audio firmas y producciones musicales',
-      'Casting de talentos y locutores',
-      'Podcast y audiovisuales',
-    ],
-  },
-  {
-    slug: 'streaming',
-    title: 'Cobertura global y audio para marcas',
-    summary:
-      'Radio en streaming a través de internet y canales de audio personalizado para empresas o marcas.',
-    detail:
-      'La señal de nuestras emisoras viaja por internet, lo que extiende el alcance de su campaña más allá de la cobertura de la antena.',
-    points: [
-      'Transmisión en vivo por internet',
-      'Canales de audio personalizado para punto de venta',
-      'Alcance nacional e internacional',
-    ],
-  },
+  'Estrategia y planeación',
+  'Compra de medios',
+  'Data e inteligencia',
+  'Producción audiovisual',
+  'Desarrollo de contenido',
+  'Campañas 360°',
+  'Eventos y activaciones',
+] as const;
+
+export const sectors = [
+  'Retail',
+  'Financiero',
+  'Inmobiliario',
+  'Consumo',
+  'Institucional',
 ] as const;
 
 /**

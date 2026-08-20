@@ -1,7 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
-import PageHeader from '../components/PageHeader.astro';
-import { site } from '../data/site';
+import Loops from '../components/Loops.astro';
+import { site, url } from '../data/site';
 
 const primaryEmail = site.emails[0];
 ---
@@ -9,85 +9,89 @@ const primaryEmail = site.emails[0];
 <Base
   title="Contacto"
   path="/contacto/"
-  description="Contacte a Firmesa para cotizar una campaña de radio, solicitar tarifas o producir su spot. Teléfonos, correos y formulario."
+  description="Las marcas que crecen no improvisan. Agenda una llamada estratégica con Firmesa: teléfonos, correo y formulario. Polanco, CDMX."
 >
-  <PageHeader
-    eyebrow="Contacto"
-    title="Hablemos de su próxima campaña."
-    intro="Cuéntenos a quién quiere llegar, en qué plazas y con qué presupuesto. Le preparamos una propuesta de pauta con tarifas vigentes."
-  />
+  <!-- Hero -->
+  <section class="relative overflow-hidden">
+    <div class="band absolute inset-0"></div>
+    <Loops class="text-white" opacity={0.22} />
 
-  <section class="wrapper py-16 md:py-24">
-    <div class="grid gap-14 lg:grid-cols-[1fr_1.1fr]">
-      <!-- Direct contact details -->
+    <div class="wrapper relative py-20 text-center md:py-28">
+      <p class="pill mx-auto text-white/80">Contacto</p>
+      <h1 class="statement mx-auto mt-8 max-w-4xl text-xl text-white md:text-4xl">
+        Las marcas que crecen no improvisan
+      </h1>
+      <p class="pill mx-auto mt-8 border-white/70 px-8 text-base normal-case tracking-normal text-white md:text-xl">
+        Empiezan con una conversación clara.
+      </p>
+    </div>
+  </section>
+
+  <section class="bg-white">
+    <div class="wrapper grid gap-14 py-16 md:py-24 lg:grid-cols-[1fr_1.15fr]">
+      <!-- Datos directos -->
       <div>
-        <h2 class="font-display text-2xl font-bold text-ink-900">Atención directa</h2>
+        <h2 class="text-2xl font-extrabold text-ink-900">Atención directa</h2>
 
-        <div class="mt-8 space-y-8">
+        <dl class="mt-10 space-y-9">
           <div>
-            <h3 class="text-xs font-semibold uppercase tracking-[0.16em] text-ink-400">Teléfonos</h3>
-            <ul class="mt-3 space-y-2">
+            <dt class="text-xs font-bold uppercase tracking-[0.2em] text-ink-400">Teléfono</dt>
+            <dd class="mt-3 space-y-1">
               {
                 site.phones.map((phone) => (
-                  <li>
-                    <a
-                      href={`tel:+52${phone.replace(/\s/g, '')}`}
-                      class="font-display text-xl font-bold text-ink-900 hover:text-brand-600"
-                    >
-                      {phone}
-                    </a>
-                  </li>
+                  <a
+                    href={`tel:+52${phone.replace(/\s/g, '')}`}
+                    class="block text-2xl font-extrabold text-ink-900 transition-colors hover:text-brand-600"
+                  >
+                    {phone}
+                  </a>
                 ))
               }
-            </ul>
+            </dd>
           </div>
 
           <div>
-            <h3 class="text-xs font-semibold uppercase tracking-[0.16em] text-ink-400">
+            <dt class="text-xs font-bold uppercase tracking-[0.2em] text-ink-400">
               Correo electrónico
-            </h3>
-            <ul class="mt-3 space-y-2">
+            </dt>
+            <dd class="mt-3 space-y-1">
               {
                 site.emails.map((email) => (
-                  <li>
-                    <a href={`mailto:${email}`} class="break-all text-lg text-ink-900 hover:text-brand-600">
-                      {email}
-                    </a>
-                  </li>
+                  <a
+                    href={`mailto:${email}`}
+                    class="block break-all text-lg text-ink-900 transition-colors hover:text-brand-600"
+                  >
+                    {email}
+                  </a>
                 ))
               }
-            </ul>
+            </dd>
           </div>
 
           <div>
-            <h3 class="text-xs font-semibold uppercase tracking-[0.16em] text-ink-400">Redes</h3>
-            <p class="mt-3">
+            <dt class="text-xs font-bold uppercase tracking-[0.2em] text-ink-400">Ubicación</dt>
+            <dd class="mt-3 text-lg font-bold text-ink-900">{site.location}</dd>
+          </div>
+
+          <div>
+            <dt class="text-xs font-bold uppercase tracking-[0.2em] text-ink-400">Redes</dt>
+            <dd class="mt-3">
               <a
                 href={site.facebook}
                 target="_blank"
                 rel="noopener noreferrer"
-                class="text-lg text-ink-900 hover:text-brand-600"
+                class="text-lg text-ink-900 transition-colors hover:text-brand-600"
               >
                 Facebook · @firmesaoficial
               </a>
-            </p>
+            </dd>
           </div>
-        </div>
-
-        <div class="mt-10 rounded-lg border border-ink-200 bg-ink-50 p-6">
-          <p class="text-sm leading-relaxed text-ink-600">
-            Para producción de spots, jingles o podcast, escriba directamente a
-            <a href={`mailto:${primaryEmail}`} class="font-semibold text-brand-600">
-              {primaryEmail}
-            </a>
-            e indique el material que necesita.
-          </p>
-        </div>
+        </dl>
       </div>
 
       <!-- Form. Field names stay in Spanish: they label the submissions Firmesa staff read. -->
-      <div class="rounded-lg border border-ink-200 bg-white p-8 md:p-10">
-        <h2 class="font-display text-2xl font-bold text-ink-900">Cuéntenos qué necesita</h2>
+      <div class="rounded-3xl border border-ink-200 bg-field/50 p-8 md:p-10">
+        <h2 class="text-2xl font-extrabold text-ink-900">Cuéntanos de tu proyecto</h2>
 
         <form
           id="contact-form"
@@ -96,7 +100,7 @@ const primaryEmail = site.emails[0];
           action={site.formEndpoint || undefined}
         >
           <div>
-            <label for="nombre" class="block text-sm font-semibold text-ink-800">
+            <label for="nombre" class="block text-xs font-bold uppercase tracking-[0.16em] text-ink-600">
               Nombre <span class="text-brand-600" aria-hidden="true">*</span>
             </label>
             <input
@@ -105,54 +109,72 @@ const primaryEmail = site.emails[0];
               type="text"
               required
               autocomplete="name"
-              class="mt-2 w-full rounded-md border border-ink-200 px-4 py-3 text-ink-900 focus:border-brand-600 focus:outline-none"
+              class="mt-2 w-full rounded-xl border border-ink-200 bg-white px-4 py-3 text-ink-900 focus:border-brand-600 focus:outline-none"
             />
           </div>
 
           <div class="grid gap-6 sm:grid-cols-2">
             <div>
-              <label for="correo" class="block text-sm font-semibold text-ink-800">
-                Correo electrónico <span class="text-brand-600" aria-hidden="true">*</span>
+              <label for="empresa" class="block text-xs font-bold uppercase tracking-[0.16em] text-ink-600">
+                Empresa
               </label>
               <input
-                id="correo"
-                name="correo"
-                type="email"
-                required
-                autocomplete="email"
-                class="mt-2 w-full rounded-md border border-ink-200 px-4 py-3 text-ink-900 focus:border-brand-600 focus:outline-none"
+                id="empresa"
+                name="empresa"
+                type="text"
+                autocomplete="organization"
+                class="mt-2 w-full rounded-xl border border-ink-200 bg-white px-4 py-3 text-ink-900 focus:border-brand-600 focus:outline-none"
               />
             </div>
             <div>
-              <label for="telefono" class="block text-sm font-semibold text-ink-800">Teléfono</label>
+              <label for="telefono" class="block text-xs font-bold uppercase tracking-[0.16em] text-ink-600">
+                Teléfono
+              </label>
               <input
                 id="telefono"
                 name="telefono"
                 type="tel"
                 autocomplete="tel"
-                class="mt-2 w-full rounded-md border border-ink-200 px-4 py-3 text-ink-900 focus:border-brand-600 focus:outline-none"
+                class="mt-2 w-full rounded-xl border border-ink-200 bg-white px-4 py-3 text-ink-900 focus:border-brand-600 focus:outline-none"
               />
             </div>
           </div>
 
           <div>
-            <label for="interes" class="block text-sm font-semibold text-ink-800">Me interesa</label>
+            <label for="correo" class="block text-xs font-bold uppercase tracking-[0.16em] text-ink-600">
+              Correo electrónico <span class="text-brand-600" aria-hidden="true">*</span>
+            </label>
+            <input
+              id="correo"
+              name="correo"
+              type="email"
+              required
+              autocomplete="email"
+              class="mt-2 w-full rounded-xl border border-ink-200 bg-white px-4 py-3 text-ink-900 focus:border-brand-600 focus:outline-none"
+            />
+          </div>
+
+          <div>
+            <label for="interes" class="block text-xs font-bold uppercase tracking-[0.16em] text-ink-600">
+              Me interesa
+            </label>
             <select
               id="interes"
               name="interes"
-              class="mt-2 w-full rounded-md border border-ink-200 bg-white px-4 py-3 text-ink-900 focus:border-brand-600 focus:outline-none"
+              class="mt-2 w-full rounded-xl border border-ink-200 bg-white px-4 py-3 text-ink-900 focus:border-brand-600 focus:outline-none"
             >
-              <option>Pauta en radio</option>
-              <option>Tarifario vigente</option>
-              <option>Producción de spot o jingle</option>
-              <option>Podcast o audio para marca</option>
-              <option>Publicidad en autobuses</option>
+              <option>Estrategia y planeación</option>
+              <option>Medios masivos</option>
+              <option>Firmesa Digital</option>
+              <option>Producción audiovisual</option>
+              <option>Podcast</option>
+              <option>Campaña 360°</option>
               <option>Otro</option>
             </select>
           </div>
 
           <div>
-            <label for="mensaje" class="block text-sm font-semibold text-ink-800">
+            <label for="mensaje" class="block text-xs font-bold uppercase tracking-[0.16em] text-ink-600">
               Mensaje <span class="text-brand-600" aria-hidden="true">*</span>
             </label>
             <textarea
@@ -160,24 +182,32 @@ const primaryEmail = site.emails[0];
               name="mensaje"
               rows="5"
               required
-              class="mt-2 w-full rounded-md border border-ink-200 px-4 py-3 text-ink-900 focus:border-brand-600 focus:outline-none"
+              class="mt-2 w-full rounded-xl border border-ink-200 bg-white px-4 py-3 text-ink-900 focus:border-brand-600 focus:outline-none"
             ></textarea>
           </div>
 
           <button
             type="submit"
-            class="w-full rounded-md bg-brand-600 px-6 py-3.5 text-sm font-semibold text-white transition-colors hover:bg-brand-700"
+            class="w-full rounded-full bg-brand-600 px-6 py-4 text-xs font-bold uppercase tracking-[0.18em] text-white transition-colors hover:bg-brand-700"
           >
-            Enviar mensaje
+            Agenda una llamada estratégica
           </button>
 
           <p class="text-xs leading-relaxed text-ink-400">
-            Al enviar acepta que Firmesa use sus datos únicamente para dar respuesta a esta
+            Al enviar aceptas que Firmesa use tus datos únicamente para dar respuesta a esta
             solicitud.
           </p>
         </form>
       </div>
     </div>
+  </section>
+
+  <section class="relative overflow-hidden bg-ink-900">
+    <img src={url('/img/hablemos.jpg')} alt="" loading="lazy" class="absolute inset-0 h-full w-full object-cover opacity-40" />
+    <div class="absolute inset-0 bg-ink-900/55"></div>
+    <p class="wrapper relative py-20 text-center text-lg leading-relaxed text-white md:text-2xl">
+      Cuando la estrategia es correcta, la ejecución es contundente.
+    </p>
   </section>
 </Base>
 
@@ -193,6 +223,7 @@ const primaryEmail = site.emails[0];
       // Labels stay in Spanish: Firmesa staff read these messages.
       const body = [
         `Nombre: ${data.get('nombre') ?? ''}`,
+        `Empresa: ${data.get('empresa') || 'No proporcionada'}`,
         `Correo: ${data.get('correo') ?? ''}`,
         `Teléfono: ${data.get('telefono') || 'No proporcionado'}`,
         `Interés: ${data.get('interes') ?? ''}`,

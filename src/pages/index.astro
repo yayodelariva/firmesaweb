@@ -1,157 +1,114 @@
 ---
 import Base from '../layouts/Base.astro';
-import { site, services, years, url } from '../data/site';
-import states from '../data/stations.json';
+import Loops from '../components/Loops.astro';
+import { worlds, territory, model360, sectors, decades, url } from '../data/site';
 
-const totalStates = states.length;
-const totalCities = states.reduce((n, state) => n + state.cities.length, 0);
-const totalStations = states.reduce(
-  (n, state) => n + state.cities.reduce((m, city) => m + city.stations.length, 0),
-  0,
-);
-
-const stats = [
-  { value: `${years()}`, label: 'años de vida comercial' },
-  { value: `${totalStations}`, label: 'estaciones representadas' },
-  { value: `${totalCities}`, label: 'ciudades con cobertura' },
-  { value: `${totalStates}`, label: 'estados de la República' },
-];
-
-const pillars = [
-  {
-    title: 'Radio',
-    text:
-      'Nuestras radiodifusoras, ubicadas a lo largo y ancho del territorio nacional, permiten al anunciante seleccionar el área adecuada para difundir su campaña con la penetración e impacto de mayor efectividad.',
-  },
-  {
-    title: 'Exclusividad',
-    text:
-      'La mayoría de nuestras emisoras son únicas o líderes en su plaza. Donde otros medios no llegan, la radio sigue siendo la voz de la comunidad.',
-  },
-  {
-    title: 'Cobertura global',
-    text:
-      'Todas nuestras señales transmiten en vivo por internet, extendiendo el alcance de su mensaje mucho más allá del radio de la antena.',
-  },
-];
+const rotating = ['campañas', 'marcas', 'posicionamiento'];
 ---
 
 <Base title="Inicio" path="/">
   <!-- Hero -->
   <section class="relative overflow-hidden bg-ink-900">
     <img
-      src={url('/img/hero-fondo.jpg')}
+      src={url('/img/hero-inicio.jpg')}
       alt=""
-      class="absolute inset-0 h-full w-full object-cover opacity-20"
+      class="absolute inset-0 h-full w-full object-cover opacity-45"
       fetchpriority="high"
     />
-    <div class="absolute inset-0 bg-gradient-to-br from-ink-900 via-ink-900/95 to-brand-900/80"></div>
+    <div class="absolute inset-0 bg-gradient-to-br from-ink-900 via-ink-900/80 to-brand-900/85"></div>
+    <Loops class="text-white" opacity={0.16} />
 
-    <div class="wrapper relative py-24 md:py-32">
-      <p class="text-xs font-semibold uppercase tracking-[0.22em] text-brand-300">
-        Desde 1972 · Representación de radiodifusoras
+    <div class="wrapper relative py-24 text-center md:py-32">
+      <p class="pill mx-auto text-white/70">Desde 1972</p>
+
+      <!-- Outlined wordmark, as in the deck -->
+      <p
+        class="mt-10 select-none text-[3.5rem] font-black leading-none tracking-[0.02em] text-transparent sm:text-8xl lg:text-[9rem]"
+        style="-webkit-text-stroke: 2px rgba(255,255,255,0.9);"
+        aria-hidden="true"
+      >
+        FIRMESA
       </p>
-      <h1 class="mt-6 max-w-4xl font-display text-4xl font-extrabold leading-[1.05] text-white sm:text-5xl md:text-6xl">
-        Su mensaje, al aire en la radio de todo México.
+
+      <h1 class="mt-10 text-3xl font-extrabold leading-tight text-white sm:text-4xl md:text-5xl">
+        <span class="sr-only">Creamos campañas, marcas y posicionamiento.</span>
+        <span aria-hidden="true" class="block">Creamos</span>
+        <span aria-hidden="true" class="rotator mt-2 grid justify-items-center">
+          {
+            rotating.map((word, i) => (
+              <span class="col-start-1 row-start-1 text-brand-300" style={`--i:${i}`}>
+                {word}
+              </span>
+            ))
+          }
+        </span>
       </h1>
-      <p class="mt-6 max-w-2xl text-lg leading-relaxed text-ink-200">
-        Creamos, ejecutamos y distribuimos campañas publicitarias en estaciones únicas y líderes de
-        cada plaza. Usted elige la audiencia; nosotros ponemos la señal.
+
+      <p class="mx-auto mt-8 max-w-2xl text-lg leading-relaxed text-ink-200">
+        No se trata de estar en todos lados. <strong class="font-bold text-white">Se trata de estar donde importa.</strong>
       </p>
 
-      <div class="mt-10 flex flex-wrap gap-4">
+      <div class="mt-10 flex flex-wrap justify-center gap-4">
         <a
           href={url('/contacto/')}
-          class="rounded-md bg-brand-600 px-6 py-3.5 text-sm font-semibold text-white transition-colors hover:bg-brand-500"
+          class="rounded-full bg-brand-600 px-8 py-4 text-xs font-bold uppercase tracking-[0.18em] text-white transition-colors hover:bg-brand-500"
         >
-          Cotizar una campaña
+          Hablemos de tu proyecto
         </a>
         <a
-          href={url('/estaciones/')}
-          class="rounded-md border border-white/25 px-6 py-3.5 text-sm font-semibold text-white transition-colors hover:bg-white/10"
+          href={url('/medios-masivos/')}
+          class="rounded-full border border-white/40 px-8 py-4 text-xs font-bold uppercase tracking-[0.18em] text-white transition-colors hover:bg-white/10"
         >
-          Ver estaciones y cobertura
+          Conoce lo que hacemos
         </a>
       </div>
-
-      <dl class="mt-16 grid grid-cols-2 gap-8 border-t border-white/15 pt-10 md:grid-cols-4">
-        {
-          stats.map(({ value, label }) => (
-            <div>
-              <dt class="sr-only">{label}</dt>
-              <dd>
-                <span class="block font-display text-4xl font-extrabold text-white md:text-5xl">
-                  {value}
-                </span>
-                <span class="mt-2 block text-sm leading-snug text-ink-400">{label}</span>
-              </dd>
-            </div>
-          ))
-        }
-      </dl>
     </div>
   </section>
 
-  <!-- Anniversary note -->
-  <section class="border-b border-ink-100 bg-brand-50">
-    <div class="wrapper py-16 md:py-20">
-      <blockquote class="mx-auto max-w-4xl text-center">
-        <p class="font-display text-xl font-medium leading-relaxed text-ink-800 md:text-2xl">
-          Al cumplir {years()} años de vida comercial, reiteramos nuestro
-          <strong class="text-brand-600">agradecimiento</strong> a los medios publicitarios, así como
-          a todos los clientes y amigos, quienes con su confianza y apoyo nos permiten promover sus
-          productos y servicios profesionales en beneficio del público en general.
-        </p>
-        <cite class="mt-6 block text-sm not-italic font-semibold uppercase tracking-[0.16em] text-ink-400">
-          Firmesa
-        </cite>
-      </blockquote>
+  <!-- Positioning statement -->
+  <section class="bg-white">
+    <div class="wrapper max-w-4xl py-20 text-center md:py-24">
+      <p class="text-xl leading-relaxed text-ink-800 md:text-2xl">
+        Firmesa es la <strong class="font-extrabold">central de medios y partner estratégico</strong>
+        {' '}que posiciona marcas con precisión.
+      </p>
+      <p class="mt-6 text-xl leading-relaxed text-ink-600 md:text-2xl">
+        <strong class="font-extrabold text-brand-600">Más de {decades()} años construyendo marcas.</strong>
+        {' '}Hoy, integrando medios masivos y digitales en un solo sistema.
+      </p>
     </div>
   </section>
 
-  <!-- Pillars -->
-  <section class="wrapper py-20 md:py-28">
-    <div class="grid gap-12 md:grid-cols-3">
-      {
-        pillars.map(({ title, text }, i) => (
-          <article>
-            <span class="font-display text-sm font-bold text-brand-600">
-              0{i + 1}
-            </span>
-            <h2 class="mt-3 font-display text-2xl font-bold text-ink-900">{title}</h2>
-            <p class="mt-4 leading-relaxed text-ink-600">{text}</p>
-          </article>
-        ))
-      }
-    </div>
-  </section>
+  <!-- Lo mejor de dos mundos -->
+  <section class="relative overflow-hidden bg-ink-900">
+    <img src={url('/img/textura-acustica.jpg')} alt="" class="absolute inset-0 h-full w-full object-cover opacity-25" loading="lazy" />
+    <div class="absolute inset-0 bg-ink-900/70"></div>
 
-  <!-- Services -->
-  <section class="border-y border-ink-100 bg-ink-50">
-    <div class="wrapper py-20 md:py-28">
-      <div class="flex flex-wrap items-end justify-between gap-6">
-        <div>
-          <p class="text-xs font-semibold uppercase tracking-[0.22em] text-brand-600">Servicios</p>
-          <h2 class="mt-3 font-display text-3xl font-extrabold text-ink-900 md:text-4xl">
-            De la idea al aire, en una sola casa.
-          </h2>
-        </div>
-        <a href={url('/servicios/')} class="text-sm font-semibold text-brand-600 hover:text-brand-700">
-          Ver todos los servicios →
-        </a>
+    <div class="relative">
+      <div class="band py-4">
+        <h2 class="wrapper statement text-center text-sm text-white md:text-base">
+          Lo mejor de dos mundos
+        </h2>
       </div>
 
-      <div class="mt-12 grid gap-6 md:grid-cols-2">
+      <div class="wrapper grid gap-8 py-16 md:grid-cols-2 md:py-20">
         {
-          services.map(({ slug, title, summary }) => (
-            <a
-              href={url(`/servicios/#${slug}`)}
-              class="group rounded-lg border border-ink-200 bg-white p-8 transition-colors hover:border-brand-300"
-            >
-              <h3 class="font-display text-xl font-bold text-ink-900 group-hover:text-brand-600">
-                {title}
-              </h3>
-              <p class="mt-3 leading-relaxed text-ink-600">{summary}</p>
+          worlds.map(({ label, href, image, text }) => (
+            <a href={url(href)} class="group block">
+              <div class="overflow-hidden rounded-3xl border border-white/15">
+                <div class="relative">
+                  <img
+                    src={url(image)}
+                    alt=""
+                    loading="lazy"
+                    class="h-64 w-full object-cover transition-transform duration-500 group-hover:scale-105 md:h-72"
+                  />
+                  <div class="absolute inset-0 flex items-center justify-center bg-ink-900/25">
+                    <span class="pill bg-ink-900/40 text-white backdrop-blur-sm">{label}</span>
+                  </div>
+                </div>
+              </div>
+              <p class="mt-6 text-xl font-bold leading-snug text-white md:text-2xl">{text}</p>
             </a>
           ))
         }
@@ -159,53 +116,159 @@ const pillars = [
     </div>
   </section>
 
-  <!-- Coverage -->
-  <section class="wrapper py-20 md:py-28">
-    <div class="grid items-center gap-14 lg:grid-cols-2">
-      <div>
-        <p class="text-xs font-semibold uppercase tracking-[0.22em] text-brand-600">Cobertura</p>
-        <h2 class="mt-3 font-display text-3xl font-extrabold text-ink-900 md:text-4xl">
-          {totalStations} estaciones en {totalStates} estados de la República.
-        </h2>
-        <p class="mt-5 leading-relaxed text-ink-600">
-          Consulte el directorio completo con frecuencia, siglas, tipo de programación y enlace de
-          transmisión en vivo de cada emisora. Filtre por estado o busque la plaza que le interesa.
-        </p>
-        <a
-          href={url('/estaciones/')}
-          class="mt-8 inline-block rounded-md bg-ink-900 px-6 py-3.5 text-sm font-semibold text-white transition-colors hover:bg-ink-800"
-        >
-          Abrir el directorio de estaciones
-        </a>
+  <!-- Territorio -->
+  <section class="bg-field">
+    <div class="band relative overflow-hidden py-5">
+      <Loops class="text-white" opacity={0.2} />
+      <h2 class="wrapper statement relative text-center text-sm text-white md:text-base">Territorio</h2>
+    </div>
+
+    <div class="wrapper grid gap-6 py-16 md:grid-cols-3 md:py-20">
+      {
+        territory.map(({ title, image }) => (
+          <article class="overflow-hidden rounded-3xl bg-white shadow-sm">
+            <img src={url(image)} alt="" loading="lazy" class="h-64 w-full object-cover" />
+            <h3 class="band px-6 py-6 text-center text-lg font-extrabold uppercase leading-snug tracking-wide text-white">
+              {title}
+            </h3>
+          </article>
+        ))
+      }
+    </div>
+  </section>
+
+  <!-- La integramos -->
+  <section class="relative overflow-hidden bg-ink-900">
+    <img src={url('/img/integramos.jpg')} alt="" loading="lazy" class="absolute inset-0 h-full w-full object-cover opacity-40" />
+    <div class="absolute inset-0 bg-ink-900/55"></div>
+
+    <div class="relative py-20 md:py-24">
+      <div class="bg-field/95 py-8">
+        <div class="wrapper text-center">
+          <p class="statement text-sm text-ink-600 md:text-xl">
+            No dividimos la <span class="text-brand-600">comunicación</span>
+          </p>
+          <p class="mt-2 text-4xl font-black uppercase tracking-tight text-brand-600 md:text-6xl">
+            La integramos
+          </p>
+        </div>
       </div>
 
-      <div class="overflow-hidden rounded-lg border border-ink-200">
-        <iframe
-          src={site.coverageMap}
-          title="Mapa de cobertura de las estaciones de Firmesa"
-          loading="lazy"
-          class="h-[420px] w-full"
-        ></iframe>
+      <p class="wrapper mt-10 max-w-4xl text-center text-xl leading-relaxed text-white md:text-2xl">
+        Estrategia, data, creatividad, medios y ejecución trabajando juntos para lograr resultados
+        reales.
+      </p>
+    </div>
+  </section>
+
+  <!-- Modelo 360 -->
+  <section class="bg-white">
+    <div class="band relative overflow-hidden py-14">
+      <Loops class="text-white" opacity={0.18} />
+      <div class="wrapper relative text-center">
+        <p class="pill mx-auto text-white/80">Modelo 360°</p>
+        <p class="statement mt-6 text-lg text-white md:text-2xl">Las marcas no crecen por partes.</p>
+      </div>
+    </div>
+
+    <div class="wrapper py-16 md:py-20">
+      <p class="text-center text-sm font-bold uppercase tracking-[0.2em] text-ink-400">
+        Por eso integramos
+      </p>
+      <ul class="mt-8 flex flex-wrap justify-center gap-3">
+        {
+          model360.map((item) => (
+            <li class="pill border-brand-600 text-brand-600">{item}</li>
+          ))
+        }
+      </ul>
+
+      <div class="mt-14 grid gap-4 text-center md:grid-cols-2">
+        <p class="band rounded-2xl px-6 py-8 text-2xl font-black uppercase tracking-[0.12em] text-white">
+          Todo conectado
+        </p>
+        <p class="rounded-2xl bg-field px-6 py-8 text-2xl font-black uppercase tracking-[0.12em] text-brand-600">
+          Todo alineado
+        </p>
       </div>
     </div>
   </section>
 
-  <!-- Closing CTA -->
-  <section class="bg-brand-600">
-    <div class="wrapper flex flex-wrap items-center justify-between gap-8 py-16">
-      <div>
-        <h2 class="font-display text-3xl font-extrabold text-white">¿Listo para salir al aire?</h2>
-        <p class="mt-3 max-w-xl text-brand-100">
-          Cuéntenos a quién quiere llegar y le preparamos una propuesta de pauta con tarifas
-          vigentes.
+  <!-- Clientes -->
+  <section class="bg-field">
+    <div class="wrapper py-16 text-center md:py-20">
+      <p class="pill mx-auto border-ink-300 text-ink-800">Clientes / Casos de éxito</p>
+      <p class="mx-auto mt-8 max-w-2xl text-xl text-ink-800">
+        Trabajamos con marcas que entienden que crecer requiere estrategia.
+      </p>
+      <ul class="mt-10 flex flex-wrap justify-center gap-3">
+        {
+          sectors.map((sector) => (
+            <li class="rounded-full bg-ink-300/70 px-7 py-3 text-sm font-bold uppercase tracking-[0.14em] text-white">
+              {sector}
+            </li>
+          ))
+        }
+      </ul>
+      <p class="statement mt-14 text-sm text-brand-600 md:text-xl">
+        Cada proyecto parte de una decisión
+      </p>
+    </div>
+    <div class="band py-5">
+      <p class="wrapper statement text-center text-sm text-white md:text-base">
+        Nuestro trabajo es que esa decisión funcione
+      </p>
+    </div>
+  </section>
+
+  <!-- Insights -->
+  <section class="relative overflow-hidden">
+    <img src={url('/img/insights.jpg')} alt="" loading="lazy" class="h-72 w-full object-cover md:h-96" />
+    <div class="band py-10">
+      <div class="wrapper text-center">
+        <p class="pill mx-auto text-white/85">Entender el mercado es parte del trabajo</p>
+        <p class="mt-6 text-lg text-white md:text-xl">
+          Compartimos visión, análisis y tendencias para tomar mejores decisiones.
         </p>
       </div>
+    </div>
+  </section>
+
+  <!-- Cierre -->
+  <section class="relative overflow-hidden bg-ink-900">
+    <img src={url('/img/cierre-tablet.jpg')} alt="" loading="lazy" class="absolute inset-0 h-full w-full object-cover opacity-35" />
+    <div class="absolute inset-0 bg-ink-900/60"></div>
+
+    <div class="wrapper relative py-20 text-center md:py-28">
+      <p class="statement text-lg text-white md:text-3xl">
+        Cuando la estrategia es correcta<br />la ejecución es contundente
+      </p>
       <a
         href={url('/contacto/')}
-        class="rounded-md bg-white px-6 py-3.5 text-sm font-semibold text-brand-700 transition-colors hover:bg-brand-50"
+        class="mt-10 inline-block rounded-full bg-white px-8 py-4 text-xs font-bold uppercase tracking-[0.18em] text-brand-700 transition-colors hover:bg-brand-50"
       >
-        Solicitar propuesta
+        Agenda una llamada estratégica
       </a>
     </div>
   </section>
 </Base>
+
+<style>
+  /* Rotating word in the hero headline. */
+  .rotator > span {
+    opacity: 0;
+    animation: rotate-word 7.5s infinite;
+    animation-delay: calc(var(--i) * 2.5s);
+  }
+
+  /* Three words, 2.5 s each: one is always on screen, including at t=0. */
+  @keyframes rotate-word {
+    0%, 28% { opacity: 1; transform: translateY(0); }
+    34%, 100% { opacity: 0; transform: translateY(-0.3em); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .rotator > span { animation: none; opacity: 0; }
+    .rotator > span:first-child { opacity: 1; }
+  }
+</style>
