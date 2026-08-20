@@ -1,5 +1,5 @@
 ---
-import { nav, site, anios } from '../data/site';
+import { nav, site, anios, url } from '../data/site';
 
 const anio = new Date().getFullYear();
 ---
@@ -8,7 +8,7 @@ const anio = new Date().getFullYear();
   <div class="contenedor grid gap-12 py-16 md:grid-cols-3">
     <div>
       <div class="flex items-center gap-3">
-        <img src="/img/logo-firmesa.png" alt="" width="40" height="40" class="h-10 w-10" />
+        <img src={url('/img/logo-firmesa.png')} alt="" width="40" height="40" class="h-10 w-10" />
         <span class="font-display text-lg font-extrabold tracking-tight text-white">FIRMESA</span>
       </div>
       <p class="mt-4 max-w-xs text-sm leading-relaxed text-ink-400">
@@ -23,7 +23,7 @@ const anio = new Date().getFullYear();
         {
           nav.map(({ href, label }) => (
             <li>
-              <a href={href} class="text-sm text-ink-100 transition-colors hover:text-brand-300">
+              <a href={url(href)} class="text-sm text-ink-100 transition-colors hover:text-brand-300">
                 {label}
               </a>
             </li>

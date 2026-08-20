@@ -81,3 +81,12 @@ export const servicios = [
     ],
   },
 ] as const;
+
+/**
+ * Antepone el `base` de Astro a una ruta interna.
+ * Devuelve la ruta tal cual cuando el sitio se sirve desde la raíz
+ * (por ejemplo en firmesa.mx) y la prefija cuando vive en un subdirectorio
+ * (por ejemplo en GitHub Pages: /firmesaweb/).
+ */
+export const url = (ruta: string) =>
+  `${import.meta.env.BASE_URL.replace(/\/$/, '')}${ruta}`;

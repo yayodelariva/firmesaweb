@@ -1,7 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 import EncabezadoPagina from '../components/EncabezadoPagina.astro';
-import { servicios } from '../data/site';
+import { servicios, url } from '../data/site';
 
 const imagenes: Record<string, string> = {
   representacion: '/img/digital-radio.jpg',
@@ -35,7 +35,7 @@ const imagenes: Record<string, string> = {
               <p class="mt-5 text-lg leading-relaxed text-ink-600">{resumen}</p>
               {imagenes[slug] && (
                 <img
-                  src={imagenes[slug]}
+                  src={url(imagenes[slug])}
                   alt=""
                   loading="lazy"
                   class="mt-8 w-full rounded-lg border border-ink-200 object-cover"
@@ -87,7 +87,7 @@ const imagenes: Record<string, string> = {
         </div>
         <div class="lg:justify-self-end">
           <a
-            href="/contacto/"
+            href={url('/contacto/')}
             class="inline-block rounded-md bg-brand-600 px-6 py-3.5 text-sm font-semibold text-white transition-colors hover:bg-brand-500"
           >
             Solicitar tarifario

@@ -2,7 +2,7 @@
 import '../styles/global.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import { site } from '../data/site';
+import { site, url } from '../data/site';
 
 interface Props {
   titulo: string;
@@ -13,7 +13,11 @@ interface Props {
 
 const { titulo, descripcion = site.descripcion, ruta = Astro.url.pathname } = Astro.props;
 const tituloCompleto = ruta === '/' ? `${site.nombre} — Representación de radiodifusoras en México` : `${titulo} | ${site.nombre}`;
-const canonica = new URL(ruta, site.dominio).href;
+// Origen real de la publicación (config `site` de Astro); `site.dominio` es el respaldo.
+const origen = Astro.site ?? new URL(site.dominio);
+/** URL absoluta de una ruta interna, respetando el `base` del despliegue. */
+const absoluta = (r: string) => new URL(url(r), origen).href;
+const canonica = absoluta(ruta);
 ---
 
 <!doctype html>
@@ -24,7 +28,7 @@ const canonica = new URL(ruta, site.dominio).href;
     <title>{tituloCompleto}</title>
     <meta name="description" content={descripcion} />
     <link rel="canonical" href={canonica} />
-    <link rel="icon" href="/img/logo-icono.png" type="image/png" />
+    <link rel="icon" href={url('/img/logo-icono.png')} type="image/png" />
     <meta name="theme-color" content="#990033" />
 
     <meta property="og:type" content="website" />
@@ -33,7 +37,7 @@ const canonica = new URL(ruta, site.dominio).href;
     <meta property="og:title" content={tituloCompleto} />
     <meta property="og:description" content={descripcion} />
     <meta property="og:url" content={canonica} />
-    <meta property="og:image" content={new URL('/img/logo-firmesa.png', site.dominio).href} />
+    <meta property="og:image" content={absoluta('/img/logo-firmesa.png')} />
     <meta name="twitter:card" content="summary" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -51,8 +55,8 @@ const canonica = new URL(ruta, site.dominio).href;
         '@type': 'Organization',
         name: site.nombre,
         legalName: site.razonSocial,
-        url: site.dominio,
-        logo: new URL('/img/logo-firmesa.png', site.dominio).href,
+        url: origen.href,
+        logo: absoluta('/img/logo-firmesa.png'),
         foundingDate: '1972-07-19',
         description: site.descripcion,
         areaServed: 'MX',

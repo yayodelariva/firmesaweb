@@ -1,4 +1,5 @@
 ---
+import { url } from '../data/site';
 import Base from '../layouts/Base.astro';
 ---
 
@@ -13,10 +14,10 @@ import Base from '../layouts/Base.astro';
       directorio de estaciones.
     </p>
     <div class="mt-10 flex flex-wrap justify-center gap-4">
-      <a href="/" class="rounded-md bg-brand-600 px-6 py-3.5 text-sm font-semibold text-white hover:bg-brand-700">
+      <a href={url('/')} class="rounded-md bg-brand-600 px-6 py-3.5 text-sm font-semibold text-white hover:bg-brand-700">
         Ir al inicio
       </a>
-      <a href="/estaciones/" class="rounded-md border border-ink-200 px-6 py-3.5 text-sm font-semibold text-ink-800 hover:bg-ink-50">
+      <a href={url('/estaciones/')} class="rounded-md border border-ink-200 px-6 py-3.5 text-sm font-semibold text-ink-800 hover:bg-ink-50">
         Ver estaciones
       </a>
     </div>

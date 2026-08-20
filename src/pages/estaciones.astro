@@ -1,7 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 import EncabezadoPagina from '../components/EncabezadoPagina.astro';
-import { site } from '../data/site';
+import { site, url } from '../data/site';
 import estados from '../data/estaciones.json';
 
 const totalEstaciones = estados.reduce(
@@ -148,7 +148,7 @@ const banda = (frecuencia: string) => {
         ¿No encuentra su plaza? Escríbanos y revisamos alternativas de cobertura.
       </h2>
       <a
-        href="/contacto/"
+        href={url('/contacto/')}
         class="rounded-md bg-white px-6 py-3.5 text-sm font-semibold text-brand-700 transition-colors hover:bg-brand-50"
       >
         Contactar a Firmesa

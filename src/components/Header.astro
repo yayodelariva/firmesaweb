@@ -1,14 +1,16 @@
 ---
-import { nav, site } from '../data/site';
+import { nav, site, url } from '../data/site';
 
-const actual = Astro.url.pathname;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+// Ruta actual sin el prefijo `base`, para comparar contra el nav.
+const actual = Astro.url.pathname.slice(base.length) || '/';
 const activo = (href: string) => (href === '/' ? actual === '/' : actual.startsWith(href));
 ---
 
 <header class="sticky top-0 z-40 border-b border-ink-100 bg-white/90 backdrop-blur">
   <div class="contenedor flex h-18 items-center justify-between gap-6 py-3">
-    <a href="/" class="flex items-center gap-3" aria-label={`${site.nombre} — Inicio`}>
-      <img src="/img/logo-firmesa.png" alt="" width="44" height="44" class="h-11 w-11" />
+    <a href={url('/')} class="flex items-center gap-3" aria-label={`${site.nombre} — Inicio`}>
+      <img src={url('/img/logo-firmesa.png')} alt="" width="44" height="44" class="h-11 w-11" />
       <span class="flex flex-col leading-none">
         <span class="font-display text-xl font-extrabold tracking-tight text-ink-900">FIRMESA</span>
         <span class="mt-1 text-[0.6875rem] font-medium uppercase tracking-[0.16em] text-ink-400">
@@ -21,7 +23,7 @@ const activo = (href: string) => (href === '/' ? actual === '/' : actual.startsW
       {
         nav.map(({ href, label }) => (
           <a
-            href={href}
+            href={url(href)}
             aria-current={activo(href) ? 'page' : undefined}
             class:list={[
               'rounded-md px-3 py-2 text-sm font-medium transition-colors',
@@ -35,7 +37,7 @@ const activo = (href: string) => (href === '/' ? actual === '/' : actual.startsW
         ))
       }
       <a
-        href="/contacto/"
+        href={url('/contacto/')}
         class="ml-3 rounded-md bg-brand-600 px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-brand-700"
       >
         Cotizar campaña
@@ -62,7 +64,7 @@ const activo = (href: string) => (href === '/' ? actual === '/' : actual.startsW
         nav.map(({ href, label }) => (
           <li>
             <a
-              href={href}
+              href={url(href)}
               aria-current={activo(href) ? 'page' : undefined}
               class:list={[
                 'block border-b border-ink-100 py-3.5 text-base font-medium',
@@ -76,7 +78,7 @@ const activo = (href: string) => (href === '/' ? actual === '/' : actual.startsW
       }
       <li class="py-4">
         <a
-          href="/contacto/"
+          href={url('/contacto/')}
           class="block rounded-md bg-brand-600 px-4 py-3 text-center text-sm font-semibold text-white"
         >
           Cotizar campaña
