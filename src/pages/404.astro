@@ -1,10 +1,15 @@
 ---
 import Base from '../layouts/Base.astro';
 import Loops from '../components/Loops.astro';
-import { url } from '../data/site';
+import { url } from '../lib/links';
 ---
 
-<Base title="Página no encontrada" path="/404/" description="La página que buscas no existe en firmesa.mx.">
+<Base
+  title="Página no encontrada"
+  path="/404/"
+  description="La página que buscas no existe en firmesa.mx."
+  noindex
+>
   <section class="relative overflow-hidden bg-ink-900">
     <Loops class="text-white" opacity={0.14} />
 
@@ -15,18 +20,8 @@ import { url } from '../data/site';
         La página que buscas no existe o cambió de dirección.
       </p>
       <div class="mt-10 flex flex-wrap justify-center gap-4">
-        <a
-          href={url('/')}
-          class="rounded-full bg-brand-600 px-8 py-4 text-xs font-bold uppercase tracking-[0.18em] text-white hover:bg-brand-500"
-        >
-          Ir al inicio
-        </a>
-        <a
-          href={url('/contacto/')}
-          class="rounded-full border border-white/40 px-8 py-4 text-xs font-bold uppercase tracking-[0.18em] text-white hover:bg-white/10"
-        >
-          Contacto
-        </a>
+        <a href={url('/')} class="btn btn-brand">Ir al inicio</a>
+        <a href={url('/contacto/')} class="btn btn-ghost">Contacto</a>
       </div>
     </div>
   </section>

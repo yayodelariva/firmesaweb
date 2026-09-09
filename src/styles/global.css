@@ -92,6 +92,74 @@
     );
   }
 
+  /* Call to action. Three finishes, one shape — the deck uses the same pill
+     button on light, dark, and photographic backgrounds. */
+  .btn {
+    display: inline-block;
+    border-radius: 9999px;
+    padding: 1rem 2rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    transition: background-color 150ms, color 150ms;
+  }
+
+  .btn-brand {
+    background-color: var(--color-brand-600);
+    color: var(--color-white);
+  }
+  .btn-brand:hover { background-color: var(--color-brand-500); }
+
+  /* On a dark or photographic section, where crimson would not read. */
+  .btn-light {
+    background-color: var(--color-white);
+    color: var(--color-brand-700);
+  }
+  .btn-light:hover { background-color: var(--color-brand-50); }
+
+  .btn-ghost {
+    border: 1px solid rgb(255 255 255 / 0.4);
+    color: var(--color-white);
+  }
+  .btn-ghost:hover { background-color: rgb(255 255 255 / 0.1); }
+
+  /* Contact form. */
+  .field-label {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    color: var(--color-ink-600);
+  }
+
+  .field {
+    margin-top: 0.5rem;
+    width: 100%;
+    border-radius: 0.75rem;
+    border: 1px solid var(--color-ink-200);
+    background-color: var(--color-white);
+    padding: 0.75rem 1rem;
+    color: var(--color-ink-900);
+  }
+  /* The border alone is a colour-only focus cue; keep the outline for keyboards. */
+  .field:focus-visible {
+    border-color: var(--color-brand-600);
+    outline: 2px solid var(--color-brand-500);
+    outline-offset: 2px;
+  }
+
+  /* Outlined display type, as on the deck's FIRMESA wordmark. */
+  .text-outline {
+    color: transparent;
+    -webkit-text-stroke: var(--outline-width, 2px) var(--outline-color, rgb(255 255 255 / 0.9));
+  }
+  /* Without the stroke the text would be invisible rather than merely unstyled. */
+  @supports not (-webkit-text-stroke: 1px currentColor) {
+    .text-outline { color: currentColor; }
+  }
+
   /* Wide letterspaced display line, used for the deck's statement rows. */
   .statement {
     text-transform: uppercase;

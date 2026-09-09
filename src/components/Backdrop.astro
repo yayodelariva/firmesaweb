@@ -1,0 +1,33 @@
+---
+import { url } from '../lib/links';
+
+/**
+ * Full-bleed photographic backdrop: the image plus the tint laid over it.
+ * The parent section supplies `relative overflow-hidden`.
+ *
+ * Tailwind scans source text, so the opacity and tint arrive as complete class
+ * strings rather than being assembled here from numbers.
+ */
+interface Props {
+  /** Site-relative path, e.g. "/img/hero-inicio.jpg". */
+  image: string;
+  /** Classes for the image itself — its opacity, in practice. */
+  imageClass?: string;
+  /** Classes for the tint; omit for no tint. */
+  overlayClass?: string;
+  /** Above the fold: load eagerly and raise the fetch priority. */
+  priority?: boolean;
+}
+
+const { image, imageClass = '', overlayClass = '', priority = false } = Astro.props;
+---
+
+<img
+  src={url(image)}
+  alt=""
+  class:list={['absolute inset-0 h-full w-full object-cover', imageClass]}
+  loading={priority ? 'eager' : 'lazy'}
+  fetchpriority={priority ? 'high' : undefined}
+  decoding={priority ? undefined : 'async'}
+/>
+{overlayClass && <div class:list={['absolute inset-0', overlayClass]}></div>}

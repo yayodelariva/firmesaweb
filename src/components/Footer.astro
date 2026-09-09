@@ -1,6 +1,7 @@
 ---
 import Loops from './Loops.astro';
-import { nav, site, decades, url } from '../data/site';
+import { nav, site, decades } from '../data/site';
+import { url, telHref, mailtoHref } from '../lib/links';
 
 const year = new Date().getFullYear();
 ---
@@ -44,7 +45,7 @@ const year = new Date().getFullYear();
         {
           site.phones.map((phone) => (
             <li>
-              <a href={`tel:+52${phone.replace(/\s/g, '')}`} class="text-sm text-white hover:text-brand-300">
+              <a href={telHref(phone)} class="text-sm text-white hover:text-brand-300">
                 {phone}
               </a>
             </li>
@@ -53,7 +54,7 @@ const year = new Date().getFullYear();
         {
           site.emails.map((email) => (
             <li>
-              <a href={`mailto:${email}`} class="text-sm break-all text-white hover:text-brand-300">
+              <a href={mailtoHref(email)} class="text-sm break-all text-white hover:text-brand-300">
                 {email}
               </a>
             </li>

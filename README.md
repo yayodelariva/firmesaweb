@@ -18,20 +18,33 @@ filenames, since those are the public URLs (`/quienes-somos/`, `/medios-masivos/
 | `npm run dev`     | Dev server at `localhost:4321`                |
 | `npm run build`   | Build the site to `./dist/`                   |
 | `npm run preview` | Preview the production build                  |
-| `npx astro check` | Type-check and diagnose the Astro files       |
+| `npm run check`   | Type-check and diagnose the Astro files       |
 
 ## Structure
 
 ```
 src/
-├── components/   Header, Footer, Loops (the brand's interlocking-curve motif)
-├── data/site.ts  Contact details, nav, and every content list on the site
+├── components/   Header, Footer, Loops (the brand's interlocking-curve motif),
+│                 Backdrop (full-bleed photo + tint), BandHeading (crimson section rule)
+├── data/
+│   ├── site.ts   Who Firmesa is: contact details, nav, founding year
+│   └── content.ts  Every content list on the site, in page order
+├── lib/links.ts  Every rule for turning data into an href: `base` prefixing, tel:, mailto:
 ├── layouts/Base.astro  HTML shell, SEO, Open Graph, JSON-LD
 ├── pages/        index, quienes-somos, firmesa-digital, medios-masivos,
 │                 contacto, 404, robots.txt
-└── styles/global.css   Brand tokens, .wrapper, .pill, .band, .statement
+└── styles/global.css   Brand tokens, .wrapper, .pill, .band, .statement,
+                        .btn/.btn-brand/.btn-light/.btn-ghost, .field, .text-outline
 public/img/       Logo and the 40 photographs lifted from the presentation
 ```
+
+Three rules keep the layer boundaries honest:
+
+- **A page never holds copy.** Everything a visitor reads comes from `data/content.ts`.
+- **A component never builds an href by hand.** `lib/links.ts` owns the `base` prefix and the
+  phone formatting, so a deployment or formatting change is made once.
+- **A repeated Tailwind class string becomes a component class** in `global.css`, next to the
+  `.pill` and `.band` that were already there.
 
 ## Brand
 
@@ -48,9 +61,11 @@ public/img/       Logo and the 40 photographs lifted from the presentation
 
 ## Editing the content
 
-Everything lives in `src/data/site.ts`: contact details, nav, `worlds`, `territory`, `traits`,
-`model360`, `digitalServices`, `digitalBestSellers`, `process`, `massBestSellers`, `services`,
-and `sectors`. The pages only lay these out.
+Contact details and the nav live in `src/data/site.ts`. Everything else a visitor reads lives in
+`src/data/content.ts`: `rotating`, `worlds`, `territory`, `sectors`, `historyPoints`, `learnings`,
+`traits`, `model360`, `digitalServices`, `digitalBestSellers`, `process`, `formats`,
+`massBestSellers`, `services`, and `interests` (the contact form's "Me interesa" options). The
+pages only lay these out.
 
 Years in business are computed from `FOUNDED = 1972`: `years()` gives the exact figure and
 `decades()` rounds down to the decade, which is what the deck's approved copy uses

@@ -1,7 +1,10 @@
 ---
 import Base from '../layouts/Base.astro';
+import Backdrop from '../components/Backdrop.astro';
+import BandHeading from '../components/BandHeading.astro';
 import Loops from '../components/Loops.astro';
-import { digitalServices, digitalBestSellers, process, url } from '../data/site';
+import { digitalServices, digitalBestSellers, process } from '../data/content';
+import { url } from '../lib/links';
 ---
 
 <Base
@@ -11,8 +14,12 @@ import { digitalServices, digitalBestSellers, process, url } from '../data/site'
 >
   <!-- Hero -->
   <section class="relative overflow-hidden bg-ink-900">
-    <img src={url('/img/digital-que-es.jpg')} alt="" class="absolute inset-0 h-full w-full object-cover opacity-55" fetchpriority="high" />
-    <div class="absolute inset-0 bg-gradient-to-t from-ink-900 via-ink-900/70 to-ink-900/40"></div>
+    <Backdrop
+      image="/img/digital-que-es.jpg"
+      imageClass="opacity-55"
+      overlayClass="bg-gradient-to-t from-ink-900 via-ink-900/70 to-ink-900/40"
+      priority
+    />
 
     <div class="wrapper relative py-20 md:py-28">
       <img src={url('/img/logo-firmesa-blanco.png')} alt="" width="170" height="55" class="h-9 w-auto" />
@@ -42,6 +49,7 @@ import { digitalServices, digitalBestSellers, process, url } from '../data/site'
                 src={url(image)}
                 alt=""
                 loading="lazy"
+                decoding="async"
                 class="h-56 w-full object-cover transition-transform duration-500 group-hover:scale-105"
               />
               <div class="absolute inset-0 flex items-center justify-center bg-ink-900/45 p-4">
@@ -58,12 +66,7 @@ import { digitalServices, digitalBestSellers, process, url } from '../data/site'
 
   <!-- Best sellers -->
   <section class="bg-field">
-    <div class="band relative overflow-hidden py-6">
-      <Loops class="text-white" opacity={0.2} />
-      <h2 class="wrapper statement relative text-center text-sm text-white md:text-xl">
-        Best sellers digitales
-      </h2>
-    </div>
+    <BandHeading class="py-6" headingClass="text-sm md:text-xl">Best sellers digitales</BandHeading>
 
     <p class="wrapper py-6 text-center text-lg text-brand-700 md:text-xl">
       Formatos probados para generar conexión, posicionamiento y resultados.
@@ -73,7 +76,7 @@ import { digitalServices, digitalBestSellers, process, url } from '../data/site'
       {
         digitalBestSellers.map(({ title, text, image }) => (
           <article class="relative overflow-hidden rounded-3xl bg-ink-900">
-            <img src={url(image)} alt="" loading="lazy" class="h-[26rem] w-full object-cover opacity-70" />
+            <img src={url(image)} alt="" loading="lazy" decoding="async" class="h-[26rem] w-full object-cover opacity-70" />
             <div class="absolute inset-0 flex flex-col justify-between bg-gradient-to-b from-ink-900/60 via-transparent to-ink-900/90 p-5">
               <span class="pill border-white/70 text-center text-[0.625rem] tracking-[0.14em] text-white">
                 {title}
@@ -114,7 +117,7 @@ import { digitalServices, digitalBestSellers, process, url } from '../data/site'
 
       <div class="mt-12 grid gap-6 md:grid-cols-2">
         <article class="relative overflow-hidden rounded-3xl">
-          <img src={url('/img/enfoque-pieza.jpg')} alt="" loading="lazy" class="h-96 w-full object-cover" />
+          <img src={url('/img/enfoque-pieza.jpg')} alt="" loading="lazy" decoding="async" class="h-96 w-full object-cover" />
           <div class="absolute inset-0 bg-ink-900/45 p-8">
             <p class="statement text-center text-lg text-white md:text-2xl">
               Cada pieza tiene una <em class="not-italic text-brand-300">intención</em>
@@ -123,7 +126,7 @@ import { digitalServices, digitalBestSellers, process, url } from '../data/site'
         </article>
 
         <article class="relative overflow-hidden rounded-3xl">
-          <img src={url('/img/enfoque-decision.jpg')} alt="" loading="lazy" class="h-96 w-full object-cover" />
+          <img src={url('/img/enfoque-decision.jpg')} alt="" loading="lazy" decoding="async" class="h-96 w-full object-cover" />
           <div class="absolute inset-0 bg-ink-900/45 p-8">
             <p class="statement text-center text-lg text-white md:text-2xl">
               Cada decisión responde a una <em class="not-italic text-brand-300">estrategia</em>
@@ -136,19 +139,13 @@ import { digitalServices, digitalBestSellers, process, url } from '../data/site'
 
   <!-- Cierre -->
   <section class="relative overflow-hidden bg-ink-900">
-    <img src={url('/img/mockup-edificio.jpg')} alt="" loading="lazy" class="absolute inset-0 h-full w-full object-cover opacity-45" />
-    <div class="absolute inset-0 bg-ink-900/55"></div>
+    <Backdrop image="/img/mockup-edificio.jpg" imageClass="opacity-45" overlayClass="bg-ink-900/55" />
 
     <div class="wrapper relative py-20 text-center md:py-28">
       <p class="statement text-lg text-white md:text-3xl">
         Digital no es volumen<br />es dirección
       </p>
-      <a
-        href={url('/contacto/')}
-        class="mt-10 inline-block rounded-full bg-white px-8 py-4 text-xs font-bold uppercase tracking-[0.18em] text-brand-700 transition-colors hover:bg-brand-50"
-      >
-        Hablemos
-      </a>
+      <a href={url('/contacto/')} class="btn btn-light mt-10">Hablemos</a>
     </div>
   </section>
 </Base>

@@ -1,12 +1,10 @@
 ---
 import Base from '../layouts/Base.astro';
+import Backdrop from '../components/Backdrop.astro';
+import BandHeading from '../components/BandHeading.astro';
 import Loops from '../components/Loops.astro';
-import { massBestSellers, services, url } from '../data/site';
-
-const formats = [
-  { title: 'Exterior', image: '/img/exterior-billboard.jpg' },
-  { title: 'Impresos', image: '/img/impresos.jpg' },
-];
+import { massBestSellers, services, formats } from '../data/content';
+import { url } from '../lib/links';
 ---
 
 <Base
@@ -46,12 +44,13 @@ const formats = [
                 src={url(image)}
                 alt=""
                 loading="lazy"
+                decoding="async"
                 class="h-80 w-full object-cover transition-transform duration-500 group-hover:scale-105"
               />
               <div class="absolute inset-0 flex items-end bg-ink-900/30 p-8">
                 <h2
-                  class="text-4xl font-black uppercase tracking-tight text-transparent md:text-5xl"
-                  style="-webkit-text-stroke: 1.5px rgba(255,255,255,0.95);"
+                  class="text-outline text-4xl font-black uppercase tracking-tight md:text-5xl"
+                  style="--outline-width: 1.5px; --outline-color: rgb(255 255 255 / 0.95);"
                 >
                   {title}
                 </h2>
@@ -69,12 +68,7 @@ const formats = [
 
   <!-- Best sellers masivos -->
   <section class="bg-field">
-    <div class="band relative overflow-hidden py-6">
-      <Loops class="text-white" opacity={0.2} />
-      <h2 class="wrapper statement relative text-center text-sm text-white md:text-xl">
-        Best sellers masivos
-      </h2>
-    </div>
+    <BandHeading class="py-6" headingClass="text-sm md:text-xl">Best sellers masivos</BandHeading>
 
     <p class="wrapper py-6 text-center text-lg text-brand-700 md:text-xl">
       Presencia estratégica en los espacios que construyen alcance real.
@@ -84,7 +78,7 @@ const formats = [
       {
         massBestSellers.map(({ title, subtitle, text, image }) => (
           <article class="overflow-hidden rounded-3xl bg-white shadow-sm">
-            <img src={url(image)} alt="" loading="lazy" class="h-52 w-full object-cover" />
+            <img src={url(image)} alt="" loading="lazy" decoding="async" class="h-52 w-full object-cover" />
             <div class="p-6">
               <p class="text-xs font-bold uppercase tracking-[0.16em] text-brand-600">{subtitle}</p>
               <h3 class="mt-2 text-lg font-extrabold leading-snug text-ink-900">{title}</h3>
@@ -98,8 +92,7 @@ const formats = [
 
   <!-- Servicios -->
   <section class="relative overflow-hidden bg-ink-900">
-    <img src={url('/img/consola.jpg')} alt="" loading="lazy" class="absolute inset-0 h-full w-full object-cover opacity-30" />
-    <div class="absolute inset-0 bg-ink-900/60"></div>
+    <Backdrop image="/img/consola.jpg" imageClass="opacity-30" overlayClass="bg-ink-900/60" />
 
     <div class="wrapper relative py-16 md:py-24">
       <p class="pill w-fit text-white/85">Servicios</p>
@@ -136,12 +129,7 @@ const formats = [
       </p>
       <p class="statement mt-3 text-base text-brand-600 md:text-2xl">sabe cómo construirla</p>
 
-      <a
-        href={url('/contacto/')}
-        class="mt-12 inline-block rounded-full bg-brand-600 px-8 py-4 text-xs font-bold uppercase tracking-[0.18em] text-white transition-colors hover:bg-brand-500"
-      >
-        Hablemos de tu proyecto
-      </a>
+      <a href={url('/contacto/')} class="btn btn-brand mt-12">Hablemos de tu proyecto</a>
     </div>
   </section>
 </Base>

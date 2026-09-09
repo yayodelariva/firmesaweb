@@ -1,7 +1,10 @@
 ---
 import Base from '../layouts/Base.astro';
+import Backdrop from '../components/Backdrop.astro';
 import Loops from '../components/Loops.astro';
-import { site, url } from '../data/site';
+import { site } from '../data/site';
+import { interests } from '../data/content';
+import { telHref, mailtoHref } from '../lib/links';
 
 const primaryEmail = site.emails[0];
 ---
@@ -40,7 +43,7 @@ const primaryEmail = site.emails[0];
               {
                 site.phones.map((phone) => (
                   <a
-                    href={`tel:+52${phone.replace(/\s/g, '')}`}
+                    href={telHref(phone)}
                     class="block text-2xl font-extrabold text-ink-900 transition-colors hover:text-brand-600"
                   >
                     {phone}
@@ -58,7 +61,7 @@ const primaryEmail = site.emails[0];
               {
                 site.emails.map((email) => (
                   <a
-                    href={`mailto:${email}`}
+                    href={mailtoHref(email)}
                     class="block break-all text-lg text-ink-900 transition-colors hover:text-brand-600"
                   >
                     {email}
@@ -100,7 +103,7 @@ const primaryEmail = site.emails[0];
           action={site.formEndpoint || undefined}
         >
           <div>
-            <label for="nombre" class="block text-xs font-bold uppercase tracking-[0.16em] text-ink-600">
+            <label for="nombre" class="field-label">
               Nombre <span class="text-brand-600" aria-hidden="true">*</span>
             </label>
             <input
@@ -109,13 +112,13 @@ const primaryEmail = site.emails[0];
               type="text"
               required
               autocomplete="name"
-              class="mt-2 w-full rounded-xl border border-ink-200 bg-white px-4 py-3 text-ink-900 focus:border-brand-600 focus:outline-none"
+              class="field"
             />
           </div>
 
           <div class="grid gap-6 sm:grid-cols-2">
             <div>
-              <label for="empresa" class="block text-xs font-bold uppercase tracking-[0.16em] text-ink-600">
+              <label for="empresa" class="field-label">
                 Empresa
               </label>
               <input
@@ -123,11 +126,11 @@ const primaryEmail = site.emails[0];
                 name="empresa"
                 type="text"
                 autocomplete="organization"
-                class="mt-2 w-full rounded-xl border border-ink-200 bg-white px-4 py-3 text-ink-900 focus:border-brand-600 focus:outline-none"
+                class="field"
               />
             </div>
             <div>
-              <label for="telefono" class="block text-xs font-bold uppercase tracking-[0.16em] text-ink-600">
+              <label for="telefono" class="field-label">
                 Teléfono
               </label>
               <input
@@ -135,13 +138,13 @@ const primaryEmail = site.emails[0];
                 name="telefono"
                 type="tel"
                 autocomplete="tel"
-                class="mt-2 w-full rounded-xl border border-ink-200 bg-white px-4 py-3 text-ink-900 focus:border-brand-600 focus:outline-none"
+                class="field"
               />
             </div>
           </div>
 
           <div>
-            <label for="correo" class="block text-xs font-bold uppercase tracking-[0.16em] text-ink-600">
+            <label for="correo" class="field-label">
               Correo electrónico <span class="text-brand-600" aria-hidden="true">*</span>
             </label>
             <input
@@ -150,31 +153,21 @@ const primaryEmail = site.emails[0];
               type="email"
               required
               autocomplete="email"
-              class="mt-2 w-full rounded-xl border border-ink-200 bg-white px-4 py-3 text-ink-900 focus:border-brand-600 focus:outline-none"
+              class="field"
             />
           </div>
 
           <div>
-            <label for="interes" class="block text-xs font-bold uppercase tracking-[0.16em] text-ink-600">
+            <label for="interes" class="field-label">
               Me interesa
             </label>
-            <select
-              id="interes"
-              name="interes"
-              class="mt-2 w-full rounded-xl border border-ink-200 bg-white px-4 py-3 text-ink-900 focus:border-brand-600 focus:outline-none"
-            >
-              <option>Estrategia y planeación</option>
-              <option>Medios masivos</option>
-              <option>Firmesa Digital</option>
-              <option>Producción audiovisual</option>
-              <option>Podcast</option>
-              <option>Campaña 360°</option>
-              <option>Otro</option>
+            <select id="interes" name="interes" class="field">
+              {interests.map((interest) => <option>{interest}</option>)}
             </select>
           </div>
 
           <div>
-            <label for="mensaje" class="block text-xs font-bold uppercase tracking-[0.16em] text-ink-600">
+            <label for="mensaje" class="field-label">
               Mensaje <span class="text-brand-600" aria-hidden="true">*</span>
             </label>
             <textarea
@@ -182,14 +175,11 @@ const primaryEmail = site.emails[0];
               name="mensaje"
               rows="5"
               required
-              class="mt-2 w-full rounded-xl border border-ink-200 bg-white px-4 py-3 text-ink-900 focus:border-brand-600 focus:outline-none"
+              class="field"
             ></textarea>
           </div>
 
-          <button
-            type="submit"
-            class="w-full rounded-full bg-brand-600 px-6 py-4 text-xs font-bold uppercase tracking-[0.18em] text-white transition-colors hover:bg-brand-700"
-          >
+          <button type="submit" class="btn btn-brand w-full">
             Agenda una llamada estratégica
           </button>
 
@@ -203,8 +193,7 @@ const primaryEmail = site.emails[0];
   </section>
 
   <section class="relative overflow-hidden bg-ink-900">
-    <img src={url('/img/hablemos.jpg')} alt="" loading="lazy" class="absolute inset-0 h-full w-full object-cover opacity-40" />
-    <div class="absolute inset-0 bg-ink-900/55"></div>
+    <Backdrop image="/img/hablemos.jpg" imageClass="opacity-40" overlayClass="bg-ink-900/55" />
     <p class="wrapper relative py-20 text-center text-lg leading-relaxed text-white md:text-2xl">
       Cuando la estrategia es correcta, la ejecución es contundente.
     </p>

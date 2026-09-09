@@ -1,0 +1,33 @@
+---
+import Loops from './Loops.astro';
+
+/**
+ * The deck's crimson section rule: a full-width band carrying one
+ * letterspaced line, over the brand's loop motif.
+ */
+interface Props {
+  /** Classes for the band — its vertical padding, in practice. */
+  class?: string;
+  /** Classes for the line itself, for the responsive size. */
+  headingClass?: string;
+  /** Renders a <p> instead of an <h2>, where the line is not a section title. */
+  as?: 'h2' | 'p';
+  loops?: boolean;
+  loopsOpacity?: number;
+}
+
+const {
+  class: className = 'py-5',
+  headingClass = 'text-sm md:text-base',
+  as: Tag = 'h2',
+  loops = true,
+  loopsOpacity = 0.2,
+} = Astro.props;
+---
+
+<div class:list={['band relative overflow-hidden', className]}>
+  {loops && <Loops class="text-white" opacity={loopsOpacity} />}
+  <Tag class:list={['wrapper statement relative text-center text-white', headingClass]}>
+    <slot />
+  </Tag>
+</div>

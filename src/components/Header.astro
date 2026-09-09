@@ -1,9 +1,9 @@
 ---
-import { nav, site, url } from '../data/site';
+import { nav, site } from '../data/site';
+import { url, sitePath } from '../lib/links';
 
-const base = import.meta.env.BASE_URL.replace(/\/$/, '');
-// Current path without the `base` prefix, so it can be compared against the nav.
-const current = Astro.url.pathname.slice(base.length) || '/';
+// Compared against the nav, so it must not carry the `base` prefix.
+const current = sitePath(Astro.url.pathname);
 const isActive = (href: string) => (href === '/' ? current === '/' : current.startsWith(href));
 ---
 
@@ -83,9 +83,20 @@ const isActive = (href: string) => (href === '/' ? current === '/' : current.sta
   const button = document.getElementById('menu-button');
   const menu = document.getElementById('mobile-menu');
 
+  const setOpen = (open: boolean) => {
+    button?.setAttribute('aria-expanded', String(open));
+    menu?.toggleAttribute('hidden', !open);
+  };
+
   button?.addEventListener('click', () => {
-    const isOpen = button.getAttribute('aria-expanded') === 'true';
-    button.setAttribute('aria-expanded', String(!isOpen));
-    menu?.toggleAttribute('hidden', isOpen);
+    setOpen(button.getAttribute('aria-expanded') !== 'true');
+  });
+
+  // Escape closes the menu and returns focus to the control that opened it.
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && button?.getAttribute('aria-expanded') === 'true') {
+      setOpen(false);
+      button.focus();
+    }
   });
 </script>

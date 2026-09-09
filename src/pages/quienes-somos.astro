@@ -1,20 +1,10 @@
 ---
 import Base from '../layouts/Base.astro';
+import Backdrop from '../components/Backdrop.astro';
 import Loops from '../components/Loops.astro';
-import { traits, model360, years, decades, FOUNDED, url } from '../data/site';
-
-const historyPoints = [
-  'Necesitan posicionamiento.',
-  'Nuestra historia comienza en el radio.',
-  'Un medio que no interrumpe, acompaña.',
-  'Que no se ve, pero se queda.',
-];
-
-const learnings = [
-  'El valor del mensaje, el poder del timing y la importancia de estar en el lugar correcto.',
-  'El radio no solo fue nuestro origen.',
-  'Fue la escuela que definió nuestro estándar.',
-];
+import { years, decades, FOUNDED } from '../data/site';
+import { traits, model360, historyPoints, learnings } from '../data/content';
+import { url } from '../lib/links';
 ---
 
 <Base
@@ -24,8 +14,12 @@ const learnings = [
 >
   <!-- Intro -->
   <section class="relative overflow-hidden bg-brand-800">
-    <img src={url('/img/diferentes.jpg')} alt="" class="absolute inset-0 h-full w-full object-cover opacity-30" fetchpriority="high" />
-    <div class="absolute inset-0 bg-gradient-to-r from-brand-900 via-brand-800/85 to-brand-900"></div>
+    <Backdrop
+      image="/img/diferentes.jpg"
+      imageClass="opacity-30"
+      overlayClass="bg-gradient-to-r from-brand-900 via-brand-800/85 to-brand-900"
+      priority
+    />
     <Loops class="text-white" opacity={0.18} />
 
     <div class="wrapper relative py-20 text-center md:py-28">
@@ -42,11 +36,16 @@ const learnings = [
   <!-- Nuestra historia -->
   <section class="bg-white">
     <div class="wrapper grid items-center gap-12 py-16 md:py-24 lg:grid-cols-2">
+      <!-- The only in-flow image without a fixed height: the intrinsic size
+           reserves its space so the column does not jump on load. -->
       <img
         src={url('/img/historia.jpg')}
         alt=""
+        width="760"
+        height="977"
         loading="lazy"
-        class="w-full rounded-3xl object-cover shadow-sm"
+        decoding="async"
+        class="h-auto w-full rounded-3xl shadow-sm"
       />
 
       <div>
@@ -86,8 +85,11 @@ const learnings = [
 
   <!-- Evolución -->
   <section class="relative overflow-hidden bg-ink-900">
-    <img src={url('/img/evolucion.jpg')} alt="" loading="lazy" class="absolute inset-0 h-full w-full object-cover opacity-45" />
-    <div class="absolute inset-0 bg-gradient-to-l from-ink-900 via-ink-900/70 to-ink-900/40"></div>
+    <Backdrop
+      image="/img/evolucion.jpg"
+      imageClass="opacity-45"
+      overlayClass="bg-gradient-to-l from-ink-900 via-ink-900/70 to-ink-900/40"
+    />
 
     <div class="wrapper relative py-20 md:py-28">
       <div class="ml-auto max-w-xl rounded-3xl border border-white/25 bg-ink-900/70 p-8 backdrop-blur-sm md:p-10">
@@ -136,8 +138,7 @@ const learnings = [
 
   <!-- Modelo 360 -->
   <section class="relative overflow-hidden bg-ink-900">
-    <img src={url('/img/modelo-360.jpg')} alt="" loading="lazy" class="absolute inset-0 h-full w-full object-cover opacity-40" />
-    <div class="absolute inset-0 bg-ink-900/60"></div>
+    <Backdrop image="/img/modelo-360.jpg" imageClass="opacity-40" overlayClass="bg-ink-900/60" />
 
     <div class="relative">
       <div class="band py-6">

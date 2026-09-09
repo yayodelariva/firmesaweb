@@ -1,21 +1,22 @@
 ---
 import Base from '../layouts/Base.astro';
+import Backdrop from '../components/Backdrop.astro';
+import BandHeading from '../components/BandHeading.astro';
 import Loops from '../components/Loops.astro';
-import { worlds, territory, model360, sectors, decades, url } from '../data/site';
-
-const rotating = ['campañas', 'marcas', 'posicionamiento'];
+import { decades } from '../data/site';
+import { worlds, territory, model360, sectors, rotating } from '../data/content';
+import { url } from '../lib/links';
 ---
 
 <Base title="Inicio" path="/">
   <!-- Hero -->
   <section class="relative overflow-hidden bg-ink-900">
-    <img
-      src={url('/img/hero-inicio.jpg')}
-      alt=""
-      class="absolute inset-0 h-full w-full object-cover opacity-45"
-      fetchpriority="high"
+    <Backdrop
+      image="/img/hero-inicio.jpg"
+      imageClass="opacity-45"
+      overlayClass="bg-gradient-to-br from-ink-900 via-ink-900/80 to-brand-900/85"
+      priority
     />
-    <div class="absolute inset-0 bg-gradient-to-br from-ink-900 via-ink-900/80 to-brand-900/85"></div>
     <Loops class="text-white" opacity={0.16} />
 
     <div class="wrapper relative py-24 text-center md:py-32">
@@ -23,8 +24,7 @@ const rotating = ['campañas', 'marcas', 'posicionamiento'];
 
       <!-- Outlined wordmark, as in the deck -->
       <p
-        class="mt-10 select-none text-[3.5rem] font-black leading-none tracking-[0.02em] text-transparent sm:text-8xl lg:text-[9rem]"
-        style="-webkit-text-stroke: 2px rgba(255,255,255,0.9);"
+        class="text-outline mt-10 select-none text-[3.5rem] font-black leading-none tracking-[0.02em] sm:text-8xl lg:text-[9rem]"
         aria-hidden="true"
       >
         FIRMESA
@@ -49,18 +49,8 @@ const rotating = ['campañas', 'marcas', 'posicionamiento'];
       </p>
 
       <div class="mt-10 flex flex-wrap justify-center gap-4">
-        <a
-          href={url('/contacto/')}
-          class="rounded-full bg-brand-600 px-8 py-4 text-xs font-bold uppercase tracking-[0.18em] text-white transition-colors hover:bg-brand-500"
-        >
-          Hablemos de tu proyecto
-        </a>
-        <a
-          href={url('/medios-masivos/')}
-          class="rounded-full border border-white/40 px-8 py-4 text-xs font-bold uppercase tracking-[0.18em] text-white transition-colors hover:bg-white/10"
-        >
-          Conoce lo que hacemos
-        </a>
+        <a href={url('/contacto/')} class="btn btn-brand">Hablemos de tu proyecto</a>
+        <a href={url('/medios-masivos/')} class="btn btn-ghost">Conoce lo que hacemos</a>
       </div>
     </div>
   </section>
@@ -81,15 +71,10 @@ const rotating = ['campañas', 'marcas', 'posicionamiento'];
 
   <!-- Lo mejor de dos mundos -->
   <section class="relative overflow-hidden bg-ink-900">
-    <img src={url('/img/textura-acustica.jpg')} alt="" class="absolute inset-0 h-full w-full object-cover opacity-25" loading="lazy" />
-    <div class="absolute inset-0 bg-ink-900/70"></div>
+    <Backdrop image="/img/textura-acustica.jpg" imageClass="opacity-25" overlayClass="bg-ink-900/70" />
 
     <div class="relative">
-      <div class="band py-4">
-        <h2 class="wrapper statement text-center text-sm text-white md:text-base">
-          Lo mejor de dos mundos
-        </h2>
-      </div>
+      <BandHeading class="py-4" loops={false}>Lo mejor de dos mundos</BandHeading>
 
       <div class="wrapper grid gap-8 py-16 md:grid-cols-2 md:py-20">
         {
@@ -101,6 +86,7 @@ const rotating = ['campañas', 'marcas', 'posicionamiento'];
                     src={url(image)}
                     alt=""
                     loading="lazy"
+                    decoding="async"
                     class="h-64 w-full object-cover transition-transform duration-500 group-hover:scale-105 md:h-72"
                   />
                   <div class="absolute inset-0 flex items-center justify-center bg-ink-900/25">
@@ -118,16 +104,13 @@ const rotating = ['campañas', 'marcas', 'posicionamiento'];
 
   <!-- Territorio -->
   <section class="bg-field">
-    <div class="band relative overflow-hidden py-5">
-      <Loops class="text-white" opacity={0.2} />
-      <h2 class="wrapper statement relative text-center text-sm text-white md:text-base">Territorio</h2>
-    </div>
+    <BandHeading>Territorio</BandHeading>
 
     <div class="wrapper grid gap-6 py-16 md:grid-cols-3 md:py-20">
       {
         territory.map(({ title, image }) => (
           <article class="overflow-hidden rounded-3xl bg-white shadow-sm">
-            <img src={url(image)} alt="" loading="lazy" class="h-64 w-full object-cover" />
+            <img src={url(image)} alt="" loading="lazy" decoding="async" class="h-64 w-full object-cover" />
             <h3 class="band px-6 py-6 text-center text-lg font-extrabold uppercase leading-snug tracking-wide text-white">
               {title}
             </h3>
@@ -139,8 +122,7 @@ const rotating = ['campañas', 'marcas', 'posicionamiento'];
 
   <!-- La integramos -->
   <section class="relative overflow-hidden bg-ink-900">
-    <img src={url('/img/integramos.jpg')} alt="" loading="lazy" class="absolute inset-0 h-full w-full object-cover opacity-40" />
-    <div class="absolute inset-0 bg-ink-900/55"></div>
+    <Backdrop image="/img/integramos.jpg" imageClass="opacity-40" overlayClass="bg-ink-900/55" />
 
     <div class="relative py-20 md:py-24">
       <div class="bg-field/95 py-8">
@@ -214,16 +196,12 @@ const rotating = ['campañas', 'marcas', 'posicionamiento'];
         Cada proyecto parte de una decisión
       </p>
     </div>
-    <div class="band py-5">
-      <p class="wrapper statement text-center text-sm text-white md:text-base">
-        Nuestro trabajo es que esa decisión funcione
-      </p>
-    </div>
+    <BandHeading as="p" loops={false}>Nuestro trabajo es que esa decisión funcione</BandHeading>
   </section>
 
   <!-- Insights -->
   <section class="relative overflow-hidden">
-    <img src={url('/img/insights.jpg')} alt="" loading="lazy" class="h-72 w-full object-cover md:h-96" />
+    <img src={url('/img/insights.jpg')} alt="" loading="lazy" decoding="async" class="h-72 w-full object-cover md:h-96" />
     <div class="band py-10">
       <div class="wrapper text-center">
         <p class="pill mx-auto text-white/85">Entender el mercado es parte del trabajo</p>
@@ -236,19 +214,13 @@ const rotating = ['campañas', 'marcas', 'posicionamiento'];
 
   <!-- Cierre -->
   <section class="relative overflow-hidden bg-ink-900">
-    <img src={url('/img/cierre-tablet.jpg')} alt="" loading="lazy" class="absolute inset-0 h-full w-full object-cover opacity-35" />
-    <div class="absolute inset-0 bg-ink-900/60"></div>
+    <Backdrop image="/img/cierre-tablet.jpg" imageClass="opacity-35" overlayClass="bg-ink-900/60" />
 
     <div class="wrapper relative py-20 text-center md:py-28">
       <p class="statement text-lg text-white md:text-3xl">
         Cuando la estrategia es correcta<br />la ejecución es contundente
       </p>
-      <a
-        href={url('/contacto/')}
-        class="mt-10 inline-block rounded-full bg-white px-8 py-4 text-xs font-bold uppercase tracking-[0.18em] text-brand-700 transition-colors hover:bg-brand-50"
-      >
-        Agenda una llamada estratégica
-      </a>
+      <a href={url('/contacto/')} class="btn btn-light mt-10">Agenda una llamada estratégica</a>
     </div>
   </section>
 </Base>
@@ -261,10 +233,15 @@ const rotating = ['campañas', 'marcas', 'posicionamiento'];
     animation-delay: calc(var(--i) * 2.5s);
   }
 
-  /* Three words, 2.5 s each: one is always on screen, including at t=0. */
+  /*
+   * Three words, 2.5 s each. Each word holds until exactly the point its
+   * successor starts fading in (2.5 s / 7.5 s = 33.33 %), so the two cross
+   * rather than leaving the line blank between them.
+   */
   @keyframes rotate-word {
-    0%, 28% { opacity: 1; transform: translateY(0); }
-    34%, 100% { opacity: 0; transform: translateY(-0.3em); }
+    0% { opacity: 0; transform: translateY(0.35em); }
+    5%, 33.33% { opacity: 1; transform: translateY(0); }
+    38.33%, 100% { opacity: 0; transform: translateY(-0.35em); }
   }
 
   @media (prefers-reduced-motion: reduce) {
