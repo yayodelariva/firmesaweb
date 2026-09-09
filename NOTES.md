@@ -125,3 +125,58 @@ design closer to the source without any licensing question.
 `site.formEndpoint` is empty, so the contact form falls back to opening the visitor's mail client.
 That works, but it loses submissions from anyone without a configured mail client. A Formspree or
 Web3Forms endpoint is a one-line change.
+
+## Analytics — not wired, but a contained change
+
+There is no analytics on the site. Adding Google Analytics 4 is roughly a fifteen-minute change,
+because every page (the five in `nav`, plus the 404) renders through `src/layouts/Base.astro` —
+one snippet in that `<head>` covers the whole site. GA4 is entirely client-side, so nothing about
+static hosting on GitHub Pages gets in the way.
+
+### How it would be wired
+
+Add the measurement ID to `src/data/site.ts`, following the empty-means-off convention already
+used by `formEndpoint`:
+
+```ts
+/** GA4 measurement ID ("G-XXXXXXXXXX"). Empty => analytics off. */
+analyticsId: '',
+```
+
+Then in `Base.astro`, above the JSON-LD block:
+
+```astro
+{site.analyticsId && (
+  <>
+    <script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${site.analyticsId}`}></script>
+    <script is:inline define:vars={{ id: site.analyticsId }}>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){ dataLayer.push(arguments); }
+      gtag('js', new Date());
+      gtag('config', id);
+    </script>
+  </>
+)}
+```
+
+`is:inline` matters — it tells Astro to leave the tag alone rather than bundling it. The
+empty-string guard means the tag never fires in `astro dev`, so local browsing does not pollute
+the property.
+
+### Three things to settle first
+
+- **Whose property it is.** Firmesa should create the GA4 property in **their own** Google account
+  and hand over the ID — the same reasoning that applies to the domain and the repository. A
+  property created under the developer's account makes the developer a permanent dependency for
+  the one thing a client most wants to keep looking at afterwards.
+- **What is actually measured.** GA4 enhanced measurement gives pageviews and scroll depth for
+  free, but the signals that matter here are conversions: clicks on the `tel:` links, the two
+  `mailto:` addresses, and contact-form submissions. Those need explicit `gtag('event', …)` calls
+  on the relevant elements. It is the difference between a decorative dashboard and one that
+  answers whether the site brought in business.
+- **The privacy notice.** GA sets cookies, which under the LFPDPPP means the site needs an aviso
+  de privacidad. There is none today and no page for it in `nav`. The legal text is Firmesa's to
+  supply, not the developer's to write.
+
+A cookieless alternative (Plausible, Umami) sidesteps the third point but is paid or self-hosted;
+GA4 is free and is what a client is most likely to already know how to read.
