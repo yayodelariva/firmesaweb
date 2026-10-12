@@ -97,12 +97,18 @@ import { url } from '../lib/links';
 
     <div class="band relative overflow-hidden py-12">
       <Loops class="text-white" opacity={0.22} />
-      <ol class="wrapper relative flex flex-wrap items-center justify-center gap-3">
+      <!-- Stacked on phones, inline from md up: the arrow is one glyph rotated
+           a quarter turn rather than a second character to keep in sync. -->
+      <ol class="wrapper relative flex flex-col items-center justify-center gap-3 md:flex-row md:flex-wrap">
         {
           process.map((step, i) => (
-            <li class="flex items-center gap-3">
+            <li class="flex flex-col items-center gap-3 md:flex-row">
               <span class="pill text-white">{step}</span>
-              {i < process.length - 1 && <span class="text-white/50" aria-hidden="true">→</span>}
+              {i < process.length - 1 && (
+                <span class="rotate-90 text-white/50 md:rotate-0" aria-hidden="true">
+                  →
+                </span>
+              )}
             </li>
           ))
         }

@@ -80,13 +80,17 @@ const canonical = absolute(path);
           addressRegion: 'Ciudad de México',
           addressCountry: 'MX',
         },
-        contactPoint: site.phones.map((phone) => ({
-          '@type': 'ContactPoint',
-          telephone: telE164(phone),
-          contactType: 'sales',
-          areaServed: 'MX',
-          availableLanguage: 'Spanish',
-        })),
+        // Omitted entirely while no phones are published: an empty
+        // `contactPoint` array is worse structured data than no key at all.
+        ...(site.phones.length > 0 && {
+          contactPoint: site.phones.map((phone) => ({
+            '@type': 'ContactPoint',
+            telephone: telE164(phone),
+            contactType: 'sales',
+            areaServed: 'MX',
+            availableLanguage: 'Spanish',
+          })),
+        }),
       })}
     />
   </head>

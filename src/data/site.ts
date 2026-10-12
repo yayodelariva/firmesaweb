@@ -12,8 +12,15 @@ export const site = {
   tagline: 'Central de medios y partner estratégico',
   description:
     'Firmesa es la central de medios y partner estratégico que posiciona marcas con precisión. Más de 50 años integrando medios masivos y digitales en un solo sistema.',
-  phones: ['55 5250 7788', '55 5254 5937'],
-  emails: ['radiodifusion@firmesa.com.mx', 'nacho@firmesa.com.mx'],
+  /**
+   * Pendientes de confirmar: los números y correos que debe publicar la nueva
+   * marca. Vacíos a propósito — las páginas conservan el hueco y los enlaces
+   * reaparecen solos en cuanto se llenen estas dos listas. El tipo se declara
+   * explícitamente para que los consumidores sigan compilando mientras están
+   * vacías.
+   */
+  phones: [] as readonly string[],
+  emails: [] as readonly string[],
   /** Pendiente: la presentación deja el campo de WhatsApp en blanco. */
   whatsapp: '',
   location: 'Polanco, CDMX',

@@ -60,6 +60,8 @@ const year = new Date().getFullYear();
             </li>
           ))
         }
+        {/* Holds the gap while the phones and emails are pending. */}
+        {site.phones.length + site.emails.length === 0 && <li class="h-20" aria-hidden="true" />}
         <li class="pt-1 text-sm text-ink-300">{site.location}</li>
         <li class="pt-2">
           <a href={site.facebook} rel="noopener noreferrer" target="_blank" class="text-sm text-white hover:text-brand-300">

@@ -2,7 +2,7 @@
 import Base from '../layouts/Base.astro';
 import Backdrop from '../components/Backdrop.astro';
 import Loops from '../components/Loops.astro';
-import { years, decades, FOUNDED } from '../data/site';
+import { years, decades } from '../data/site';
 import { traits, model360, historyPoints, learnings } from '../data/content';
 import { url } from '../lib/links';
 ---
@@ -12,29 +12,28 @@ import { url } from '../lib/links';
   path="/quienes-somos/"
   description={`Firmesa nace desde el entendimiento profundo de los medios. ${years()} años trabajando con marcas que necesitan algo más que visibilidad.`}
 >
-  <!-- Intro -->
-  <section class="relative overflow-hidden bg-brand-800">
-    <Backdrop
-      image="/img/diferentes.jpg"
-      imageClass="opacity-30"
-      overlayClass="bg-gradient-to-r from-brand-900 via-brand-800/85 to-brand-900"
-      priority
-    />
-    <Loops class="text-white" opacity={0.18} />
-
-    <div class="wrapper relative py-20 text-center md:py-28">
-      <p class="pill mx-auto text-white/75">¿Quiénes somos?</p>
-      <h1 class="mt-8 text-4xl font-black uppercase leading-[1.05] tracking-tight text-white md:text-6xl">
-        ¿Qué nos hace<br />diferentes?
-      </h1>
-      <p class="mx-auto mt-8 max-w-2xl text-lg leading-relaxed text-white/85">
-        Firmesa nace desde el entendimiento profundo de los medios.
-      </p>
-    </div>
-  </section>
-
   <!-- Nuestra historia -->
   <section class="bg-white">
+    <!-- Heading band: the page's dark entry point, carried over from the old intro. -->
+    <div class="relative overflow-hidden bg-brand-800">
+      <Backdrop
+        image="/img/diferentes.jpg"
+        imageClass="opacity-30"
+        overlayClass="bg-gradient-to-r from-brand-900 via-brand-800/85 to-brand-900"
+        priority
+      />
+      <Loops class="text-white" opacity={0.18} />
+
+      <div class="wrapper relative py-10 text-center md:py-14">
+        <h1 class="text-3xl font-black uppercase leading-[1.05] tracking-tight text-white md:text-5xl">
+          Nuestra historia
+        </h1>
+        <p class="mx-auto mt-4 max-w-2xl text-base leading-relaxed text-white/85 md:text-lg">
+          Firmesa nace desde el entendimiento profundo de los medios.
+        </p>
+      </div>
+    </div>
+
     <div class="wrapper grid items-center gap-12 py-16 md:py-24 lg:grid-cols-2">
       <!-- The only in-flow image without a fixed height: the intrinsic size
            reserves its space so the column does not jump on load. -->
@@ -49,9 +48,7 @@ import { url } from '../lib/links';
       />
 
       <div>
-        <p class="pill border-ink-300 text-ink-800">Nuestra historia</p>
-
-        <p class="mt-8 text-lg leading-relaxed text-ink-800">
+        <p class="text-lg font-bold leading-relaxed text-ink-800">
           Durante más de {decades()} años hemos trabajado con marcas que necesitan algo más que
           visibilidad:
         </p>
@@ -77,8 +74,6 @@ import { url } from '../lib/links';
             ))
           }
         </ul>
-
-        <p class="mt-8 text-sm text-ink-400">Firmesa fue constituida el 19 de julio de {FOUNDED}.</p>
       </div>
     </div>
   </section>

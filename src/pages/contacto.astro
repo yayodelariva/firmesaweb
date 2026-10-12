@@ -6,7 +6,9 @@ import { site } from '../data/site';
 import { interests } from '../data/content';
 import { telHref, mailtoHref } from '../lib/links';
 
-const primaryEmail = site.emails[0];
+// Empty while the addresses are pending: the mail client then opens with the
+// message intact but no recipient, rather than a literal "undefined".
+const primaryEmail = site.emails[0] ?? '';
 ---
 
 <Base
@@ -50,6 +52,8 @@ const primaryEmail = site.emails[0];
                   </a>
                 ))
               }
+              {/* Holds the two lines the numbers will occupy. */}
+              {site.phones.length === 0 && <div class="h-16" aria-hidden="true" />}
             </dd>
           </div>
 
@@ -68,6 +72,8 @@ const primaryEmail = site.emails[0];
                   </a>
                 ))
               }
+              {/* Holds the two lines the addresses will occupy. */}
+              {site.emails.length === 0 && <div class="h-14" aria-hidden="true" />}
             </dd>
           </div>
 

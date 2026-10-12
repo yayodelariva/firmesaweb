@@ -3,8 +3,9 @@ import Base from '../layouts/Base.astro';
 import Backdrop from '../components/Backdrop.astro';
 import BandHeading from '../components/BandHeading.astro';
 import Loops from '../components/Loops.astro';
+import Wordmark from '../components/Wordmark.astro';
 import { decades } from '../data/site';
-import { worlds, territory, model360, sectors, rotating } from '../data/content';
+import { worlds, territory, sectors, rotating } from '../data/content';
 import { url } from '../lib/links';
 ---
 
@@ -23,12 +24,9 @@ import { url } from '../lib/links';
       <p class="pill mx-auto text-white/70">Desde 1972</p>
 
       <!-- Outlined wordmark, as in the deck -->
-      <p
-        class="text-outline mt-10 select-none text-[3.5rem] font-black leading-none tracking-[0.02em] sm:text-8xl lg:text-[9rem]"
-        aria-hidden="true"
-      >
-        FIRMESA
-      </p>
+      <Wordmark
+        class="mt-10 select-none text-[3.5rem] font-black tracking-[0.02em] text-white/90 sm:text-8xl lg:text-[9rem]"
+      />
 
       <h1 class="mt-10 text-3xl font-extrabold leading-tight text-white sm:text-4xl md:text-5xl">
         <span class="sr-only">Creamos campañas, marcas y posicionamiento.</span>
@@ -143,39 +141,6 @@ import { url } from '../lib/links';
     </div>
   </section>
 
-  <!-- Modelo 360 -->
-  <section class="bg-white">
-    <div class="band relative overflow-hidden py-14">
-      <Loops class="text-white" opacity={0.18} />
-      <div class="wrapper relative text-center">
-        <p class="pill mx-auto text-white/80">Modelo 360°</p>
-        <p class="statement mt-6 text-lg text-white md:text-2xl">Las marcas no crecen por partes.</p>
-      </div>
-    </div>
-
-    <div class="wrapper py-16 md:py-20">
-      <p class="text-center text-sm font-bold uppercase tracking-[0.2em] text-ink-400">
-        Por eso integramos
-      </p>
-      <ul class="mt-8 flex flex-wrap justify-center gap-3">
-        {
-          model360.map((item) => (
-            <li class="pill border-brand-600 text-brand-600">{item}</li>
-          ))
-        }
-      </ul>
-
-      <div class="mt-14 grid gap-4 text-center md:grid-cols-2">
-        <p class="band rounded-2xl px-6 py-8 text-2xl font-black uppercase tracking-[0.12em] text-white">
-          Todo conectado
-        </p>
-        <p class="rounded-2xl bg-field px-6 py-8 text-2xl font-black uppercase tracking-[0.12em] text-brand-600">
-          Todo alineado
-        </p>
-      </div>
-    </div>
-  </section>
-
   <!-- Clientes -->
   <section class="bg-field">
     <div class="wrapper py-16 text-center md:py-20">
@@ -197,19 +162,6 @@ import { url } from '../lib/links';
       </p>
     </div>
     <BandHeading as="p" loops={false}>Nuestro trabajo es que esa decisión funcione</BandHeading>
-  </section>
-
-  <!-- Insights -->
-  <section class="relative overflow-hidden">
-    <img src={url('/img/insights.jpg')} alt="" loading="lazy" decoding="async" class="h-72 w-full object-cover md:h-96" />
-    <div class="band py-10">
-      <div class="wrapper text-center">
-        <p class="pill mx-auto text-white/85">Entender el mercado es parte del trabajo</p>
-        <p class="mt-6 text-lg text-white md:text-xl">
-          Compartimos visión, análisis y tendencias para tomar mejores decisiones.
-        </p>
-      </div>
-    </div>
   </section>
 
   <!-- Cierre -->
