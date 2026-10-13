@@ -88,14 +88,6 @@ export const digitalBestSellers = [
   },
 ] as const;
 
-export const process = [
-  'Diagnóstico',
-  'Estrategia',
-  'Producción',
-  'Distribución',
-  'Optimización',
-] as const;
-
 /* ── Medios Masivos ─────────────────────────────────────────────────────── */
 
 export const formats = [

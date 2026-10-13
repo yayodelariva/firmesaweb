@@ -6,7 +6,6 @@ import Loops from '../components/Loops.astro';
 import {
   digitalServices,
   digitalBestSellers,
-  process,
   productionFlow,
   studioSpaces,
   studioImages,
@@ -156,33 +155,6 @@ import { url } from '../lib/links';
       </ul>
 
       <p class="statement mt-12 text-lg text-white md:text-2xl">Todo en un mismo lugar</p>
-    </div>
-  </section>
-
-  <!-- Cómo trabajamos -->
-  <section class="bg-white">
-    <div class="wrapper pt-16 pb-10 md:pt-20 md:pb-12">
-      <p class="pill mx-auto block w-fit border-ink-800 text-ink-900">Cómo trabajamos</p>
-    </div>
-
-    <div class="band relative overflow-hidden py-12">
-      <Loops class="text-white" opacity={0.22} />
-      <!-- Stacked on phones, inline from md up: the arrow is one glyph rotated
-           a quarter turn rather than a second character to keep in sync. -->
-      <ol class="wrapper relative flex flex-col items-center justify-center gap-3 md:flex-row md:flex-wrap">
-        {
-          process.map((step, i) => (
-            <li class="flex flex-col items-center gap-3 md:flex-row">
-              <span class="pill text-white">{step}</span>
-              {i < process.length - 1 && (
-                <span class="rotate-90 text-white/50 md:rotate-0" aria-hidden="true">
-                  →
-                </span>
-              )}
-            </li>
-          ))
-        }
-      </ol>
     </div>
   </section>
 

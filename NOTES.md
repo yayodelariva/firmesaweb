@@ -233,11 +233,14 @@ creatividad, producción, medios) with its "de una idea, a un mayor impacto" ban
 cards that predate the deck, and the "la integramos" band. From ¿Quiénes somos?: the Modelo 360°
 section — and with it the `model360` list, since Inicio's "la integramos" was its other consumer
 and nothing reads it any more — plus the "es experiencia con dirección" closing band, which leaves
-the page ending on "construimos posicionamiento". Every one of them is intact on
-`credenciales/contenido-2026` with its data export, so any can come back whole:
+the page ending on "construimos posicionamiento". From Firmesa Digital: the "cómo trabajamos"
+five-pill flow and its `process` list — the deck's "de la idea a la pantalla" pipeline, added on
+`credenciales/contenido-2026`, now carries the how-we-work story on that page alone. Every one of
+them is intact on `credenciales/contenido-2026` with its data export, so any can come back whole:
 
 ```sh
-git checkout credenciales/contenido-2026 -- src/pages/index.astro src/pages/quienes-somos.astro src/data/content.ts
+git checkout credenciales/contenido-2026 -- src/pages/index.astro src/pages/quienes-somos.astro \
+  src/pages/firmesa-digital.astro src/data/content.ts
 ```
 
 That checkout restores the whole file, so take it as a starting point and cut back to the one
