@@ -2,7 +2,7 @@
 import Base from '../layouts/Base.astro';
 import Backdrop from '../components/Backdrop.astro';
 import BandHeading from '../components/BandHeading.astro';
-import Loops from '../components/Loops.astro';
+import Cadena from '../components/Cadena.astro';
 import { digitalServices, digitalBestSellers, process } from '../data/content';
 import { url } from '../lib/links';
 ---
@@ -13,11 +13,11 @@ import { url } from '../lib/links';
   description="Firmesa Digital es la unidad diseñada para construir posicionamiento en digital con estrategia, creatividad y contenido: producción audiovisual, contenido para redes, podcast, branding y pauta."
 >
   <!-- Hero -->
-  <section class="relative overflow-hidden bg-ink-900">
+  <section class="relative overflow-hidden bg-brand-900">
     <Backdrop
       image="/img/digital-que-es.jpg"
       imageClass="opacity-55"
-      overlayClass="bg-gradient-to-t from-ink-900 via-ink-900/70 to-ink-900/40"
+      overlayClass="bg-gradient-to-t from-brand-900 via-brand-800/75 to-brand-900/40"
       priority
     />
 
@@ -35,8 +35,8 @@ import { url } from '../lib/links';
   </section>
 
   <!-- ¿Qué hacemos? -->
-  <section class="relative overflow-hidden bg-brand-600">
-    <Loops class="text-white" opacity={0.14} />
+  <section class="relative overflow-hidden bg-brand-500">
+    <Cadena opacity={0.14} />
 
     <div class="wrapper relative py-16 md:py-20">
       <p class="pill mx-auto block w-fit text-white">¿Qué hacemos?</p>
@@ -52,8 +52,8 @@ import { url } from '../lib/links';
                 decoding="async"
                 class="h-56 w-full object-cover transition-transform duration-500 group-hover:scale-105"
               />
-              <div class="absolute inset-0 flex items-center justify-center bg-ink-900/45 p-4">
-                <span class="pill border-white/80 bg-ink-900/35 text-center text-white backdrop-blur-sm">
+              <div class="absolute inset-0 flex items-center justify-center bg-brand-900/45 p-4">
+                <span class="pill border-white/80 bg-brand-900/35 text-center text-white backdrop-blur-sm">
                   {title}
                 </span>
               </div>
@@ -75,9 +75,9 @@ import { url } from '../lib/links';
     <div class="wrapper grid gap-4 pb-16 sm:grid-cols-2 lg:grid-cols-5 md:pb-20">
       {
         digitalBestSellers.map(({ title, text, image }) => (
-          <article class="relative overflow-hidden rounded-3xl bg-ink-900">
+          <article class="relative overflow-hidden rounded-3xl bg-brand-900">
             <img src={url(image)} alt="" loading="lazy" decoding="async" class="h-[26rem] w-full object-cover opacity-70" />
-            <div class="absolute inset-0 flex flex-col justify-between bg-gradient-to-b from-ink-900/60 via-transparent to-ink-900/90 p-5">
+            <div class="absolute inset-0 flex flex-col justify-between bg-gradient-to-b from-brand-900/60 via-transparent to-brand-900/90 p-5">
               <span class="pill border-white/70 text-center text-[0.625rem] tracking-[0.14em] text-white">
                 {title}
               </span>
@@ -96,7 +96,7 @@ import { url } from '../lib/links';
     </div>
 
     <div class="band relative overflow-hidden py-12">
-      <Loops class="text-white" opacity={0.22} />
+      <Cadena opacity={0.22} />
       <!-- Stacked on phones, inline from md up: the arrow is one glyph rotated
            a quarter turn rather than a second character to keep in sync. -->
       <ol class="wrapper relative flex flex-col items-center justify-center gap-3 md:flex-row md:flex-wrap">
@@ -124,18 +124,18 @@ import { url } from '../lib/links';
       <div class="mt-12 grid gap-6 md:grid-cols-2">
         <article class="relative overflow-hidden rounded-3xl">
           <img src={url('/img/enfoque-pieza.jpg')} alt="" loading="lazy" decoding="async" class="h-96 w-full object-cover" />
-          <div class="absolute inset-0 bg-ink-900/45 p-8">
+          <div class="absolute inset-0 bg-brand-900/45 p-8">
             <p class="statement text-center text-lg text-white md:text-2xl">
-              Cada pieza tiene una <em class="not-italic text-brand-300">intención</em>
+              Cada pieza tiene una <em class="not-italic text-brand-200">intención</em>
             </p>
           </div>
         </article>
 
         <article class="relative overflow-hidden rounded-3xl">
           <img src={url('/img/enfoque-decision.jpg')} alt="" loading="lazy" decoding="async" class="h-96 w-full object-cover" />
-          <div class="absolute inset-0 bg-ink-900/45 p-8">
+          <div class="absolute inset-0 bg-brand-900/45 p-8">
             <p class="statement text-center text-lg text-white md:text-2xl">
-              Cada decisión responde a una <em class="not-italic text-brand-300">estrategia</em>
+              Cada decisión responde a una <em class="not-italic text-brand-200">estrategia</em>
             </p>
           </div>
         </article>
@@ -144,8 +144,8 @@ import { url } from '../lib/links';
   </section>
 
   <!-- Cierre -->
-  <section class="relative overflow-hidden bg-ink-900">
-    <Backdrop image="/img/mockup-edificio.jpg" imageClass="opacity-45" overlayClass="bg-ink-900/55" />
+  <section class="relative overflow-hidden bg-brand-900">
+    <Backdrop image="/img/mockup-edificio.jpg" imageClass="opacity-45" overlayClass="bg-brand-900/55" />
 
     <div class="wrapper relative py-20 text-center md:py-28">
       <p class="statement text-lg text-white md:text-3xl">

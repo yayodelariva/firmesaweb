@@ -2,8 +2,7 @@
 import Base from '../layouts/Base.astro';
 import Backdrop from '../components/Backdrop.astro';
 import BandHeading from '../components/BandHeading.astro';
-import Loops from '../components/Loops.astro';
-import Wordmark from '../components/Wordmark.astro';
+import Cadena from '../components/Cadena.astro';
 import { decades } from '../data/site';
 import { worlds, territory, sectors, rotating } from '../data/content';
 import { url } from '../lib/links';
@@ -11,21 +10,28 @@ import { url } from '../lib/links';
 
 <Base title="Inicio" path="/">
   <!-- Hero -->
-  <section class="relative overflow-hidden bg-ink-900">
+  <section class="relative overflow-hidden bg-brand-900">
     <Backdrop
       image="/img/hero-inicio.jpg"
       imageClass="opacity-45"
-      overlayClass="bg-gradient-to-br from-ink-900 via-ink-900/80 to-brand-900/85"
+      overlayClass="bg-gradient-to-br from-brand-900 via-brand-800/85 to-brand-700/80"
       priority
     />
-    <Loops class="text-white" opacity={0.16} />
+    <Cadena opacity={0.16} />
 
     <div class="wrapper relative py-24 text-center md:py-32">
       <p class="pill mx-auto text-white/70">Desde 1972</p>
 
-      <!-- Outlined wordmark, as in the deck -->
-      <Wordmark
-        class="mt-10 select-none text-[3.5rem] font-black tracking-[0.02em] text-white/90 sm:text-8xl lg:text-[9rem]"
+      <!-- Logotipo primario del manual, versión en blanco. El manual fija el
+           logotipo en Avenir Next Heavy, así que es el archivo de marca y no
+           texto compuesto con la tipografía del sitio. -->
+      <img
+        src={url('/img/logo-firmesa-vertical-blanco.png')}
+        alt=""
+        width="347"
+        height="390"
+        fetchpriority="high"
+        class="mx-auto mt-10 h-auto w-48 sm:w-60 lg:w-72"
       />
 
       <h1 class="mt-10 text-3xl font-extrabold leading-tight text-white sm:text-4xl md:text-5xl">
@@ -34,7 +40,7 @@ import { url } from '../lib/links';
         <span aria-hidden="true" class="rotator mt-2 grid justify-items-center">
           {
             rotating.map((word, i) => (
-              <span class="col-start-1 row-start-1 text-brand-300" style={`--i:${i}`}>
+              <span class="col-start-1 row-start-1 text-brand-200" style={`--i:${i}`}>
                 {word}
               </span>
             ))
@@ -61,18 +67,18 @@ import { url } from '../lib/links';
         {' '}que posiciona marcas con precisión.
       </p>
       <p class="mt-6 text-xl leading-relaxed text-ink-600 md:text-2xl">
-        <strong class="font-extrabold text-brand-600">Más de {decades()} años construyendo marcas.</strong>
+        <strong class="font-extrabold text-brand-500">Más de {decades()} años construyendo marcas.</strong>
         {' '}Hoy, integrando medios masivos y digitales en un solo sistema.
       </p>
     </div>
   </section>
 
   <!-- Lo mejor de dos mundos -->
-  <section class="relative overflow-hidden bg-ink-900">
-    <Backdrop image="/img/textura-acustica.jpg" imageClass="opacity-25" overlayClass="bg-ink-900/70" />
+  <section class="relative overflow-hidden bg-brand-900">
+    <Backdrop image="/img/textura-acustica.jpg" imageClass="opacity-25" overlayClass="bg-brand-900/70" />
 
     <div class="relative">
-      <BandHeading class="py-4" loops={false}>Lo mejor de dos mundos</BandHeading>
+      <BandHeading class="py-4" cadena={false}>Lo mejor de dos mundos</BandHeading>
 
       <div class="wrapper grid gap-8 py-16 md:grid-cols-2 md:py-20">
         {
@@ -87,8 +93,8 @@ import { url } from '../lib/links';
                     decoding="async"
                     class="h-64 w-full object-cover transition-transform duration-500 group-hover:scale-105 md:h-72"
                   />
-                  <div class="absolute inset-0 flex items-center justify-center bg-ink-900/25">
-                    <span class="pill bg-ink-900/40 text-white backdrop-blur-sm">{label}</span>
+                  <div class="absolute inset-0 flex items-center justify-center bg-brand-900/25">
+                    <span class="pill bg-brand-900/40 text-white backdrop-blur-sm">{label}</span>
                   </div>
                 </div>
               </div>
@@ -119,16 +125,16 @@ import { url } from '../lib/links';
   </section>
 
   <!-- La integramos -->
-  <section class="relative overflow-hidden bg-ink-900">
-    <Backdrop image="/img/integramos.jpg" imageClass="opacity-40" overlayClass="bg-ink-900/55" />
+  <section class="relative overflow-hidden bg-brand-900">
+    <Backdrop image="/img/integramos.jpg" imageClass="opacity-40" overlayClass="bg-brand-900/55" />
 
     <div class="relative py-20 md:py-24">
       <div class="bg-field/95 py-8">
         <div class="wrapper text-center">
           <p class="statement text-sm text-ink-600 md:text-xl">
-            No dividimos la <span class="text-brand-600">comunicación</span>
+            No dividimos la <span class="text-brand-500">comunicación</span>
           </p>
-          <p class="mt-2 text-4xl font-black uppercase tracking-tight text-brand-600 md:text-6xl">
+          <p class="mt-2 text-4xl font-black uppercase tracking-tight text-brand-500 md:text-6xl">
             La integramos
           </p>
         </div>
@@ -157,16 +163,16 @@ import { url } from '../lib/links';
           ))
         }
       </ul>
-      <p class="statement mt-14 text-sm text-brand-600 md:text-xl">
+      <p class="statement mt-14 text-sm text-brand-500 md:text-xl">
         Cada proyecto parte de una decisión
       </p>
     </div>
-    <BandHeading as="p" loops={false}>Nuestro trabajo es que esa decisión funcione</BandHeading>
+    <BandHeading as="p" cadena={false}>Nuestro trabajo es que esa decisión funcione</BandHeading>
   </section>
 
   <!-- Cierre -->
-  <section class="relative overflow-hidden bg-ink-900">
-    <Backdrop image="/img/cierre-tablet.jpg" imageClass="opacity-35" overlayClass="bg-ink-900/60" />
+  <section class="relative overflow-hidden bg-brand-900">
+    <Backdrop image="/img/cierre-tablet.jpg" imageClass="opacity-35" overlayClass="bg-brand-900/60" />
 
     <div class="wrapper relative py-20 text-center md:py-28">
       <p class="statement text-lg text-white md:text-3xl">

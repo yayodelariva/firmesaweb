@@ -1,13 +1,13 @@
 ---
-import Loops from './Loops.astro';
+import Cadena from './Cadena.astro';
 import { nav, site, decades } from '../data/site';
 import { url, telHref, mailtoHref } from '../lib/links';
 
 const year = new Date().getFullYear();
 ---
 
-<footer class="relative overflow-hidden bg-ink-900 text-ink-200">
-  <Loops class="text-white" opacity={0.09} />
+<footer class="relative overflow-hidden bg-brand-900 text-ink-200">
+  <Cadena opacity={0.09} />
 
   <div class="wrapper relative grid gap-12 py-16 md:grid-cols-3 md:py-20">
     <div>
@@ -30,7 +30,7 @@ const year = new Date().getFullYear();
         {
           nav.map(({ href, label }) => (
             <li>
-              <a href={url(href)} class="text-sm font-semibold text-white transition-colors hover:text-brand-300">
+              <a href={url(href)} class="text-sm font-semibold text-white transition-colors hover:text-brand-200">
                 {label}
               </a>
             </li>
@@ -45,7 +45,7 @@ const year = new Date().getFullYear();
         {
           site.phones.map((phone) => (
             <li>
-              <a href={telHref(phone)} class="text-sm text-white hover:text-brand-300">
+              <a href={telHref(phone)} class="text-sm text-white hover:text-brand-200">
                 {phone}
               </a>
             </li>
@@ -54,7 +54,7 @@ const year = new Date().getFullYear();
         {
           site.emails.map((email) => (
             <li>
-              <a href={mailtoHref(email)} class="text-sm break-all text-white hover:text-brand-300">
+              <a href={mailtoHref(email)} class="text-sm break-all text-white hover:text-brand-200">
                 {email}
               </a>
             </li>
@@ -64,7 +64,7 @@ const year = new Date().getFullYear();
         {site.phones.length + site.emails.length === 0 && <li class="h-20" aria-hidden="true" />}
         <li class="pt-1 text-sm text-ink-300">{site.location}</li>
         <li class="pt-2">
-          <a href={site.facebook} rel="noopener noreferrer" target="_blank" class="text-sm text-white hover:text-brand-300">
+          <a href={site.facebook} rel="noopener noreferrer" target="_blank" class="text-sm text-white hover:text-brand-200">
             Facebook
           </a>
         </li>

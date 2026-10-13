@@ -42,12 +42,26 @@ August 2026 and stations change frequency and branding.
   band, a control room, a neon-mic frame, the bus hero, and two brand mockups (parabús and
   building). All are recoverable from the PDF with `pdfimages`.
 
-## Type licensing — Avenir
+## Typography — settled by the identity manual
 
-**The site does not use the deck's typeface.** This is the one place where the build knowingly
-departs from the presentation, so it is worth understanding before signing off on the design.
+**Nunito Sans is Firmesa's typeface. It is not a stand-in for one.** The *Manual de identidad
+FIRMESA* names it outright — "tipografía sans serif de carácter moderno, limpio y accesible",
+shown in Light, Regular, Italic, Semibold, Bold, Extra Bold and Black — which is exactly the set
+`Base.astro` loads from Google Fonts.
 
-### What the presentation actually uses
+**Avenir Next Heavy is specified for the logotype only.** The manual is explicit that the face was
+chosen for the word FIRMESA itself, for "su trazo geométrico, limpio y de gran peso visual". The
+logotype ships as artwork (`public/img/logo-firmesa*.png`), so the site never needs the font, and
+the webfont licence this section used to treat as an open question is **not** on the critical
+path. It only matters if someone wants to typeset new headings in Avenir, which the manual does
+not ask for.
+
+That is why `src/pages/index.astro` and `src/pages/medios-masivos.astro` place the logo file where
+they used to render the word "FIRMESA" in Nunito Sans at weight 900: an outlined or extra-bold
+Nunito "FIRMESA" is a second, unauthorised wordmark, and the manual's "usos incorrectos" page
+rules out exactly that kind of substitution.
+
+### What the brand presentation used, for the record
 
 `pdffonts present\ página\ web.pdf` reports nine embedded (subset) TrueType faces:
 
@@ -63,62 +77,21 @@ departs from the presentation, so it is worth understanding before signing off o
 | `AvenirNext-Heavy`    | A handful of headings (mixed in with Avenir proper)       |
 | `Archivo-SemiBold`    | A minor role, a few labels                                |
 
-So the deck is **Avenir throughout**, in six weights plus one oblique, with a little Archivo.
+The deck predates the manual and set everything in Avenir. Avenir is an Adrian Frutiger design
+owned by Monotype; it is not on Google Fonts and has no free webfont licence, so shipping it would
+mean buying one. The manual settles the question in Nunito Sans's favour, so that purchase is no
+longer implied by the design.
 
-(`pdffonts` reports the face names and that all nine are embedded as subsets; the roles in the
-right-hand column are read off the slides, not extracted from the file.)
+### If Avenir is licensed anyway
 
-### Why it is not on the site
+Still a contained change: drop `.woff2` files into `public/fonts/`, add one `@font-face` per
+weight in `src/styles/global.css`, repoint `--font-sans`, and delete the Google Fonts `<link>`
+and its two `preconnect` hints in `src/layouts/Base.astro`. Nothing else in the codebase names a
+typeface. Re-check `.statement` and `.pill` tracking afterwards: Avenir's metrics differ from
+Nunito Sans's. Before any of that, confirm with Monotype that the licence covers **web** use at
+Firmesa's pageview volume — it is priced separately from the desktop licence the designers hold.
 
-Avenir is an Adrian Frutiger design owned by Monotype (via the Linotype library). It is **not on
-Google Fonts and has no free webfont licence.** Embedding it in a public site requires a paid
-webfont licence — separate from any desktop licence Firmesa's designers already hold for
-Illustrator. Shipping the font files without that licence would be a licence violation, so the
-build does not do it.
-
-Note that this is a *webfont* question only. The PDF legitimately embeds subsets for display;
-that is a different permission from serving the font to every visitor.
-
-### What ships instead
-
-**Nunito Sans**, from Google Fonts, in weights 300/400/600/700/800/900 — matching the six Avenir
-weights the deck uses. It is the closest freely licensable match: a geometric sans with humanist
-warmth, a tall x-height, and a double-storey `a`, which is the combination that makes Avenir read
-the way it does. Other candidates considered were Mulish and Figtree (both close, slightly
-narrower), and Montserrat, Poppins and Jost — all rejected as too geometric, which flattens the
-warmth Avenir carries in the body copy.
-
-The difference is visible if you compare side by side, particularly in the wide letter-spaced
-uppercase statements. It is not visible to someone who has not seen the deck.
-
-### Swapping in the real Avenir
-
-If Firmesa licenses Avenir (or Avenir Next) for web, it is a contained change:
-
-1. Confirm the licence covers **web use** at Firmesa's traffic volume — Monotype prices webfonts
-   separately, historically by pageview tier. Verify current terms directly with Monotype rather
-   than relying on this note.
-2. Drop the `.woff2` files into `public/fonts/`.
-3. Add `@font-face` blocks in `src/styles/global.css`, one per weight, with `font-display: swap`.
-4. Point the token at the new family — this is the only line that decides what the site renders:
-
-   ```css
-   --font-sans: "Avenir", "Avenir Next", ui-sans-serif, system-ui, sans-serif;
-   ```
-
-5. Delete the Google Fonts `<link>` and the two `preconnect` hints in `src/layouts/Base.astro`.
-   Leaving them costs two DNS lookups and a stylesheet fetch for a font nothing references.
-6. Rebuild and re-check the wide letter-spaced lines: Avenir's metrics differ from Nunito Sans's,
-   so `.statement` and `.pill` tracking in `global.css` may want a small adjustment.
-
-Nothing else in the codebase names a typeface — every rule inherits `--font-sans`.
-
-### If Avenir is never licensed
-
-`Archivo-SemiBold`, the deck's secondary face, **is** on Google Fonts and could be matched exactly
-at no cost. It plays only a minor role in the presentation, so the site currently uses one family
-throughout for coherence; introducing Archivo for labels and pills would move a small part of the
-design closer to the source without any licensing question.
+Doing it would now be a deliberate departure from the manual, not a correction of one.
 
 ## Form endpoint
 
@@ -180,3 +153,45 @@ the property.
 
 A cookieless alternative (Plausible, Umami) sidesteps the third point but is paid or self-hosted;
 GA4 is free and is what a client is most likely to already know how to read.
+
+## Identity manual — the rules this build follows
+
+Reference, not a pending item. Source: *Manual de identidad FIRMESA* (24 pp., September 2026),
+kept outside the repo in `Manual y Credenciales/`.
+
+**Palette.** The manual publishes eight swatches in two rows. Six are brand tones and are in
+`src/styles/global.css` unaltered, ordered by luminosity, with the manual's *principal* at the
+500 step — which is why the workhorse token is `brand-500` and not `brand-600`:
+
+| Token       | Hex       | Manual's own label      |
+| :---------- | :-------- | :---------------------- |
+| `brand-400` | `#c12f56` | degradado, extremo claro |
+| `brand-500` | `#951936` | **principal**            |
+| `brand-600` | `#820035` | paleta principal          |
+| `brand-700` | `#610b1a` | paleta principal          |
+| `brand-800` | `#4c0a1b` | degradado                 |
+| `brand-900` | `#380712` | degradado                 |
+
+The eighth swatch, `#f4f4f5`, is the light neutral and is `--color-field`. Tones 50–300 are **not**
+in the manual: they are mixes of the principal with that neutral, added for light surfaces and for
+accent text on dark, which the manual does not cover.
+
+`--color-ink-*` stays a neutral grey ramp for body text and borders, but no section is laid on it
+any more: dark surfaces are `brand-900`, as every dark page in the manual and in the credentials
+deck is.
+
+**Logo.** Two lockups, both in `public/img/`: the primary stacked one
+(`logo-firmesa-vertical*.png`, mark over wordmark, equal widths) and the secondary horizontal one
+(`logo-firmesa*.png`). Both were derived from the artwork already in the repo, separated by
+connected component because the mark and the wordmark overlap horizontally. The manual's "usos
+correctos" allows full crimson on light and solid white on dark, and rules out recolouring,
+lighter pink gradients, and any substitute wordmark.
+
+**Texture.** `src/components/Cadena.astro` is the manual's "cadena para textura": the mark's own
+silhouette, traced from the logo artwork and stroked thin, which is what that page shows. It
+replaced an approximated loop motif. It ships as two static SVGs (`public/img/cadena-*.svg`)
+rather than inline markup because the contour is ~7 kB and appears several times per page; the
+cost of that is two prepared tones instead of `currentColor`.
+
+**Gradient.** `.band` follows the manual's *degradado* strip: dark at both ends, the principal
+through the middle, and a brief rise into `brand-400` before it closes.

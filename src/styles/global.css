@@ -1,17 +1,23 @@
 @import "tailwindcss";
 
 @theme {
-  /* Crimson sampled from the new logotype (gradient #5e0d1e → #a11838) */
-  --color-brand-50: #fbf1f4;
-  --color-brand-100: #f6dfe5;
-  --color-brand-200: #ecbdc9;
-  --color-brand-300: #d98ba0;
-  --color-brand-400: #c33a58;
-  --color-brand-500: #a11838;
-  --color-brand-600: #901830;
-  --color-brand-700: #75122a;
-  --color-brand-800: #5e0d1e;
-  --color-brand-900: #3f0812;
+  /*
+   * Paleta cromática del Manual de identidad FIRMESA. Los seis tonos de marca
+   * son los del manual, sin alterar y ordenados por luminosidad; 500 es el
+   * principal. Los tonos 50–300 no están en el manual: son mezclas del
+   * principal con su propio neutro claro (#f4f4f5), para fondos y textos
+   * claros que el manual no cubre.
+   */
+  --color-brand-50: #eee7ea;
+  --color-brand-100: #e9dade;
+  --color-brand-200: #ddbfc7;
+  --color-brand-300: #c9919f;
+  --color-brand-400: #c12f56;
+  --color-brand-500: #951936;
+  --color-brand-600: #820035;
+  --color-brand-700: #610b1a;
+  --color-brand-800: #4c0a1b;
+  --color-brand-900: #380712;
 
   --color-ink-50: #f6f5f5;
   --color-ink-100: #e9e7e7;
@@ -22,8 +28,8 @@
   --color-ink-800: #2a2426;
   --color-ink-900: #171316;
 
-  /* Deck's neutral field */
-  --color-field: #e3e1e1;
+  /* Neutro claro del manual */
+  --color-field: #f4f4f5;
 
   --font-sans: "Nunito Sans", ui-sans-serif, system-ui, -apple-system, sans-serif;
 }
@@ -81,13 +87,15 @@
     line-height: 1;
   }
 
-  /* Crimson band: dark at the edges, brighter through the middle. */
+  /* Degradado del manual: oscuro en los extremos, principal al centro y un
+     punto alto en el tono claro antes de volver a cerrar. */
   .band {
     background-image: linear-gradient(
       100deg,
       var(--color-brand-900) 0%,
-      var(--color-brand-600) 35%,
-      var(--color-brand-500) 55%,
+      var(--color-brand-700) 26%,
+      var(--color-brand-500) 50%,
+      var(--color-brand-400) 64%,
       var(--color-brand-800) 100%
     );
   }
@@ -106,10 +114,10 @@
   }
 
   .btn-brand {
-    background-color: var(--color-brand-600);
+    background-color: var(--color-brand-500);
     color: var(--color-white);
   }
-  .btn-brand:hover { background-color: var(--color-brand-500); }
+  .btn-brand:hover { background-color: var(--color-brand-400); }
 
   /* On a dark or photographic section, where crimson would not read. */
   .btn-light {
@@ -145,7 +153,7 @@
   }
   /* The border alone is a colour-only focus cue; keep the outline for keyboards. */
   .field:focus-visible {
-    border-color: var(--color-brand-600);
+    border-color: var(--color-brand-500);
     outline: 2px solid var(--color-brand-500);
     outline-offset: 2px;
   }

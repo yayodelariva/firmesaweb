@@ -1,7 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 import Backdrop from '../components/Backdrop.astro';
-import Loops from '../components/Loops.astro';
+import Cadena from '../components/Cadena.astro';
 import { years, decades } from '../data/site';
 import { traits, model360, historyPoints, learnings } from '../data/content';
 import { url } from '../lib/links';
@@ -22,7 +22,7 @@ import { url } from '../lib/links';
         overlayClass="bg-gradient-to-r from-brand-900 via-brand-800/85 to-brand-900"
         priority
       />
-      <Loops class="text-white" opacity={0.18} />
+      <Cadena opacity={0.18} />
 
       <div class="wrapper relative py-10 text-center md:py-14">
         <h1 class="text-3xl font-black uppercase leading-[1.05] tracking-tight text-white md:text-5xl">
@@ -56,7 +56,7 @@ import { url } from '../lib/links';
           {
             historyPoints.map((point) => (
               <li class="flex gap-3 text-ink-600">
-                <span class="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-brand-600" />
+                <span class="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-brand-500" />
                 <span>{point}</span>
               </li>
             ))
@@ -68,7 +68,7 @@ import { url } from '../lib/links';
           {
             learnings.map((point) => (
               <li class="flex gap-3 text-ink-600">
-                <span class="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-brand-600" />
+                <span class="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-brand-500" />
                 <span>{point}</span>
               </li>
             ))
@@ -79,15 +79,15 @@ import { url } from '../lib/links';
   </section>
 
   <!-- Evolución -->
-  <section class="relative overflow-hidden bg-ink-900">
+  <section class="relative overflow-hidden bg-brand-900">
     <Backdrop
       image="/img/evolucion.jpg"
       imageClass="opacity-45"
-      overlayClass="bg-gradient-to-l from-ink-900 via-ink-900/70 to-ink-900/40"
+      overlayClass="bg-gradient-to-l from-brand-900 via-brand-800/75 to-brand-900/40"
     />
 
     <div class="wrapper relative py-20 md:py-28">
-      <div class="ml-auto max-w-xl rounded-3xl border border-white/25 bg-ink-900/70 p-8 backdrop-blur-sm md:p-10">
+      <div class="ml-auto max-w-xl rounded-3xl border border-white/25 bg-brand-900/70 p-8 backdrop-blur-sm md:p-10">
         <p class="pill text-white/80">Evolución</p>
 
         <div class="mt-8 space-y-5 text-white/90">
@@ -118,7 +118,7 @@ import { url } from '../lib/links';
                 i % 3 === 1 ? 'bg-brand-500' : i % 3 === 2 ? 'bg-brand-900' : 'bg-brand-700',
               ]}
             >
-              <Loops class="text-white" opacity={0.22} />
+              <Cadena opacity={0.22} />
               <span class="relative">{trait}</span>
             </li>
           ))
@@ -132,8 +132,8 @@ import { url } from '../lib/links';
   </section>
 
   <!-- Modelo 360 -->
-  <section class="relative overflow-hidden bg-ink-900">
-    <Backdrop image="/img/modelo-360.jpg" imageClass="opacity-40" overlayClass="bg-ink-900/60" />
+  <section class="relative overflow-hidden bg-brand-900">
+    <Backdrop image="/img/modelo-360.jpg" imageClass="opacity-40" overlayClass="bg-brand-900/60" />
 
     <div class="relative">
       <div class="band py-6">
