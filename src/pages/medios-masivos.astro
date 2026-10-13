@@ -103,10 +103,17 @@ import { url } from '../lib/links';
 
   <!-- Medios en movimiento -->
   <section class="bg-field">
-    <BandHeading class="py-6" headingClass="text-sm md:text-xl">Medios en movimiento</BandHeading>
-
     <div class="wrapper py-16 md:py-20">
-      <p class="mx-auto max-w-2xl text-center text-xl leading-relaxed text-ink-800 md:text-2xl">
+      <!-- Same outlined display heading as Radio, in crimson: the white
+           outline of the Radio version would vanish on this light field. -->
+      <h2
+        class="text-outline text-center text-5xl font-black uppercase tracking-tight md:text-7xl"
+        style="--outline-width: 1.5px; --outline-color: var(--color-brand-500);"
+      >
+        Medios en movimiento
+      </h2>
+
+      <p class="mx-auto mt-10 max-w-2xl text-center text-xl leading-relaxed text-ink-800 md:text-2xl">
         Llevamos a las marcas más lejos, en cada etapa del viaje.
       </p>
 
