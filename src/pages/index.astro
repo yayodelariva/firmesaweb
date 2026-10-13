@@ -2,7 +2,7 @@
 import Base from '../layouts/Base.astro';
 import Backdrop from '../components/Backdrop.astro';
 import BandHeading from '../components/BandHeading.astro';
-import Cadena from '../components/Cadena.astro';
+import Loops from '../components/Loops.astro';
 import { site, decades } from '../data/site';
 import { worlds, territory, clients, singleVision, rotating } from '../data/content';
 import { url } from '../lib/links';
@@ -17,7 +17,7 @@ import { url } from '../lib/links';
       overlayClass="bg-gradient-to-br from-brand-900 via-brand-800/85 to-brand-700/80"
       priority
     />
-    <Cadena opacity={0.16} />
+    <Loops class="text-white" opacity={0.16} />
 
     <div class="wrapper relative py-24 text-center md:py-32">
       <p class="pill mx-auto text-white/70">Desde 1972</p>
@@ -90,7 +90,7 @@ import { url } from '../lib/links';
     <Backdrop image="/img/textura-acustica.jpg" imageClass="opacity-25" overlayClass="bg-brand-900/70" />
 
     <div class="relative">
-      <BandHeading class="py-4" cadena={false}>Lo mejor de dos mundos</BandHeading>
+      <BandHeading class="py-4" loops={false}>Lo mejor de dos mundos</BandHeading>
 
       <div class="wrapper grid gap-8 py-16 md:grid-cols-2 md:py-20">
         {
@@ -208,7 +208,7 @@ import { url } from '../lib/links';
         Cada proyecto parte de una decisión
       </p>
     </div>
-    <BandHeading as="p" cadena={false}>Nuestro trabajo es que esa decisión funcione</BandHeading>
+    <BandHeading as="p" loops={false}>Nuestro trabajo es que esa decisión funcione</BandHeading>
   </section>
 
   <!-- Cierre -->

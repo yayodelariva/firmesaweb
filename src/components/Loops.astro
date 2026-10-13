@@ -1,0 +1,30 @@
+---
+/**
+ * The brand's interlocking-curve motif, lifted from the deck.
+ * Purely decorative: it sits behind content at low opacity.
+ */
+interface Props {
+  class?: string;
+  /** Stroke opacity, 0–1. */
+  opacity?: number;
+}
+const { class: className = '', opacity = 0.28 } = Astro.props;
+---
+
+<svg
+  class:list={['pointer-events-none absolute inset-0 h-full w-full', className]}
+  viewBox="0 0 1366 768"
+  preserveAspectRatio="xMidYMid slice"
+  fill="none"
+  aria-hidden="true"
+  focusable="false"
+>
+  <g stroke="currentColor" stroke-width="1.25" opacity={opacity}>
+    <ellipse cx="500" cy="384" rx="470" ry="300" />
+    <ellipse cx="860" cy="384" rx="470" ry="300" />
+    <ellipse cx="683" cy="300" rx="300" ry="300" />
+    <ellipse cx="683" cy="470" rx="300" ry="300" />
+    <path d="M-120 700C240 520 520 300 1500 120" />
+    <path d="M-120 300C300 520 900 640 1500 560" />
+  </g>
+</svg>

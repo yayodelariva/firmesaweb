@@ -2,7 +2,7 @@
 import Base from '../layouts/Base.astro';
 import Backdrop from '../components/Backdrop.astro';
 import BandHeading from '../components/BandHeading.astro';
-import Cadena from '../components/Cadena.astro';
+import Loops from '../components/Loops.astro';
 import {
   digitalServices,
   digitalBestSellers,
@@ -43,7 +43,7 @@ import { url } from '../lib/links';
 
   <!-- ¿Qué hacemos? -->
   <section class="relative overflow-hidden bg-brand-500">
-    <Cadena opacity={0.14} />
+    <Loops class="text-white" opacity={0.14} />
 
     <div class="wrapper relative py-16 md:py-20">
       <p class="pill mx-auto block w-fit text-white">¿Qué hacemos?</p>
@@ -127,7 +127,7 @@ import { url } from '../lib/links';
 
   <!-- Espacios de producción -->
   <section class="relative overflow-hidden bg-brand-900">
-    <Cadena opacity={0.1} />
+    <Loops class="text-white" opacity={0.1} />
 
     <div class="wrapper relative py-16 md:py-24">
       <p class="pill w-fit text-white/85">Nuestros espacios de producción</p>
@@ -166,7 +166,7 @@ import { url } from '../lib/links';
     </div>
 
     <div class="band relative overflow-hidden py-12">
-      <Cadena opacity={0.22} />
+      <Loops class="text-white" opacity={0.22} />
       <!-- Stacked on phones, inline from md up: the arrow is one glyph rotated
            a quarter turn rather than a second character to keep in sync. -->
       <ol class="wrapper relative flex flex-col items-center justify-center gap-3 md:flex-row md:flex-wrap">

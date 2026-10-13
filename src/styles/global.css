@@ -19,6 +19,14 @@
   --color-brand-800: #4c0a1b;
   --color-brand-900: #380712;
 
+  /*
+   * Escala neutra, intacta. Hoy sólo viste texto, bordes y campos: las
+   * secciones oscuras pasaron a `brand-900`, el oscuro del manual. Se conserva
+   * completa —`ink-900` incluido— para poder volver atrás: toda sección oscura
+   * era `bg-ink-900`, y cada velo sobre fotografía, `bg-ink-900/NN`. Revertir
+   * es cambiar el prefijo `brand-900` por `ink-900` en esas clases, sin tocar
+   * los valores.
+   */
   --color-ink-50: #f6f5f5;
   --color-ink-100: #e9e7e7;
   --color-ink-200: #d5d2d2;

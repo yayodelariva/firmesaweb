@@ -1,5 +1,5 @@
 ---
-import Cadena from './Cadena.astro';
+import Loops from './Loops.astro';
 import { nav, site, decades } from '../data/site';
 import { url, telHref, mailtoHref } from '../lib/links';
 
@@ -7,7 +7,7 @@ const year = new Date().getFullYear();
 ---
 
 <footer class="relative overflow-hidden bg-brand-900 text-ink-200">
-  <Cadena opacity={0.09} />
+  <Loops class="text-white" opacity={0.09} />
 
   <div class="wrapper relative grid gap-12 py-16 md:grid-cols-3 md:py-20">
     <div>

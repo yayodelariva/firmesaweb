@@ -181,7 +181,9 @@ accent text on dark, which the manual does not cover.
 
 `--color-ink-*` stays a neutral grey ramp for body text and borders, but no section is laid on it
 any more: dark surfaces are `brand-900`, as every dark page in the manual and in the credentials
-deck is.
+deck is. **The ramp is kept whole on purpose, `ink-900` included.** Going back is a prefix swap,
+not a colour decision: every dark section was `bg-ink-900` and every tint over a photograph was
+`bg-ink-900/NN`, so `grep -rn 'brand-900' src` finds all of them and nothing else changed.
 
 **Logo.** Two lockups, both in `public/img/`: the primary stacked one
 (`logo-firmesa-vertical*.png`, mark over wordmark, equal widths) and the secondary horizontal one
@@ -190,11 +192,14 @@ connected component because the mark and the wordmark overlap horizontally. The 
 correctos" allows full crimson on light and solid white on dark, and rules out recolouring,
 lighter pink gradients, and any substitute wordmark.
 
-**Texture.** `src/components/Cadena.astro` is the manual's "cadena para textura": the mark's own
-silhouette, traced from the logo artwork and stroked thin, which is what that page shows. It
-replaced an approximated loop motif. It ships as two static SVGs (`public/img/cadena-*.svg`)
-rather than inline markup because the contour is ~7 kB and appears several times per page; the
-cost of that is two prepared tones instead of `currentColor`.
+**Texture — not adopted.** The manual's "cadena para textura" page shows the mark's own
+silhouette, stroked thin. It was built: `Cadena.astro` plus two traced SVGs, on the
+`identidad/manual-2026` branch. This branch keeps `Loops.astro`, the looser arc motif, which is
+what the credentials deck's own cover uses. To look at the chain version again:
+
+```sh
+git checkout identidad/manual-2026 -- src/components/Cadena.astro public/img/cadena-*.svg
+```
 
 **Gradient.** `.band` follows the manual's *degradado* strip: dark at both ends, the principal
 through the middle, and a brief rise into `brand-400` before it closes.
