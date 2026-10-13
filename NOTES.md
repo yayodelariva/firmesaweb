@@ -228,18 +228,24 @@ Source: *CREDENCIALES FIRMESA 2026* (12 slides, October 2026), kept outside the 
 | Una sola visión            | Built, then cut from Inicio — see below                         |
 | Experiencia                | The twelve client names, replacing the generic sector pills    |
 
-**Cut from Inicio on this branch:** the "una sola visión" four-column section (estrategia,
-creatividad, producción, medios) and its "de una idea, a un mayor impacto" band, along with the
-`territory` cards that predate the deck. Both are intact on `credenciales/contenido-2026` with
-their data exports, so either can come back whole:
+**Cut on this branch.** From Inicio: the "una sola visión" four-column section (estrategia,
+creatividad, producción, medios) with its "de una idea, a un mayor impacto" band, the `territory`
+cards that predate the deck, and the "la integramos" band. From ¿Quiénes somos?: the Modelo 360°
+section, and with it the `model360` list — Inicio's "la integramos" was its other consumer, so
+nothing reads it any more. Every one of them is intact on `credenciales/contenido-2026` with its
+data export, so any can come back whole:
 
 ```sh
-git checkout credenciales/contenido-2026 -- src/pages/index.astro src/data/content.ts
+git checkout credenciales/contenido-2026 -- src/pages/index.astro src/pages/quienes-somos.astro src/data/content.ts
 ```
 
+That checkout restores the whole file, so take it as a starting point and cut back to the one
+section you want. The photographs stay on disk either way: `territorio-*.jpg`, `integramos.jpg`
+and `modelo-360.jpg` are now unreferenced but not deleted.
+
 The four columns are the deck's clearest statement of what Firmesa sells end to end, so if any
-page wants them later, ¿Quiénes somos? is the natural home — it already carries the Modelo 360°
-list they overlap with.
+page wants them later, ¿Quiénes somos? is the natural home — the 360° list they overlapped with
+is no longer there to compete with them.
 
 **Needs confirming before this goes live:**
 

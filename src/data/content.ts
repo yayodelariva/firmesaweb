@@ -49,15 +49,6 @@ export const traits = [
   'No solo hacemos campañas: construimos posicionamiento.',
 ] as const;
 
-/** Shared by Inicio and ¿Quiénes somos?. */
-export const model360 = [
-  'Estrategia',
-  'Data',
-  'Creatividad',
-  'Producción',
-  'Distribución',
-] as const;
-
 /* ── Firmesa Digital ────────────────────────────────────────────────────── */
 
 export const digitalServices = [

@@ -3,7 +3,7 @@ import Base from '../layouts/Base.astro';
 import Backdrop from '../components/Backdrop.astro';
 import Loops from '../components/Loops.astro';
 import { years, decades } from '../data/site';
-import { traits, model360, historyPoints, learnings } from '../data/content';
+import { traits, historyPoints, learnings } from '../data/content';
 import { url } from '../lib/links';
 ---
 
@@ -132,27 +132,6 @@ import { url } from '../lib/links';
       <p class="pill mx-auto mt-12 block w-fit border-ink-800 text-ink-900">
         Construimos posicionamiento
       </p>
-    </div>
-  </section>
-
-  <!-- Modelo 360 -->
-  <section class="relative overflow-hidden bg-brand-900">
-    <Backdrop image="/img/modelo-360.jpg" imageClass="opacity-40" overlayClass="bg-brand-900/60" />
-
-    <div class="relative">
-      <div class="band py-6">
-        <div class="wrapper text-center">
-          <p class="pill mx-auto text-white/85">Modelo 360°</p>
-          <p class="statement mt-5 text-base text-white md:text-xl">Las marcas no crecen por partes.</p>
-        </div>
-      </div>
-
-      <div class="wrapper py-16 text-center md:py-20">
-        <p class="text-sm font-bold uppercase tracking-[0.2em] text-white/70">Por eso integramos</p>
-        <ul class="mt-8 flex flex-wrap justify-center gap-3">
-          {model360.map((item) => <li class="pill text-white">{item}</li>)}
-        </ul>
-      </div>
     </div>
   </section>
 
