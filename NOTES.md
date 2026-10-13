@@ -36,8 +36,11 @@ August 2026 and stations change frequency and branding.
 - The deck shows **play buttons** over several cards (Territorio, and the digital service tiles),
   implying video. No video files were provided, so those render as still images. The markup is
   ready to take `<video>` or an embed when the files exist.
-- **Client logos:** the deck names sectors (Retail, Financiero, Inmobiliario, Consumo,
-  Institucional) but shows no client marks. Real logos would strengthen that section.
+- **Client logos:** the home page now names the twelve brands the credentials deck lists, as
+  text. Their logos are in that deck and would be stronger, but they are third-party trademarks:
+  publishing them on firmesa.mx needs each brand's permission, and some contracts forbid it
+  outright. Confirm before swapping names for marks — and confirm the names themselves are
+  cleared for a public page, which is a lower bar than logos but not zero.
 - Six extracted images went unused and were removed to keep the repo lean: the FIRMESA outline
   band, a control room, a neon-mic frame, the bus hero, and two brand mockups (parabús and
   building). All are recoverable from the PDF with `pdfimages`.
@@ -195,3 +198,37 @@ cost of that is two prepared tones instead of `currentColor`.
 
 **Gradient.** `.band` follows the manual's *degradado* strip: dark at both ends, the principal
 through the middle, and a brief rise into `brand-400` before it closes.
+
+## Credentials deck — what came across, and what needs confirming
+
+Source: *CREDENCIALES FIRMESA 2026* (12 slides, October 2026), kept outside the repo in
+`Manual y Credenciales/`. What it adds to the site, slide by slide:
+
+| Slide                      | Where it landed                                              |
+| :------------------------- | :----------------------------------------------------------- |
+| Claim de portada           | `site.slogan`, under the logo in the home hero                 |
+| ¿De dónde venimos?         | The 54-years line in the ¿Quiénes somos? heading band          |
+| No somos una agencia       | Opens the home page's positioning section                      |
+| Nuestros medios            | The six-tile grid on Medios Masivos                            |
+| Radio                      | The +35 emisoras section, with the five-step buying process    |
+| Medios en movimiento       | Aerolíneas and autobuses formats, on Medios Masivos            |
+| Producimos                 | "De la idea a la pantalla", on Firmesa Digital                 |
+| Espacios de producción     | The three studio photos and four capabilities, on Firmesa Digital |
+| Una sola visión            | The four-column section on the home page                       |
+| Experiencia                | The twelve client names, replacing the generic sector pills    |
+
+**Needs confirming before this goes live:**
+
+- **"+35 emisoras a nivel nacional."** The deck's figure. The station directory parked on
+  `firmesa-alt` lists 28 stations captured in August 2026. Both can be true — the directory is
+  what the old site published, not necessarily what Firmesa represents today — but the site should
+  not publish a number nobody has re-counted.
+- **The twelve client names.** See *Media* above: naming clients publicly is a commercial decision,
+  not a design one.
+- **Six media-tile images and three studio photos** were cut out of the deck's own slides
+  (`medio-*.jpg`, `espacio-*.jpg`). The studio photos are Firmesa's own rooms and carry a faint
+  red thread from the slide's decoration that could not be removed; the media tiles look
+  AI-generated, which is fine for a deck but worth a second look on a public site. Replace any of
+  them with real photography when it exists.
+- **Suplementos and Digital radio** now appear as media Firmesa sells. Neither had a page section
+  before. If either has formats or rates worth spelling out, Medios Masivos is where they go.

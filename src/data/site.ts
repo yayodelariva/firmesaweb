@@ -10,6 +10,8 @@ export const site = {
   legalName: 'Funcionamiento Íntegro de Radiodifusoras Mexicanas Enlazadas, S.A.',
   domain: 'https://firmesa.mx',
   tagline: 'Central de medios y partner estratégico',
+  /** Claim de la presentación de credenciales 2026. */
+  slogan: 'Más medios. Más impacto. Más contigo.',
   description:
     'Firmesa es la central de medios y partner estratégico que posiciona marcas con precisión. Más de 50 años integrando medios masivos y digitales en un solo sistema.',
   /**

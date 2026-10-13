@@ -3,7 +3,14 @@ import Base from '../layouts/Base.astro';
 import Backdrop from '../components/Backdrop.astro';
 import BandHeading from '../components/BandHeading.astro';
 import Cadena from '../components/Cadena.astro';
-import { digitalServices, digitalBestSellers, process } from '../data/content';
+import {
+  digitalServices,
+  digitalBestSellers,
+  process,
+  productionFlow,
+  studioSpaces,
+  studioImages,
+} from '../data/content';
 import { url } from '../lib/links';
 ---
 
@@ -86,6 +93,69 @@ import { url } from '../lib/links';
           </article>
         ))
       }
+    </div>
+  </section>
+
+  <!-- Producimos -->
+  <section class="bg-white">
+    <div class="wrapper py-16 md:py-20">
+      <p class="pill w-fit border-ink-800 text-ink-900">Producimos</p>
+      <h2 class="mt-8 max-w-2xl text-3xl font-black uppercase leading-tight tracking-tight text-brand-500 md:text-5xl">
+        De la idea a la pantalla
+      </h2>
+      <p class="mt-6 max-w-xl text-lg leading-relaxed text-ink-600">
+        Creamos contenido que conecta con las audiencias y potencia tus campañas en todos los
+        medios.
+      </p>
+
+      <!-- The pipeline, numbered: unlike the working method below, these steps
+           are stages of one piece of content. -->
+      <ol class="mt-12 grid gap-px overflow-hidden rounded-3xl bg-ink-200 sm:grid-cols-2 lg:grid-cols-5">
+        {
+          productionFlow.map((step, i) => (
+            <li class="bg-white p-6">
+              <span class="text-xs font-black tracking-[0.16em] text-brand-400">
+                {String(i + 1).padStart(2, '0')}
+              </span>
+              <p class="mt-3 font-bold leading-snug text-ink-900">{step}</p>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  <!-- Espacios de producción -->
+  <section class="relative overflow-hidden bg-brand-900">
+    <Cadena opacity={0.1} />
+
+    <div class="wrapper relative py-16 md:py-24">
+      <p class="pill w-fit text-white/85">Nuestros espacios de producción</p>
+      <p class="mt-8 max-w-xl text-xl leading-relaxed text-white md:text-2xl">
+        Espacios propios para transformar ideas en contenido.
+      </p>
+
+      <div class="mt-12 grid gap-5 md:grid-cols-3">
+        {
+          studioImages.map(({ image, text }) => (
+            <figure class="overflow-hidden rounded-3xl border border-white/15">
+              <img
+                src={url(image)}
+                alt={text}
+                loading="lazy"
+                decoding="async"
+                class="h-56 w-full object-cover"
+              />
+            </figure>
+          ))
+        }
+      </div>
+
+      <ul class="mt-10 flex flex-wrap gap-3">
+        {studioSpaces.map((space) => <li class="pill text-white">{space}</li>)}
+      </ul>
+
+      <p class="statement mt-12 text-lg text-white md:text-2xl">Todo en un mismo lugar</p>
     </div>
   </section>
 

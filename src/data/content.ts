@@ -30,14 +30,6 @@ export const territory = [
   { title: 'Medios que funcionan', image: '/img/territorio-medios.jpg' },
 ] as const;
 
-export const sectors = [
-  'Retail',
-  'Financiero',
-  'Inmobiliario',
-  'Consumo',
-  'Institucional',
-] as const;
-
 /* ── ¿Quiénes somos? ────────────────────────────────────────────────────── */
 
 export const historyPoints = [
@@ -175,4 +167,131 @@ export const interests = [
   'Podcast',
   'Campaña 360°',
   'Otro',
+] as const;
+
+/* ── Credenciales 2026 ──────────────────────────────────────────────────── */
+
+/** "Nuestros medios": lo que Firmesa opera, en el orden de la presentación. */
+export const media = [
+  { title: 'Radio', image: '/img/medio-radio.jpg' },
+  { title: 'Aerolíneas', image: '/img/medio-aerolineas.jpg' },
+  { title: 'Autobuses', image: '/img/medio-autobuses.jpg' },
+  { title: 'Suplementos', image: '/img/medio-suplementos.jpg' },
+  { title: 'Digital radio', image: '/img/medio-digital-radio.jpg' },
+  { title: 'Impresos', image: '/img/medio-impresos.jpg' },
+] as const;
+
+/** Radio: el dato de cobertura y el proceso con que se compra. */
+export const radio = {
+  text: 'Un medio que ha sido parte de nuestra historia y que sigue siendo parte del presente.',
+  figure: '+35',
+  figureLabel: 'Emisoras a nivel nacional',
+  steps: ['Planeación', 'Negociación', 'Compra', 'Ejecución', 'Seguimiento'],
+} as const;
+
+/** Medios en movimiento, con los formatos que ofrece cada uno. */
+export const movingMedia = [
+  {
+    title: 'Aerolíneas',
+    formats: [
+      'Mesas de servicio',
+      'Fuselaje',
+      'Portaequipajes',
+      'Revista impresa y web',
+      'Dípticos',
+    ],
+  },
+  {
+    title: 'Autobuses',
+    formats: [
+      'Pantallas abordo',
+      'Mega pantalla',
+      'Pantallas en taquillas',
+      'Columnas andenes',
+      'Muro pasillo',
+      'Mupi digital',
+    ],
+  },
+] as const;
+
+export const movingMediaTraits = [
+  'Gran alcance',
+  'Audiencias en movimiento',
+  'Presencia estratégica',
+] as const;
+
+/** Producción: de la idea a la pantalla. */
+export const productionFlow = [
+  'Concepto y guion',
+  'Producción',
+  'Post producción',
+  'Formatos multiplataforma',
+  'Difusión',
+] as const;
+
+/** Espacios propios, fotografiados en la presentación de credenciales. */
+export const studioSpaces = [
+  'Foro audiovisual',
+  'Estudio de audio',
+  'Sets adaptables',
+  'Producción multicámara',
+] as const;
+
+export const studioImages = [
+  { image: '/img/espacio-foro.jpg', text: 'Foro audiovisual con iluminación y set armado.' },
+  { image: '/img/espacio-audio.jpg', text: 'Cabina de audio para locución y podcast.' },
+  { image: '/img/espacio-sets.jpg', text: 'Sets adaptables para grabación musical y multicámara.' },
+] as const;
+
+/** Una sola visión: las cuatro áreas y lo que entra en cada una. */
+export const singleVision = [
+  {
+    title: 'Estrategia',
+    items: ['Objetivos', 'Audiencias', 'Planeación de medios', 'Integración de canales'],
+  },
+  {
+    title: 'Creatividad',
+    items: ['Conceptos', 'Guiones', 'Diseño', 'Animación', 'Identidad visual'],
+  },
+  {
+    title: 'Producción',
+    items: [
+      'Grabación',
+      'Producción audiovisual',
+      'Podcast y video podcast',
+      'Producción sonora',
+      'Cobertura de eventos',
+    ],
+  },
+  {
+    title: 'Medios',
+    items: [
+      'Radio',
+      'TV de paga',
+      'Publicidad exterior',
+      'Digital / CTV-OTT',
+      'Aerolíneas y autobuses',
+      'Cine',
+    ],
+  },
+] as const;
+
+/**
+ * Marcas que han confiado en Firmesa, tal como las nombra la presentación de
+ * credenciales 2026. Son nombres, no logotipos: usar las marcas registradas de
+ * terceros en el sitio público requiere su autorización.
+ */
+export const clients = [
+  'Koltin',
+  'Afore XXI Banorte',
+  'Comex',
+  'SC Johnson',
+  'Hoteles Emporio',
+  'Barcel',
+  'Martí',
+  'Steren',
+  'Fonacot',
+  'IMSS',
+  'Corazón Films',
+  'Sonora Grill',
 ] as const;

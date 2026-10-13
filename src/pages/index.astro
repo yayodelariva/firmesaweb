@@ -3,8 +3,8 @@ import Base from '../layouts/Base.astro';
 import Backdrop from '../components/Backdrop.astro';
 import BandHeading from '../components/BandHeading.astro';
 import Cadena from '../components/Cadena.astro';
-import { decades } from '../data/site';
-import { worlds, territory, sectors, rotating } from '../data/content';
+import { site, decades } from '../data/site';
+import { worlds, territory, clients, singleVision, rotating } from '../data/content';
 import { url } from '../lib/links';
 ---
 
@@ -34,6 +34,8 @@ import { url } from '../lib/links';
         class="mx-auto mt-10 h-auto w-48 sm:w-60 lg:w-72"
       />
 
+      <p class="mt-6 text-base font-bold text-white/90 md:text-xl">{site.slogan}</p>
+
       <h1 class="mt-10 text-3xl font-extrabold leading-tight text-white sm:text-4xl md:text-5xl">
         <span class="sr-only">Creamos campañas, marcas y posicionamiento.</span>
         <span aria-hidden="true" class="block">Creamos</span>
@@ -62,6 +64,16 @@ import { url } from '../lib/links';
   <!-- Positioning statement -->
   <section class="bg-white">
     <div class="wrapper max-w-4xl py-20 text-center md:py-24">
+      <p class="statement text-xl text-ink-900 md:text-3xl">
+        No somos una agencia,<br />somos una central de medios
+      </p>
+      <p class="mx-auto mt-8 max-w-2xl leading-relaxed text-ink-600">
+        Conectamos estrategia, creatividad, producción y medios para construir soluciones
+        integrales de comunicación.
+      </p>
+
+      <hr class="mx-auto my-12 w-24 border-t-2 border-brand-500" />
+
       <p class="text-xl leading-relaxed text-ink-800 md:text-2xl">
         Firmesa es la <strong class="font-extrabold">central de medios y partner estratégico</strong>
         {' '}que posiciona marcas con precisión.
@@ -147,18 +159,47 @@ import { url } from '../lib/links';
     </div>
   </section>
 
+  <!-- Una sola visión -->
+  <section class="bg-white">
+    <div class="wrapper py-16 md:py-20">
+      <p class="pill mx-auto block w-fit border-ink-800 text-ink-900">Una sola visión</p>
+      <p class="mx-auto mt-8 max-w-2xl text-center text-xl leading-relaxed text-ink-800 md:text-2xl">
+        Una misma idea puede nacer, producirse y amplificarse desde Firmesa.
+      </p>
+
+      <!-- Four columns, in the order an idea travels through them. -->
+      <ol class="mt-12 grid gap-px overflow-hidden rounded-3xl bg-ink-200 sm:grid-cols-2 lg:grid-cols-4">
+        {
+          singleVision.map(({ title, items }) => (
+            <li class="bg-white p-8">
+              <h3 class="text-sm font-black uppercase tracking-[0.16em] text-brand-500">{title}</h3>
+              <ul class="mt-5 space-y-2 text-ink-600">
+                {items.map((item) => (
+                  <li>{item}</li>
+                ))}
+              </ul>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+
+    <BandHeading as="p" headingClass="text-xs md:text-sm">De una idea, a un mayor impacto</BandHeading>
+  </section>
+
   <!-- Clientes -->
   <section class="bg-field">
     <div class="wrapper py-16 text-center md:py-20">
-      <p class="pill mx-auto border-ink-300 text-ink-800">Clientes / Casos de éxito</p>
+      <p class="pill mx-auto border-ink-300 text-ink-800">Marcas que han confiado en nosotros</p>
       <p class="mx-auto mt-8 max-w-2xl text-xl text-ink-800">
-        Trabajamos con marcas que entienden que crecer requiere estrategia.
+        Diferentes industrias, un mismo objetivo: conectar con las personas.
       </p>
+      {/* Nombres, no logotipos: las marcas de terceros necesitan su permiso. */}
       <ul class="mt-10 flex flex-wrap justify-center gap-3">
         {
-          sectors.map((sector) => (
-            <li class="rounded-full bg-ink-300/70 px-7 py-3 text-sm font-bold uppercase tracking-[0.14em] text-white">
-              {sector}
+          clients.map((client) => (
+            <li class="rounded-full border border-ink-300 bg-white px-6 py-3 text-sm font-bold text-ink-800">
+              {client}
             </li>
           ))
         }

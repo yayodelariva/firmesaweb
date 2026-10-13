@@ -3,7 +3,15 @@ import Base from '../layouts/Base.astro';
 import Backdrop from '../components/Backdrop.astro';
 import BandHeading from '../components/BandHeading.astro';
 import Cadena from '../components/Cadena.astro';
-import { massBestSellers, services, formats } from '../data/content';
+import {
+  massBestSellers,
+  services,
+  formats,
+  media,
+  radio,
+  movingMedia,
+  movingMediaTraits,
+} from '../data/content';
 import { url } from '../lib/links';
 ---
 
@@ -29,6 +37,101 @@ import { url } from '../lib/links';
     <p class="relative bg-field py-5 text-center text-base text-ink-800 md:text-xl">
       Cómo funcionan, cómo se consumen y cómo generan impacto.
     </p>
+  </section>
+
+  <!-- Nuestros medios -->
+  <section class="bg-white">
+    <div class="wrapper py-16 md:py-20">
+      <p class="pill w-fit border-ink-800 text-ink-900">Nuestros medios</p>
+
+      <ul class="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        {
+          media.map(({ title, image }) => (
+            <li class="group relative overflow-hidden rounded-3xl">
+              <img
+                src={url(image)}
+                alt=""
+                loading="lazy"
+                decoding="async"
+                class="h-56 w-full object-cover transition-transform duration-500 group-hover:scale-105"
+              />
+              <div class="absolute inset-0 flex items-end bg-gradient-to-t from-brand-900/85 to-transparent p-6">
+                <h2 class="text-2xl font-black uppercase tracking-tight text-white">{title}</h2>
+              </div>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <!-- Radio -->
+  <section class="relative overflow-hidden bg-brand-900">
+    <Backdrop image="/img/bs-radio.jpg" imageClass="opacity-25" overlayClass="bg-brand-900/70" />
+
+    <div class="wrapper relative grid items-center gap-12 py-16 md:py-24 lg:grid-cols-2">
+      <div>
+        <h2
+          class="text-outline text-5xl font-black uppercase tracking-tight md:text-7xl"
+          style="--outline-width: 1.5px; --outline-color: rgb(255 255 255 / 0.95);"
+        >
+          Radio
+        </h2>
+        <p class="mt-8 max-w-md text-lg leading-relaxed text-white/90">{radio.text}</p>
+
+        <p class="mt-10 flex items-baseline gap-5 border-l-2 border-brand-400 pl-5">
+          <span class="text-5xl font-black text-white md:text-6xl">{radio.figure}</span>
+          <span class="text-sm font-bold uppercase tracking-[0.16em] text-white/80">
+            {radio.figureLabel}
+          </span>
+        </p>
+      </div>
+
+      <!-- How a radio buy is run, in the order the deck lists it. -->
+      <ol class="grid gap-3 sm:grid-cols-2">
+        {
+          radio.steps.map((step, i) => (
+            <li class="flex items-center gap-4 rounded-2xl border border-white/20 px-5 py-4">
+              <span class="text-xs font-black text-brand-400">{String(i + 1).padStart(2, '0')}</span>
+              <span class="text-sm font-bold uppercase tracking-[0.12em] text-white">{step}</span>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  <!-- Medios en movimiento -->
+  <section class="bg-field">
+    <BandHeading class="py-6" headingClass="text-sm md:text-xl">Medios en movimiento</BandHeading>
+
+    <div class="wrapper py-16 md:py-20">
+      <p class="mx-auto max-w-2xl text-center text-xl leading-relaxed text-ink-800 md:text-2xl">
+        Llevamos a las marcas más lejos, en cada etapa del viaje.
+      </p>
+
+      <div class="mt-12 grid gap-6 md:grid-cols-2">
+        {
+          movingMedia.map(({ title, formats }) => (
+            <article class="rounded-3xl bg-white p-8 shadow-sm">
+              <h3 class="text-sm font-black uppercase tracking-[0.16em] text-brand-500">{title}</h3>
+              <ul class="mt-6 space-y-3">
+                {formats.map((format) => (
+                  <li class="flex gap-3 text-ink-600">
+                    <span class="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-brand-500" />
+                    <span>{format}</span>
+                  </li>
+                ))}
+              </ul>
+            </article>
+          ))
+        }
+      </div>
+
+      <ul class="mt-10 flex flex-wrap justify-center gap-3">
+        {movingMediaTraits.map((trait) => <li class="pill border-ink-800 text-ink-900">{trait}</li>)}
+      </ul>
+    </div>
   </section>
 
   <!-- ¿Qué hacemos? -->
