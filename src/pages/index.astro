@@ -2,9 +2,10 @@
 import Base from '../layouts/Base.astro';
 import Backdrop from '../components/Backdrop.astro';
 import BandHeading from '../components/BandHeading.astro';
+import Wordmark from '../components/Wordmark.astro';
 import Loops from '../components/Loops.astro';
 import { site, decades } from '../data/site';
-import { worlds, territory, clients, singleVision, rotating } from '../data/content';
+import { worlds, clients, singleVision, rotating } from '../data/content';
 import { url } from '../lib/links';
 ---
 
@@ -22,16 +23,9 @@ import { url } from '../lib/links';
     <div class="wrapper relative py-24 text-center md:py-32">
       <p class="pill mx-auto text-white/70">Desde 1972</p>
 
-      <!-- Logotipo primario del manual, versión en blanco. El manual fija el
-           logotipo en Avenir Next Heavy, así que es el archivo de marca y no
-           texto compuesto con la tipografía del sitio. -->
-      <img
-        src={url('/img/logo-firmesa-vertical-blanco.png')}
-        alt=""
-        width="347"
-        height="390"
-        fetchpriority="high"
-        class="mx-auto mt-10 h-auto w-48 sm:w-60 lg:w-72"
+      <!-- Outlined wordmark, as in the deck -->
+      <Wordmark
+        class="mt-10 select-none text-[3.5rem] font-black tracking-[0.02em] text-white/90 sm:text-8xl lg:text-[9rem]"
       />
 
       <p class="mt-6 text-base font-bold text-white/90 md:text-xl">{site.slogan}</p>
@@ -115,24 +109,6 @@ import { url } from '../lib/links';
           ))
         }
       </div>
-    </div>
-  </section>
-
-  <!-- Territorio -->
-  <section class="bg-field">
-    <BandHeading>Territorio</BandHeading>
-
-    <div class="wrapper grid gap-6 py-16 md:grid-cols-3 md:py-20">
-      {
-        territory.map(({ title, image }) => (
-          <article class="overflow-hidden rounded-3xl bg-white shadow-sm">
-            <img src={url(image)} alt="" loading="lazy" decoding="async" class="h-64 w-full object-cover" />
-            <h3 class="band px-6 py-6 text-center text-lg font-extrabold uppercase leading-snug tracking-wide text-white">
-              {title}
-            </h3>
-          </article>
-        ))
-      }
     </div>
   </section>
 

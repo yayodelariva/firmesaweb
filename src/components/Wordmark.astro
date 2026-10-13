@@ -1,0 +1,52 @@
+---
+/**
+ * The deck's outlined FIRMESA wordmark.
+ *
+ * `-webkit-text-stroke` centres its stroke on the glyph contour, so where two
+ * contours meet at a tight angle — R's leg, M's middle vertex, A's apex — the
+ * inner halves cross and leave a visible loop. Nunito Sans at weight 900 has
+ * exactly those joins, so the artefact is unavoidable with the CSS property.
+ *
+ * Stroking in SVG instead lets the glyph's own interior mask the stroke, so
+ * only the outer half survives and the joins stay sharp. The stroke is drawn
+ * at twice the intended width because half of it is masked away.
+ *
+ * No `viewBox`: user units are then CSS pixels, so `font-size` from the class
+ * list drives the glyph size exactly as it would on an HTML element, and
+ * `stroke-width` stays an absolute width at every breakpoint.
+ *
+ * Decorative only — the page's real heading is a separate element.
+ */
+interface Props {
+  /** Width of the visible outline, in px. Half the stroke is masked. */
+  width?: number;
+  class?: string;
+}
+const { width = 2, class: className = '' } = Astro.props;
+const text = 'FIRMESA';
+---
+
+<svg
+  class:list={['block h-[1.1em] w-full overflow-visible', className]}
+  aria-hidden="true"
+  focusable="false"
+>
+  <defs>
+    <!-- White shows the stroke, black hides it: the filled glyph knocks out
+         the inner half, taking the crossing artefacts with it. -->
+    <mask id="wordmark-knockout">
+      <rect x="0" y="0" width="100%" height="100%" fill="#fff" />
+      <text x="50%" y="0.84em" text-anchor="middle" fill="#000">{text}</text>
+    </mask>
+  </defs>
+
+  <text
+    x="50%"
+    y="0.84em"
+    text-anchor="middle"
+    fill="none"
+    stroke="currentColor"
+    stroke-width={width * 2}
+    mask="url(#wordmark-knockout)">{text}</text
+  >
+</svg>

@@ -59,10 +59,16 @@ the webfont licence this section used to treat as an open question is **not** on
 path. It only matters if someone wants to typeset new headings in Avenir, which the manual does
 not ask for.
 
-That is why `src/pages/index.astro` and `src/pages/medios-masivos.astro` place the logo file where
-they used to render the word "FIRMESA" in Nunito Sans at weight 900: an outlined or extra-bold
-Nunito "FIRMESA" is a second, unauthorised wordmark, and the manual's "usos incorrectos" page
-rules out exactly that kind of substitution.
+`src/pages/medios-masivos.astro` places the logo file where it used to render the word "FIRMESA"
+in Nunito Sans at weight 900, for that reason: a Nunito "FIRMESA" is a second wordmark, and the
+manual's "usos incorrectos" page rules out that kind of substitution.
+
+**The home hero is a deliberate exception.** It keeps the outlined Nunito wordmark
+(`Wordmark.astro`), which the deck uses and the manual does not sanction — a chosen departure,
+not an oversight. The manual-conformant version, which places the stacked logo artwork there
+instead, is on `identidad/manual-2026`; swapping back is one element. Worth re-reading the
+"usos correctos e incorrectos" page with Firmesa before this ships, since it is their rule being
+set aside.
 
 ### What the brand presentation used, for the record
 

@@ -24,12 +24,6 @@ export const worlds = [
   },
 ] as const;
 
-export const territory = [
-  { title: 'Estrategia que se ejecuta', image: '/img/territorio-estrategia.jpg' },
-  { title: 'Creatividad que posiciona', image: '/img/territorio-creatividad.jpg' },
-  { title: 'Medios que funcionan', image: '/img/territorio-medios.jpg' },
-] as const;
-
 /* ── ¿Quiénes somos? ────────────────────────────────────────────────────── */
 
 export const historyPoints = [
