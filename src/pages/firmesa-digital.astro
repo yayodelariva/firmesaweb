@@ -98,8 +98,7 @@ import { url } from '../lib/links';
   <!-- Producimos -->
   <section class="bg-white">
     <div class="wrapper py-16 md:py-20">
-      <p class="pill w-fit border-ink-800 text-ink-900">Producimos</p>
-      <h2 class="mt-8 max-w-2xl text-3xl font-black uppercase leading-tight tracking-tight text-brand-500 md:text-5xl">
+      <h2 class="max-w-2xl text-3xl font-black uppercase leading-tight tracking-tight text-brand-500 md:text-5xl">
         De la idea a la pantalla
       </h2>
       <p class="mt-6 max-w-xl text-lg leading-relaxed text-ink-600">
@@ -107,8 +106,8 @@ import { url } from '../lib/links';
         medios.
       </p>
 
-      <!-- The pipeline, numbered: unlike the working method below, these steps
-           are stages of one piece of content. -->
+      <!-- The pipeline, numbered: these steps are stages of one piece of
+           content, not a list of services. -->
       <ol class="mt-12 grid gap-px overflow-hidden rounded-3xl bg-ink-200 sm:grid-cols-2 lg:grid-cols-5">
         {
           productionFlow.map((step, i) => (
