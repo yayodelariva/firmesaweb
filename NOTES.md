@@ -225,8 +225,21 @@ Source: *CREDENCIALES FIRMESA 2026* (12 slides, October 2026), kept outside the 
 | Medios en movimiento       | Aerolíneas and autobuses formats, on Medios Masivos            |
 | Producimos                 | "De la idea a la pantalla", on Firmesa Digital                 |
 | Espacios de producción     | The three studio photos and four capabilities, on Firmesa Digital |
-| Una sola visión            | The four-column section on the home page                       |
+| Una sola visión            | Built, then cut from Inicio — see below                         |
 | Experiencia                | The twelve client names, replacing the generic sector pills    |
+
+**Cut from Inicio on this branch:** the "una sola visión" four-column section (estrategia,
+creatividad, producción, medios) and its "de una idea, a un mayor impacto" band, along with the
+`territory` cards that predate the deck. Both are intact on `credenciales/contenido-2026` with
+their data exports, so either can come back whole:
+
+```sh
+git checkout credenciales/contenido-2026 -- src/pages/index.astro src/data/content.ts
+```
+
+The four columns are the deck's clearest statement of what Firmesa sells end to end, so if any
+page wants them later, ¿Quiénes somos? is the natural home — it already carries the Modelo 360°
+list they overlap with.
 
 **Needs confirming before this goes live:**
 

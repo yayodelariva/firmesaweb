@@ -237,39 +237,6 @@ export const studioImages = [
   { image: '/img/espacio-sets.jpg', text: 'Sets adaptables para grabación musical y multicámara.' },
 ] as const;
 
-/** Una sola visión: las cuatro áreas y lo que entra en cada una. */
-export const singleVision = [
-  {
-    title: 'Estrategia',
-    items: ['Objetivos', 'Audiencias', 'Planeación de medios', 'Integración de canales'],
-  },
-  {
-    title: 'Creatividad',
-    items: ['Conceptos', 'Guiones', 'Diseño', 'Animación', 'Identidad visual'],
-  },
-  {
-    title: 'Producción',
-    items: [
-      'Grabación',
-      'Producción audiovisual',
-      'Podcast y video podcast',
-      'Producción sonora',
-      'Cobertura de eventos',
-    ],
-  },
-  {
-    title: 'Medios',
-    items: [
-      'Radio',
-      'TV de paga',
-      'Publicidad exterior',
-      'Digital / CTV-OTT',
-      'Aerolíneas y autobuses',
-      'Cine',
-    ],
-  },
-] as const;
-
 /**
  * Marcas que han confiado en Firmesa, tal como las nombra la presentación de
  * credenciales 2026. Son nombres, no logotipos: usar las marcas registradas de
