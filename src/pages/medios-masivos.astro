@@ -2,6 +2,7 @@
 import Base from '../layouts/Base.astro';
 import Backdrop from '../components/Backdrop.astro';
 import BandHeading from '../components/BandHeading.astro';
+import Outline from '../components/Outline.astro';
 import Loops from '../components/Loops.astro';
 import {
   massBestSellers,
@@ -71,11 +72,8 @@ import { url } from '../lib/links';
 
     <div class="wrapper relative grid items-center gap-12 py-16 md:py-24 lg:grid-cols-2">
       <div>
-        <h2
-          class="text-outline text-5xl font-black uppercase tracking-tight md:text-7xl"
-          style="--outline-width: 1.5px; --outline-color: rgb(255 255 255 / 0.95);"
-        >
-          Radio
+        <h2 class="text-5xl font-black uppercase tracking-tight text-white/95 md:text-7xl">
+          <Outline text="Radio" width={1.5} anchor="start" />
         </h2>
         <p class="mt-8 max-w-md text-lg leading-relaxed text-white/90">{radio.text}</p>
 
@@ -106,11 +104,12 @@ import { url } from '../lib/links';
     <div class="wrapper py-16 md:py-20">
       <!-- Same outlined display heading as Radio, in crimson: the white
            outline of the Radio version would vanish on this light field. -->
-      <h2
-        class="text-outline text-center text-5xl font-black uppercase tracking-tight md:text-7xl"
-        style="--outline-width: 1.5px; --outline-color: var(--color-brand-500);"
-      >
-        Medios en movimiento
+      <!-- Two lines at every width: one line of this length would run past the
+           gutter from md down. The extra step below sm keeps the longer of the
+           two inside the narrowest phones, where SVG text would overflow
+           rather than wrap. -->
+      <h2 class="text-[2.5rem] font-black uppercase tracking-tight text-brand-500 sm:text-5xl md:text-7xl">
+        <Outline text={'Medios en\nmovimiento'} width={1.5} />
       </h2>
 
       <p class="mx-auto mt-10 max-w-2xl text-center text-xl leading-relaxed text-ink-800 md:text-2xl">
@@ -156,11 +155,8 @@ import { url } from '../lib/links';
                 class="h-80 w-full object-cover transition-transform duration-500 group-hover:scale-105"
               />
               <div class="absolute inset-0 flex items-end bg-brand-900/30 p-8">
-                <h2
-                  class="text-outline text-4xl font-black uppercase tracking-tight md:text-5xl"
-                  style="--outline-width: 1.5px; --outline-color: rgb(255 255 255 / 0.95);"
-                >
-                  {title}
+                <h2 class="w-full text-4xl font-black uppercase tracking-tight text-white/95 md:text-5xl">
+                  <Outline text={title} width={1.5} anchor="start" />
                 </h2>
               </div>
             </article>

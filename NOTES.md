@@ -70,6 +70,15 @@ instead, is on `identidad/manual-2026`; swapping back is one element. Worth re-r
 "usos correctos e incorrectos" page with Firmesa before this ships, since it is their rule being
 set aside.
 
+**Outlined display type is SVG, not CSS.** `-webkit-text-stroke` centres its stroke on the glyph
+contour, so at Nunito Sans 900 the inner halves cross wherever two contours meet at a tight angle
+— A's apex, R's leg, M's middle vertex — and leave visible stubs inside the letter. `Outline.astro`
+strokes in SVG at twice the width and masks the glyph's own interior away, so only the clean outer
+half survives; `Wordmark.astro` is that component with the word fixed. The `.text-outline` utility
+that used the CSS property is gone. The one cost: SVG text does not wrap, so every call site
+passes its own line breaks and sizes the type to fit the longest line — which is why "Medios en
+movimiento" is stacked at every width.
+
 ### What the brand presentation used, for the record
 
 `pdffonts present\ página\ web.pdf` reports nine embedded (subset) TrueType faces:

@@ -166,16 +166,6 @@
     outline-offset: 2px;
   }
 
-  /* Outlined display type, as on the deck's FIRMESA wordmark. */
-  .text-outline {
-    color: transparent;
-    -webkit-text-stroke: var(--outline-width, 2px) var(--outline-color, rgb(255 255 255 / 0.9));
-  }
-  /* Without the stroke the text would be invisible rather than merely unstyled. */
-  @supports not (-webkit-text-stroke: 1px currentColor) {
-    .text-outline { color: currentColor; }
-  }
-
   /* Wide letterspaced display line, used for the deck's statement rows. */
   .statement {
     text-transform: uppercase;

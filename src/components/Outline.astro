@@ -1,0 +1,80 @@
+---
+/**
+ * Outlined display type, the deck's signature treatment.
+ *
+ * `-webkit-text-stroke` centres its stroke on the glyph contour, so where two
+ * contours meet at a tight angle — R's leg, A's apex, M's middle vertex — the
+ * inner halves cross and leave a visible stub. Nunito Sans at weight 900 has
+ * exactly those joins, so the artefact is unavoidable with the CSS property.
+ *
+ * Stroking in SVG instead lets the glyph's own interior mask the stroke, so
+ * only the outer half survives and the joins stay sharp. The stroke is drawn
+ * at twice the intended width because half of it is masked away.
+ *
+ * No `viewBox`: user units are then CSS pixels, so `font-size` from the class
+ * list drives the glyph size exactly as it would on an HTML element, and
+ * `stroke-width` stays an absolute width at every breakpoint. The trade-off is
+ * that SVG text does not wrap — pass the line breaks in `text` as `\n`, and
+ * size the type so the longest line fits at every breakpoint.
+ *
+ * The colour comes from `currentColor`, so a text colour class on the element
+ * sets the outline.
+ */
+interface Props {
+  /** The words. `\n` starts a new line; nothing else wraps. */
+  text: string;
+  /** Width of the visible outline, in px. Half the stroke is masked. */
+  width?: number;
+  /** `middle` centres each line on the box; `start` ranges them left. */
+  anchor?: 'middle' | 'start';
+  /** Decorative instances are hidden from assistive technology. */
+  decorative?: boolean;
+  class?: string;
+}
+
+const { text, width = 2, anchor = 'middle', decorative = false, class: className = '' } = Astro.props;
+
+const lines = text.split('\n');
+
+/* First baseline sits at 0.84em, every next line 0.95em below — tight leading,
+   as display caps want. The box is just deep enough to hold them. */
+const baseline = (i: number) => `${(0.84 + i * 0.95).toFixed(2)}em`;
+const height = `${(1.1 + (lines.length - 1) * 0.95).toFixed(2)}em`;
+
+/* Derived from the words so the markup is stable across builds. Two instances
+   of the same text on one page would collide; none do today. */
+const maskId = `outline-${text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')}`;
+
+const x = anchor === 'middle' ? '50%' : '0';
+---
+
+<svg
+  class:list={['block w-full overflow-visible', className]}
+  style={`height: ${height}`}
+  role={decorative ? undefined : 'img'}
+  aria-label={decorative ? undefined : text.replace('\n', ' ')}
+  aria-hidden={decorative ? 'true' : undefined}
+  focusable="false"
+>
+  <defs>
+    <!-- White shows the stroke, black hides it: the filled glyphs knock out
+         the inner half, taking the crossing artefacts with them. -->
+    <mask id={maskId}>
+      <rect x="0" y="0" width="100%" height="100%" fill="#fff" />
+      {lines.map((line, i) => (
+        <text x={x} y={baseline(i)} text-anchor={anchor} fill="#000">{line}</text>
+      ))}
+    </mask>
+  </defs>
+
+  {lines.map((line, i) => (
+    <text
+      x={x}
+      y={baseline(i)}
+      text-anchor={anchor}
+      fill="none"
+      stroke="currentColor"
+      stroke-width={width * 2}
+      mask={`url(#${maskId})`}>{line}</text>
+  ))}
+</svg>
