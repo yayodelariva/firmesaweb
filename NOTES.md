@@ -232,7 +232,7 @@ Source: *CREDENCIALES FIRMESA 2026* (12 slides, October 2026), kept outside the 
 | Nuestros medios            | The six-tile grid on Medios Masivos                            |
 | Radio                      | The +35 emisoras section, with the five-step buying process    |
 | Medios en movimiento       | Aerolíneas and autobuses formats, on Medios Masivos            |
-| Producimos                 | "De la idea a la pantalla", on Firmesa Digital                 |
+| Producimos                 | Built, then cut from Firmesa Digital — see below                |
 | Espacios de producción     | The three studio photos and four capabilities, on Firmesa Digital |
 | Una sola visión            | Built, then cut from Inicio — see below                         |
 | Experiencia                | The twelve client names, replacing the generic sector pills    |
@@ -243,9 +243,11 @@ cards that predate the deck, and the "la integramos" band. From ¿Quiénes somos
 section — and with it the `model360` list, since Inicio's "la integramos" was its other consumer
 and nothing reads it any more — plus the "es experiencia con dirección" closing band, which leaves
 the page ending on "construimos posicionamiento". From Firmesa Digital: the "cómo trabajamos"
-five-pill flow and its `process` list — the deck's "de la idea a la pantalla" pipeline, added on
-`credenciales/contenido-2026`, now carries the how-we-work story on that page alone. Every one of
-them is intact on `credenciales/contenido-2026` with its data export, so any can come back whole:
+five-pill flow with its `process` list, the deck's "de la idea a la pantalla" pipeline with its
+`productionFlow` list, and the two-photo "enfoque" pair — which together were everything on that
+page describing *how* the work is done, leaving services, best sellers and the production spaces.
+Every one of them is intact on `credenciales/contenido-2026` with its data export, so any can come
+back whole:
 
 ```sh
 git checkout credenciales/contenido-2026 -- src/pages/index.astro src/pages/quienes-somos.astro \
@@ -253,8 +255,8 @@ git checkout credenciales/contenido-2026 -- src/pages/index.astro src/pages/quie
 ```
 
 That checkout restores the whole file, so take it as a starting point and cut back to the one
-section you want. The photographs stay on disk either way: `territorio-*.jpg`, `integramos.jpg`
-and `modelo-360.jpg` are now unreferenced but not deleted.
+section you want. The photographs stay on disk either way: `territorio-*.jpg`, `integramos.jpg`,
+`modelo-360.jpg` and the two `enfoque-*.jpg` are now unreferenced but not deleted.
 
 The four columns are the deck's clearest statement of what Firmesa sells end to end, so if any
 page wants them later, ¿Quiénes somos? is the natural home — the 360° list they overlapped with

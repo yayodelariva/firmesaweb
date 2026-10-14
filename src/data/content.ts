@@ -197,15 +197,6 @@ export const movingMediaTraits = [
   'Presencia estratégica',
 ] as const;
 
-/** Producción: de la idea a la pantalla. */
-export const productionFlow = [
-  'Concepto y guion',
-  'Producción',
-  'Post producción',
-  'Formatos multiplataforma',
-  'Difusión',
-] as const;
-
 /** Espacios propios, fotografiados en la presentación de credenciales. */
 export const studioSpaces = [
   'Foro audiovisual',
