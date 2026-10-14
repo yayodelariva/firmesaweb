@@ -38,7 +38,10 @@ import { url } from '../lib/links';
       </div>
     </div>
 
-    <div class="wrapper grid items-center gap-12 py-16 md:py-24 lg:grid-cols-2">
+    <!-- From lg the photograph takes the larger share of the row: the text
+         beside it is short enough to hold a narrower column. Below lg the two
+         are stacked and the ratio does not apply. -->
+    <div class="wrapper grid items-center gap-12 py-16 md:py-24 lg:grid-cols-[1.4fr_1fr]">
       <!-- The only in-flow image without a fixed height: the intrinsic size
            reserves its space so the column does not jump on load. -->
       <img
