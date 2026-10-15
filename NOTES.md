@@ -284,11 +284,17 @@ The tiles' six `<h2>`s went with them, so the section is labelled only by its pi
 `medio-radio.jpg`, `medio-suplementos.jpg`, `medio-digital-radio.jpg` and `medio-impresos.jpg`
 unreferenced on disk. The other two are still in use: *Medios en movimiento* reads them.
 
-The same reveal carries the format lists inside the two *Medios en movimiento* cards — one
-`.reveal` rule and one observer at the foot of that page, with `--i` on each child and
-`--stagger`/`--rise` tunable per group. The cards themselves do not move; only what is listed in
-them arrives in turn. `prefers-reduced-motion` drops it entirely rather than running it
-instantly.
+**The staggered reveal is site-wide.** `.reveal` lives in `global.css` and one observer in
+`Base.astro` drives every group on every page: put the class on a container, `--i` on each child,
+and `--stagger`/`--rise` on the container to change the pace or the distance. Four groups use it
+on Medios Masivos — the media list, the radio steps and the format list inside each moving-media
+card — and one on Firmesa Digital, the production capabilities. Containers never move; only what
+is listed in them arrives in turn.
+
+Two properties make it safe to scatter. The hidden state is attached by the script, never written
+into the markup, so a page whose JavaScript fails shows everything rather than nothing. And
+`prefers-reduced-motion` drops the reveal entirely rather than running it instantly — the
+override is unlayered, so it beats the `@layer components` rule without `!important`.
 
 **Needs confirming before this goes live.** Three of those are commercial calls rather than
 build questions — a figure to re-count, a clearance to obtain, and an image set to review — so

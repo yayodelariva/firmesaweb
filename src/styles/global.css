@@ -166,6 +166,29 @@
     outline-offset: 2px;
   }
 
+  /*
+   * Staggered reveal. Put `.reveal` on the container and `--i` on each child;
+   * `--stagger` and `--rise` tune the pace and the distance. The observer in
+   * `Base.astro` attaches the hidden state, so a page where that never runs
+   * shows everything rather than nothing.
+   */
+  .reveal[data-reveal] > * {
+    opacity: 0;
+    transform: translateY(var(--rise, 0.75rem));
+  }
+
+  /* 110 ms apart by default: slow enough to read as a sequence, quick enough
+     that the last one lands while the eye is still on the group. */
+  .reveal[data-reveal='in'] > * {
+    animation: reveal-in 500ms cubic-bezier(0.2, 0.7, 0.3, 1) both;
+    animation-delay: calc(var(--i) * var(--stagger, 110ms));
+  }
+
+  @keyframes reveal-in {
+    from { opacity: 0; transform: translateY(var(--rise, 0.75rem)); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
   /* Wide letterspaced display line, used for the deck's statement rows. */
   .statement {
     text-transform: uppercase;
@@ -182,5 +205,14 @@
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+  }
+
+  /* No reveal at all, rather than an instant one: a group is complete from
+     the moment its section is reached. Unlayered, so it beats the rule in
+     `@layer components` above without needing `!important`. */
+  .reveal[data-reveal] > * {
+    opacity: 1;
+    transform: none;
+    animation: none;
   }
 }

@@ -120,8 +120,17 @@ import { url } from '../lib/links';
         }
       </div>
 
-      <ul class="mt-10 flex flex-wrap gap-3">
-        {studioSpaces.map((space) => <li class="pill text-white">{space}</li>)}
+      <!-- The capabilities arrive one after another, as the radio steps and the
+           moving-media formats do. Reading order here is left to right and then
+           down, which is the order the stagger follows. -->
+      <ul class="reveal mt-10 flex flex-wrap gap-3">
+        {
+          studioSpaces.map((space, i) => (
+            <li class="pill text-white" style={`--i: ${i}`}>
+              {space}
+            </li>
+          ))
+        }
       </ul>
 
       <p class="statement mt-12 text-lg text-white md:text-2xl">Todo en un mismo lugar</p>

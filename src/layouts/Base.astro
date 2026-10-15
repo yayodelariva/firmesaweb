@@ -107,5 +107,28 @@ const canonical = absolute(path);
       <slot />
     </main>
     <Footer />
+
+    <script>
+      // Drives every `.reveal` group on the site; see the rule in global.css.
+      // Each one reveals when it is scrolled to, since an animation nobody is
+      // looking at has already finished. Pages without one pay a query.
+      for (const group of document.querySelectorAll<HTMLElement>('.reveal')) {
+        group.dataset.reveal = 'pending';
+
+        const observer = new IntersectionObserver(
+          (entries) => {
+            if (!entries.some((entry) => entry.isIntersecting)) return;
+            group.dataset.reveal = 'in';
+            observer.disconnect();
+          },
+          // Fires once the group's top clears the bottom fifth of the viewport.
+          // A threshold would not do: a group can be taller than a phone
+          // screen, and a fraction of it may never be on screen at once.
+          { threshold: 0, rootMargin: '0px 0px -20% 0px' },
+        );
+
+        observer.observe(group);
+      }
+    </script>
   </body>
 </html>
