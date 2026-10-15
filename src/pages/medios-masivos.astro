@@ -113,15 +113,23 @@ import { url } from '../lib/links';
         Llevamos a las marcas más lejos, en cada etapa del viaje.
       </p>
 
+      <!-- Each medium carries its own photograph, the one that represents it in
+           the mosaic above. Both are bright and busy, so the card goes dark and
+           the type turns over it: a tint this heavy is what keeps a six-item
+           list readable across a photograph of a lit bus at night. -->
       <div class="mt-12 grid gap-6 md:grid-cols-2">
         {
-          movingMedia.map(({ title, formats }) => (
-            <article class="rounded-3xl bg-white p-8 shadow-sm">
-              <h3 class="text-sm font-black uppercase tracking-[0.16em] text-brand-500">{title}</h3>
-              <ul class="mt-6 space-y-3">
+          movingMedia.map(({ title, image, formats }) => (
+            <article class="relative overflow-hidden rounded-3xl bg-brand-900 p-8 shadow-sm">
+              <Backdrop image={image} imageClass="opacity-55" overlayClass="bg-brand-900/60" />
+
+              <h3 class="relative text-sm font-black uppercase tracking-[0.16em] text-white">
+                {title}
+              </h3>
+              <ul class="relative mt-6 space-y-3">
                 {formats.map((format) => (
-                  <li class="flex gap-3 text-ink-600">
-                    <span class="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-brand-500" />
+                  <li class="flex gap-3 text-white/90">
+                    <span class="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-brand-400" />
                     <span>{format}</span>
                   </li>
                 ))}

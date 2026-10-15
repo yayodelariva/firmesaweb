@@ -166,10 +166,14 @@ export const radio = {
   steps: ['Planeación', 'Negociación', 'Compra', 'Ejecución', 'Seguimiento'],
 } as const;
 
-/** Medios en movimiento, con los formatos que ofrece cada uno. */
+/**
+ * Medios en movimiento, con los formatos que ofrece cada uno. La foto de cada
+ * uno es la misma que lo representa en el mosaico de «Nuestros medios».
+ */
 export const movingMedia = [
   {
     title: 'Aerolíneas',
+    image: '/img/medio-aerolineas.jpg',
     formats: [
       'Mesas de servicio',
       'Fuselaje',
@@ -180,6 +184,7 @@ export const movingMedia = [
   },
   {
     title: 'Autobuses',
+    image: '/img/medio-autobuses.jpg',
     formats: [
       'Pantallas abordo',
       'Mega pantalla',
