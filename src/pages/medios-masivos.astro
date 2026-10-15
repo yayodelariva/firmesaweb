@@ -84,7 +84,7 @@ import { url } from '../lib/links';
       <!-- How a radio buy is run, in the order the deck lists it. The sequence
            is carried by the reveal below instead of printed numerals, and by
            the <ol> itself for anyone who never sees it run. -->
-      <ol class="radio-steps grid gap-3 sm:grid-cols-2">
+      <ol class="reveal grid gap-3 sm:grid-cols-2">
         {
           radio.steps.map((step, i) => (
             <li class="flex items-center rounded-2xl border border-white/20 px-5 py-4" style={`--i: ${i}`}>
@@ -115,20 +115,27 @@ import { url } from '../lib/links';
 
       <!-- Each medium carries its own photograph, the one that represents it in
            the mosaic above. Both are bright and busy, so the card goes dark and
-           the type turns over it: a tint this heavy is what keeps a six-item
-           list readable across a photograph of a lit bus at night. -->
-      <div class="mt-12 grid gap-6 md:grid-cols-2">
+           the type turns over it: the flat tint carries the luminance contrast,
+           and `on-photo` below carries the edges, which is the half a
+           photograph's own texture takes away.
+
+           The two cards arrive one after the other — a longer step and a
+           taller rise than the radio list, because the thing moving is bigger. -->
+      <div class="reveal mt-12 grid gap-6 md:grid-cols-2" style="--stagger: 160ms; --rise: 1.25rem">
         {
-          movingMedia.map(({ title, image, formats }) => (
-            <article class="relative overflow-hidden rounded-3xl bg-brand-900 p-8 shadow-sm">
+          movingMedia.map(({ title, image, formats }, i) => (
+            <article
+              class="relative overflow-hidden rounded-3xl bg-brand-900 p-8 shadow-sm"
+              style={`--i: ${i}`}
+            >
               <Backdrop image={image} imageClass="opacity-55" overlayClass="bg-brand-900/60" />
 
-              <h3 class="relative text-sm font-black uppercase tracking-[0.16em] text-white">
+              <h3 class="on-photo relative text-sm font-black uppercase tracking-[0.16em] text-white">
                 {title}
               </h3>
-              <ul class="relative mt-6 space-y-3">
+              <ul class="on-photo relative mt-6 space-y-3.5">
                 {formats.map((format) => (
-                  <li class="flex gap-3 text-white/90">
+                  <li class="flex gap-3 font-medium text-white">
                     <span class="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-brand-400" />
                     <span>{format}</span>
                   </li>
@@ -253,31 +260,43 @@ import { url } from '../lib/links';
 
 <style>
   /*
-   * The radio steps arrive one after another, which is what the 01–05 numerals
-   * used to say. The hidden state is attached by the script below rather than
-   * written into the markup, so if that never runs every step is simply there.
+   * Lifts type off a photograph. The tint under it already carries the
+   * luminance contrast; what a busy image takes away is edge definition,
+   * where a letter's stroke meets a detail of the same brightness. A shadow
+   * this small is invisible as a shadow and does only that.
    */
-  .radio-steps[data-reveal] > li {
+  .on-photo {
+    text-shadow: 0 1px 3px rgb(0 0 0 / 0.55);
+  }
+
+  /*
+   * Staggered reveal, used by the radio steps and the two moving-media cards.
+   * Children carry `--i`, the container may tune `--stagger` and `--rise`.
+   *
+   * The hidden state is attached by the script below rather than written into
+   * the markup, so if that never runs everything is simply there.
+   */
+  .reveal[data-reveal] > * {
     opacity: 0;
-    transform: translateY(0.75rem);
+    transform: translateY(var(--rise, 0.75rem));
   }
 
-  /* 110 ms apart: slow enough to read as a sequence, quick enough that the
-     last step lands while the eye is still on the list. */
-  .radio-steps[data-reveal='in'] > li {
-    animation: step-in 500ms cubic-bezier(0.2, 0.7, 0.3, 1) both;
-    animation-delay: calc(var(--i) * 110ms);
+  /* 110 ms apart by default: slow enough to read as a sequence, quick enough
+     that the last one lands while the eye is still on the group. */
+  .reveal[data-reveal='in'] > * {
+    animation: reveal-in 500ms cubic-bezier(0.2, 0.7, 0.3, 1) both;
+    animation-delay: calc(var(--i) * var(--stagger, 110ms));
   }
 
-  @keyframes step-in {
-    from { opacity: 0; transform: translateY(0.75rem); }
+  @keyframes reveal-in {
+    from { opacity: 0; transform: translateY(var(--rise, 0.75rem)); }
     to { opacity: 1; transform: translateY(0); }
   }
 
-  /* No reveal at all, rather than an instant one: the list is complete from
+  /* No reveal at all, rather than an instant one: the group is complete from
      the moment the section is reached. */
   @media (prefers-reduced-motion: reduce) {
-    .radio-steps[data-reveal] > li {
+    .reveal[data-reveal] > * {
       opacity: 1;
       transform: none;
       animation: none;
@@ -286,24 +305,23 @@ import { url } from '../lib/links';
 </style>
 
 <script>
-  // The reveal waits for the section to be scrolled to — it sits well below
-  // the fold, and an animation nobody is looking at has already finished.
-  const steps = document.querySelector<HTMLElement>('.radio-steps');
-
-  if (steps) {
-    steps.dataset.reveal = 'pending';
+  // Each group reveals when it is scrolled to — both sit well below the fold,
+  // and an animation nobody is looking at has already finished.
+  for (const group of document.querySelectorAll<HTMLElement>('.reveal')) {
+    group.dataset.reveal = 'pending';
 
     const observer = new IntersectionObserver(
       (entries) => {
         if (!entries.some((entry) => entry.isIntersecting)) return;
-        steps.dataset.reveal = 'in';
+        group.dataset.reveal = 'in';
         observer.disconnect();
       },
-      // A quarter of the list in view: enough that the first steps have not
-      // already scrolled past by the time they animate.
-      { threshold: 0.25 },
+      // Fires once the group's top clears the bottom fifth of the viewport.
+      // A threshold would not do: a stacked pair of cards can be taller than a
+      // phone screen, and a fraction of it may never be on screen at once.
+      { threshold: 0, rootMargin: '0px 0px -20% 0px' },
     );
 
-    observer.observe(steps);
+    observer.observe(group);
   }
 </script>
