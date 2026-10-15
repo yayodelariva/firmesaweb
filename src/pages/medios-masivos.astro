@@ -119,23 +119,21 @@ import { url } from '../lib/links';
            and `on-photo` below carries the edges, which is the half a
            photograph's own texture takes away.
 
-           The two cards arrive one after the other — a longer step and a
-           taller rise than the radio list, because the thing moving is bigger. -->
-      <div class="reveal mt-12 grid gap-6 md:grid-cols-2" style="--stagger: 160ms; --rise: 1.25rem">
+           Each list reveals its own formats in turn, at the same pace as the
+           radio steps. The two are separate groups, so each starts when its
+           own card is reached rather than both firing off the first one. -->
+      <div class="mt-12 grid gap-6 md:grid-cols-2">
         {
-          movingMedia.map(({ title, image, formats }, i) => (
-            <article
-              class="relative overflow-hidden rounded-3xl bg-brand-900 p-8 shadow-sm"
-              style={`--i: ${i}`}
-            >
+          movingMedia.map(({ title, image, formats }) => (
+            <article class="relative overflow-hidden rounded-3xl bg-brand-900 p-8 shadow-sm">
               <Backdrop image={image} imageClass="opacity-55" overlayClass="bg-brand-900/60" />
 
               <h3 class="on-photo relative text-sm font-black uppercase tracking-[0.16em] text-white">
                 {title}
               </h3>
-              <ul class="on-photo relative mt-6 space-y-3.5">
-                {formats.map((format) => (
-                  <li class="flex gap-3 font-medium text-white">
+              <ul class="on-photo reveal relative mt-6 space-y-3.5">
+                {formats.map((format, i) => (
+                  <li class="flex gap-3 font-medium text-white" style={`--i: ${i}`}>
                     <span class="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-brand-400" />
                     <span>{format}</span>
                   </li>

@@ -268,9 +268,11 @@ hidden state is attached by script, never written into the markup, so a failure 
 steps visible rather than none. Restoring the numerals is the one `<span>` in
 `src/pages/medios-masivos.astro` that git still has.
 
-The same reveal carries the two *Medios en movimiento* cards — one `.reveal` rule and one
-observer at the foot of that page, with `--i` on each child and `--stagger`/`--rise` tunable per
-group. `prefers-reduced-motion` drops it entirely rather than running it instantly.
+The same reveal carries the format lists inside the two *Medios en movimiento* cards — one
+`.reveal` rule and one observer at the foot of that page, with `--i` on each child and
+`--stagger`/`--rise` tunable per group. The cards themselves do not move; only what is listed in
+them arrives in turn. `prefers-reduced-motion` drops it entirely rather than running it
+instantly.
 
 **Needs confirming before this goes live.** Three of those are commercial calls rather than
 build questions — a figure to re-count, a clearance to obtain, and an image set to review — so
