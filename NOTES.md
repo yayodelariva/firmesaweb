@@ -261,6 +261,13 @@ The four columns are the deck's clearest statement of what Firmesa sells end to 
 page wants them later, ¿Quiénes somos? is the natural home — the 360° list they overlapped with
 is no longer there to compete with them.
 
+**The radio steps lost their numerals.** The deck numbers them 01–05; on the page they arrive in
+sequence instead, staggered as the section is scrolled to. The list is still an `<ol>`, so the
+order survives for a screen reader and for anyone whose browser never runs the reveal — the
+hidden state is attached by script, never written into the markup, so a failure leaves all five
+steps visible rather than none. Restoring the numerals is the one `<span>` in
+`src/pages/medios-masivos.astro` that git still has.
+
 **Needs confirming before this goes live.** Three of those are commercial calls rather than
 build questions — a figure to re-count, a clearance to obtain, and an image set to review — so
 they sit with the rest of the client paperwork, outside this public repository, in

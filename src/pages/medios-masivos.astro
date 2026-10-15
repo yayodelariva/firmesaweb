@@ -81,12 +81,13 @@ import { url } from '../lib/links';
         </p>
       </div>
 
-      <!-- How a radio buy is run, in the order the deck lists it. -->
-      <ol class="grid gap-3 sm:grid-cols-2">
+      <!-- How a radio buy is run, in the order the deck lists it. The sequence
+           is carried by the reveal below instead of printed numerals, and by
+           the <ol> itself for anyone who never sees it run. -->
+      <ol class="radio-steps grid gap-3 sm:grid-cols-2">
         {
           radio.steps.map((step, i) => (
-            <li class="flex items-center gap-4 rounded-2xl border border-white/20 px-5 py-4">
-              <span class="text-xs font-black text-brand-400">{String(i + 1).padStart(2, '0')}</span>
+            <li class="flex items-center rounded-2xl border border-white/20 px-5 py-4" style={`--i: ${i}`}>
               <span class="text-sm font-bold uppercase tracking-[0.12em] text-white">{step}</span>
             </li>
           ))
@@ -241,3 +242,60 @@ import { url } from '../lib/links';
     </div>
   </section>
 </Base>
+
+<style>
+  /*
+   * The radio steps arrive one after another, which is what the 01–05 numerals
+   * used to say. The hidden state is attached by the script below rather than
+   * written into the markup, so if that never runs every step is simply there.
+   */
+  .radio-steps[data-reveal] > li {
+    opacity: 0;
+    transform: translateY(0.75rem);
+  }
+
+  /* 110 ms apart: slow enough to read as a sequence, quick enough that the
+     last step lands while the eye is still on the list. */
+  .radio-steps[data-reveal='in'] > li {
+    animation: step-in 500ms cubic-bezier(0.2, 0.7, 0.3, 1) both;
+    animation-delay: calc(var(--i) * 110ms);
+  }
+
+  @keyframes step-in {
+    from { opacity: 0; transform: translateY(0.75rem); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* No reveal at all, rather than an instant one: the list is complete from
+     the moment the section is reached. */
+  @media (prefers-reduced-motion: reduce) {
+    .radio-steps[data-reveal] > li {
+      opacity: 1;
+      transform: none;
+      animation: none;
+    }
+  }
+</style>
+
+<script>
+  // The reveal waits for the section to be scrolled to — it sits well below
+  // the fold, and an animation nobody is looking at has already finished.
+  const steps = document.querySelector<HTMLElement>('.radio-steps');
+
+  if (steps) {
+    steps.dataset.reveal = 'pending';
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (!entries.some((entry) => entry.isIntersecting)) return;
+        steps.dataset.reveal = 'in';
+        observer.disconnect();
+      },
+      // A quarter of the list in view: enough that the first steps have not
+      // already scrolled past by the time they animate.
+      { threshold: 0.25 },
+    );
+
+    observer.observe(steps);
+  }
+</script>
