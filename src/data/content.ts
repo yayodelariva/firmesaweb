@@ -148,14 +148,18 @@ export const interests = [
 
 /* ── Credenciales 2026 ──────────────────────────────────────────────────── */
 
-/** "Nuestros medios": lo que Firmesa opera, en el orden de la presentación. */
+/**
+ * "Nuestros medios": lo que Firmesa opera, en el orden de la presentación.
+ * `section` ancla cada medio a la sección de la misma página que lo desarrolla;
+ * varios medios comparten sección.
+ */
 export const media = [
-  'Radio',
-  'Aerolíneas',
-  'Autobuses',
-  'Suplementos',
-  'Digital radio',
-  'Impresos',
+  { title: 'Radio', section: '#servicios' },
+  { title: 'Aerolíneas', section: '#medios-en-movimiento' },
+  { title: 'Autobuses', section: '#medios-en-movimiento' },
+  { title: 'Suplementos', section: '#exterior-impresos' },
+  { title: 'Digital radio', section: '#servicios' },
+  { title: 'Impresos', section: '#exterior-impresos' },
 ] as const;
 
 /** Radio: el dato de cobertura y el proceso con que se compra. */

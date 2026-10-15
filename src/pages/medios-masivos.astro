@@ -44,16 +44,26 @@ import { url } from '../lib/links';
            in currentColor, so the one colour class sets both. -->
       <p class="pill w-fit text-brand-500">Nuestros medios</p>
 
-      <ul class="mt-10 max-w-3xl space-y-3">
+      <!-- Every medium jumps to the section that develops it, all of them
+           further down this page — hence an arrow that points down rather than
+           along. The weight alternates on the title alone, so the arrow keeps
+           one weight down the column. -->
+      <ul class="reveal mt-10 max-w-3xl space-y-3">
         {
-          media.map((medium, i) => (
-            <li
-              class:list={[
-                'border-b border-brand-500/20 pb-4 text-lg uppercase tracking-[0.1em] text-brand-500 md:text-xl',
-                i % 2 === 0 ? 'font-extrabold' : 'font-light',
-              ]}
-            >
-              {medium}
+          media.map(({ title, section }, i) => (
+            <li class="border-b border-brand-500/20" style={`--i: ${i}`}>
+              <a
+                href={section}
+                class="group flex items-baseline justify-between gap-4 pb-4 text-lg uppercase tracking-[0.1em] text-brand-500 transition-colors hover:text-brand-700 md:text-xl"
+              >
+                <span class:list={[i % 2 === 0 ? 'font-extrabold' : 'font-light']}>{title}</span>
+                <span
+                  aria-hidden="true"
+                  class="font-normal text-brand-500/40 transition-transform group-hover:translate-y-1"
+                >
+                  ↓
+                </span>
+              </a>
             </li>
           ))
         }
@@ -96,7 +106,7 @@ import { url } from '../lib/links';
   </section>
 
   <!-- Medios en movimiento -->
-  <section class="bg-field">
+  <section id="medios-en-movimiento" class="scroll-mt-24 bg-field">
     <div class="wrapper py-16 md:py-20">
       <!-- Same outlined display heading as Radio, in crimson: the white
            outline of the Radio version would vanish on this light field. -->
@@ -149,7 +159,7 @@ import { url } from '../lib/links';
   </section>
 
   <!-- Formatos -->
-  <section class="bg-white">
+  <section id="exterior-impresos" class="scroll-mt-24 bg-white">
     <div class="wrapper py-16 md:py-20">
       <div class="grid gap-6 md:grid-cols-2">
         {
@@ -203,7 +213,7 @@ import { url } from '../lib/links';
   </section>
 
   <!-- Servicios -->
-  <section class="relative overflow-hidden bg-brand-900">
+  <section id="servicios" class="relative scroll-mt-24 overflow-hidden bg-brand-900">
     <Backdrop image="/img/consola.jpg" imageClass="opacity-30" overlayClass="bg-brand-900/60" />
 
     <div class="wrapper relative py-16 md:py-24">
