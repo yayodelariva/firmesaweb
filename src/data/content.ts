@@ -11,16 +11,16 @@ export const rotating = ['campañas', 'marcas', 'posicionamiento'] as const;
 /** The two halves of the offering. */
 export const worlds = [
   {
-    label: 'Medios Masivos',
-    href: '/medios-masivos/',
-    image: '/img/card-medios-masivos.jpg',
-    text: 'Alcance real a gran escala, con estrategia y control.',
-  },
-  {
     label: 'Firmesa Digital',
     href: '/firmesa-digital/',
     image: '/img/card-firmesa-digital.jpg',
     text: 'Creatividad, contenido y distribución para posicionar y convertir.',
+  },
+  {
+    label: 'Medios Masivos',
+    href: '/medios-masivos/',
+    image: '/img/card-medios-masivos.jpg',
+    text: 'Alcance real a gran escala, con estrategia y control.',
   },
 ] as const;
 
