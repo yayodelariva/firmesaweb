@@ -37,10 +37,9 @@ August 2026 and stations change frequency and branding.
   implying video. No video files were provided, so those render as still images. The markup is
   ready to take `<video>` or an embed when the files exist.
 - **Client logos:** the home page now names the twelve brands the credentials deck lists, as
-  text. Their logos are in that deck and would be stronger, but they are third-party trademarks:
-  publishing them on firmesa.mx needs each brand's permission, and some contracts forbid it
-  outright. Confirm before swapping names for marks — and confirm the names themselves are
-  cleared for a public page, which is a lower bar than logos but not zero.
+  text. Their logos are in that deck and would be stronger, but they are third-party trademarks,
+  so swapping names for marks is a decision to take with Firmesa rather than in the markup — see
+  the private notes.
 - Six extracted images went unused and were removed to keep the repo lean: the FIRMESA outline
   band, a control room, a neon-mic frame, the bus hero, and two brand mockups (parabús and
   building). All are recoverable from the PDF with `pdfimages`.
@@ -262,18 +261,12 @@ The four columns are the deck's clearest statement of what Firmesa sells end to 
 page wants them later, ¿Quiénes somos? is the natural home — the 360° list they overlapped with
 is no longer there to compete with them.
 
-**Needs confirming before this goes live:**
+**Needs confirming before this goes live.** Three of those are commercial calls rather than
+build questions — a figure to re-count, a clearance to obtain, and an image set to review — so
+they sit with the rest of the client paperwork, outside this public repository, in
+`pendientes-antes-de-publicar.md`. They are open; this file simply is not where they belong.
 
-- **"+35 emisoras a nivel nacional."** The deck's figure. The station directory parked on
-  `firmesa-alt` lists 28 stations captured in August 2026. Both can be true — the directory is
-  what the old site published, not necessarily what Firmesa represents today — but the site should
-  not publish a number nobody has re-counted.
-- **The twelve client names.** See *Media* above: naming clients publicly is a commercial decision,
-  not a design one.
-- **Six media-tile images and three studio photos** were cut out of the deck's own slides
-  (`medio-*.jpg`, `espacio-*.jpg`). The studio photos are Firmesa's own rooms and carry a faint
-  red thread from the slide's decoration that could not be removed; the media tiles look
-  AI-generated, which is fine for a deck but worth a second look on a public site. Replace any of
-  them with real photography when it exists.
+One is a build note and stays here:
+
 - **Suplementos and Digital radio** now appear as media Firmesa sells. Neither had a page section
-  before. If either has formats or rates worth spelling out, Medios Masivos is where they go.
+  before. If either has formats worth spelling out, Medios Masivos is where they go.
