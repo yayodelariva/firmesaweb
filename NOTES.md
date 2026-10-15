@@ -270,14 +270,11 @@ steps visible rather than none. Restoring the numerals is the one `<span>` in
 
 **«Nuestros medios» jumps to the rest of the page.** Each of the six is a link to the section
 that develops it — `media` in `content.ts` carries the anchor next to the name, and three
-sections carry the matching `id`: `#servicios`, `#medios-en-movimiento`, `#exterior-impresos`.
-Several media share a target, which is why the anchor is data rather than derived from the name.
-`scroll-behavior: smooth` is already global, and each target carries `scroll-mt-24` — 96 px
-against an 87 px sticky header, measured, so the heading never lands underneath it.
-
-Two of the six point somewhere worth a second look: **Radio** and **Digital radio** go to
-*Servicios*, not to the Radio section the same page already has. That is the mapping as it was
-asked for; changing it is one value in `content.ts`.
+sections carry the matching `id`: `#radio` (both radio entries), `#medios-en-movimiento` and
+`#exterior-impresos`. Several media share a target, which is why the anchor is data rather than
+derived from the name. `scroll-behavior: smooth` is already global, and each target carries
+`scroll-mt-24` — 96 px against an 87 px sticky header, measured, so the heading never lands
+underneath it.
 
 **«Nuestros medios» is a list, not a mosaic.** The deck shows the six media as photographic
 tiles; the page now sets them as the *Servicios* list at the foot of the same page, inverted —

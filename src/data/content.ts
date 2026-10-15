@@ -154,11 +154,11 @@ export const interests = [
  * varios medios comparten sección.
  */
 export const media = [
-  { title: 'Radio', section: '#servicios' },
+  { title: 'Radio', section: '#radio' },
   { title: 'Aerolíneas', section: '#medios-en-movimiento' },
   { title: 'Autobuses', section: '#medios-en-movimiento' },
   { title: 'Suplementos', section: '#exterior-impresos' },
-  { title: 'Digital radio', section: '#servicios' },
+  { title: 'Digital radio', section: '#radio' },
   { title: 'Impresos', section: '#exterior-impresos' },
 ] as const;
 
