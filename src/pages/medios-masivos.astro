@@ -39,22 +39,21 @@ import { url } from '../lib/links';
   <!-- Nuestros medios -->
   <section class="bg-white">
     <div class="wrapper py-16 md:py-20">
-      <p class="pill w-fit border-ink-800 text-ink-900">Nuestros medios</p>
+      <!-- The Servicios list at the foot of the page, inverted: the same rule,
+           rhythm and alternating weights, in crimson on white. `.pill` borders
+           in currentColor, so the one colour class sets both. -->
+      <p class="pill w-fit text-brand-500">Nuestros medios</p>
 
-      <ul class="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+      <ul class="mt-10 max-w-3xl space-y-3">
         {
-          media.map(({ title, image }) => (
-            <li class="group relative overflow-hidden rounded-3xl">
-              <img
-                src={url(image)}
-                alt=""
-                loading="lazy"
-                decoding="async"
-                class="h-56 w-full object-cover transition-transform duration-500 group-hover:scale-105"
-              />
-              <div class="absolute inset-0 flex items-end bg-gradient-to-t from-brand-900/85 to-transparent p-6">
-                <h2 class="text-2xl font-black uppercase tracking-tight text-white">{title}</h2>
-              </div>
+          media.map((medium, i) => (
+            <li
+              class:list={[
+                'border-b border-brand-500/20 pb-4 text-lg uppercase tracking-[0.1em] text-brand-500 md:text-xl',
+                i % 2 === 0 ? 'font-extrabold' : 'font-light',
+              ]}
+            >
+              {medium}
             </li>
           ))
         }
@@ -113,11 +112,10 @@ import { url } from '../lib/links';
         Llevamos a las marcas más lejos, en cada etapa del viaje.
       </p>
 
-      <!-- Each medium carries its own photograph, the one that represents it in
-           the mosaic above. Both are bright and busy, so the card goes dark and
-           the type turns over it: the flat tint carries the luminance contrast,
-           and `on-photo` below carries the edges, which is the half a
-           photograph's own texture takes away.
+      <!-- Each medium carries its own photograph. Both are bright and busy, so
+           the card goes dark and the type turns over it: the flat tint carries
+           the luminance contrast, and `on-photo` below carries the edges,
+           which is the half a photograph's own texture takes away.
 
            Each list reveals its own formats in turn, at the same pace as the
            radio steps. The two are separate groups, so each starts when its

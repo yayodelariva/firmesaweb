@@ -228,7 +228,7 @@ Source: *CREDENCIALES FIRMESA 2026* (12 slides, October 2026), kept outside the 
 | Claim de portada           | `site.slogan`, under the logo in the home hero                 |
 | ¿De dónde venimos?         | The 54-years line in the ¿Quiénes somos? heading band          |
 | No somos una agencia       | Opens the home page's positioning section                      |
-| Nuestros medios            | The six-tile grid on Medios Masivos                            |
+| Nuestros medios            | The six-item list on Medios Masivos                            |
 | Radio                      | The +35 emisoras section, with the five-step buying process    |
 | Medios en movimiento       | Aerolíneas and autobuses formats, on Medios Masivos            |
 | Producimos                 | Built, then cut from Firmesa Digital — see below                |
@@ -267,6 +267,14 @@ order survives for a screen reader and for anyone whose browser never runs the r
 hidden state is attached by script, never written into the markup, so a failure leaves all five
 steps visible rather than none. Restoring the numerals is the one `<span>` in
 `src/pages/medios-masivos.astro` that git still has.
+
+**«Nuestros medios» is a list, not a mosaic.** The deck shows the six media as photographic
+tiles; the page now sets them as the *Servicios* list at the foot of the same page, inverted —
+same rule, rhythm and alternating weights, crimson on white instead of white on a photograph.
+The tiles' six `<h2>`s went with them, so the section is labelled only by its pill, exactly as
+*Servicios* is. `media` in `content.ts` is a plain list of names now, which leaves
+`medio-radio.jpg`, `medio-suplementos.jpg`, `medio-digital-radio.jpg` and `medio-impresos.jpg`
+unreferenced on disk. The other two are still in use: *Medios en movimiento* reads them.
 
 The same reveal carries the format lists inside the two *Medios en movimiento* cards — one
 `.reveal` rule and one observer at the foot of that page, with `--i` on each child and

@@ -150,12 +150,12 @@ export const interests = [
 
 /** "Nuestros medios": lo que Firmesa opera, en el orden de la presentación. */
 export const media = [
-  { title: 'Radio', image: '/img/medio-radio.jpg' },
-  { title: 'Aerolíneas', image: '/img/medio-aerolineas.jpg' },
-  { title: 'Autobuses', image: '/img/medio-autobuses.jpg' },
-  { title: 'Suplementos', image: '/img/medio-suplementos.jpg' },
-  { title: 'Digital radio', image: '/img/medio-digital-radio.jpg' },
-  { title: 'Impresos', image: '/img/medio-impresos.jpg' },
+  'Radio',
+  'Aerolíneas',
+  'Autobuses',
+  'Suplementos',
+  'Digital radio',
+  'Impresos',
 ] as const;
 
 /** Radio: el dato de cobertura y el proceso con que se compra. */
@@ -166,10 +166,7 @@ export const radio = {
   steps: ['Planeación', 'Negociación', 'Compra', 'Ejecución', 'Seguimiento'],
 } as const;
 
-/**
- * Medios en movimiento, con los formatos que ofrece cada uno. La foto de cada
- * uno es la misma que lo representa en el mosaico de «Nuestros medios».
- */
+/** Medios en movimiento, con los formatos y la foto de cada uno. */
 export const movingMedia = [
   {
     title: 'Aerolíneas',
