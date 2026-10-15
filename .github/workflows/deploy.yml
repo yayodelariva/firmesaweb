@@ -15,11 +15,20 @@ concurrency:
   group: pages
   cancel-in-progress: false
 
+env:
+  # The curation branch, published beside main so the two can be compared in a
+  # browser. This workflow never merges it — it only builds it.
+  PREVIEW_BRANCH: edits/seleccion-v4
+  PREVIEW_DIR: v4
+
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
+        with:
+          # The preview build checks out a second branch, so not a shallow clone.
+          fetch-depth: 0
 
       - uses: actions/setup-node@v7
         with:
@@ -29,6 +38,22 @@ jobs:
       - run: npm ci
       - run: npm run check
       - run: npm run build
+
+      # The preview builds in its own worktree, with its own install, so neither
+      # branch can see the other's files. `base` has to carry the subdirectory,
+      # or every link and asset in the preview would point at main's copy.
+      #
+      # A broken preview must not stop main from shipping, hence
+      # continue-on-error: the step is flagged in the run, main deploys anyway,
+      # and /v4/ is simply absent until the next build succeeds.
+      - name: Build the preview branch
+        continue-on-error: true
+        run: |
+          git worktree add ../preview "origin/$PREVIEW_BRANCH"
+          cd ../preview
+          npm ci
+          BASE_PATH="/${GITHUB_REPOSITORY#*/}/$PREVIEW_DIR/" \
+            npm run build -- --outDir "$GITHUB_WORKSPACE/dist/$PREVIEW_DIR"
 
       - uses: actions/upload-pages-artifact@v5
         with:
