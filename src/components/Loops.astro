@@ -20,8 +20,20 @@ interface Props {
   class?: string;
   /** Opacidad del trazo, 0–1. */
   opacity?: number;
+  /**
+   * Grados de inclinación. Ladeada, las cintas cruzan la banda en diagonal,
+   * pero `cover` ya deja el dibujo tan alto como su caja, así que girarlo
+   * siempre cuesta recorte: sólo vale la pena donde sobra alto. En una banda
+   * de 450 px se ve menos de la mitad del dibujo; en un hero, casi todo.
+   */
+  tilt?: number;
 }
-const { class: className = '', opacity = 0.28 } = Astro.props;
+const { class: className = '', opacity = 0.28, tilt = 0 } = Astro.props;
+
+/* Girada, la caja deja esquinas de la banda sin cubrir; se agranda lo justo
+   para taparlas otra vez, y a 0° no se agranda nada. */
+const escala = 1 + Math.sin((Math.abs(tilt) * Math.PI) / 180) * 1.07;
+const giro = tilt ? `;transform:scale(${escala.toFixed(3)}) rotate(${tilt}deg)` : '';
 
 /* El lienzo del archivo es más ancho que el dibujo —2600 contra 1200, con el
    dibujo centrado—, porque las bandas del sitio son mucho más anchas que
@@ -31,18 +43,13 @@ const cadena = url('/img/cadena-textura.png');
 
 <div
   class:list={['cadena pointer-events-none absolute inset-0', className]}
-  style={`opacity:${opacity};--cadena:url('${cadena}')`}
+  style={`opacity:${opacity};--cadena:url('${cadena}')${giro}`}
   aria-hidden="true"
 >
 </div>
 
 <style>
   .cadena {
-    /* Ladeada y algo más grande: así las cintas cruzan la banda en diagonal
-       en vez de quedar paralelas al borde, y ninguna sección la enseña desde
-       el mismo ángulo. Todas las secciones que la llevan recortan lo que se
-       sale, así que girarla no empuja la página a lo ancho. */
-    transform: scale(1.5) rotate(28deg);
     background-color: currentColor;
     -webkit-mask-image: var(--cadena);
     mask-image: var(--cadena);
