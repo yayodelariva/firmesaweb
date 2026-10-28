@@ -11,7 +11,8 @@
             "callSign": "XHHZ",
             "stream": "http://www.xehz.com/jp.html",
             "programming": "Música Variada Grupera",
-            "audio": "https://stream.zeno.fm/y8uxwx3je0nvv"
+            "audio": "https://stream.zeno.fm/y8uxwx3je0nvv",
+            "gain": 0.47
           },
           {
             "name": "Súper Stereo 96",
@@ -19,7 +20,8 @@
             "callSign": "XHPAZ",
             "stream": "http://www.superstereo96.com/jp.html",
             "programming": "Música en Inglés y Español",
-            "audio": "https://stream.zeno.fm/rblur0tafwxuv"
+            "audio": "https://stream.zeno.fm/rblur0tafwxuv",
+            "gain": 1.0
           },
           {
             "name": "RADIANTE 91.1",
@@ -64,7 +66,8 @@
             "callSign": "XHEIN",
             "stream": "http://extremocintalapa.com/player/extremocintalapa.html",
             "programming": "Pop, Grupera, Banda y Tropical",
-            "audio": "https://stream.freepi.io:8316/live"
+            "audio": "https://stream.freepi.io:8316/live",
+            "gain": 0.64
           }
         ],
         "lat": 16.6839,
@@ -81,7 +84,8 @@
             "callSign": "XHEOB",
             "stream": "http://www.radionucleo.com/player/kebuenapichucalco.htm",
             "programming": "Música Pop, Grupera, Banda, Tropical y Noticiero",
-            "audio": "https://stream.freepi.io:8304/live"
+            "audio": "https://stream.freepi.io:8304/live",
+            "gain": 1.0
           }
         ],
         "lat": 17.51,
@@ -98,7 +102,8 @@
             "callSign": "XHWM",
             "stream": "http://supremaradio.com/reproduceWM.html",
             "programming": "Música Variada y Noticias",
-            "audio": "https://streamingcwsradio30.com/8146/stream"
+            "audio": "https://streamingcwsradio30.com/8146/stream",
+            "gain": 0.32
           }
         ],
         "lat": 16.7301,
@@ -115,7 +120,8 @@
             "callSign": "XHETS",
             "stream": "http://kebuenatapachula.com/",
             "programming": "Música Grupero, Banda y Tropical",
-            "audio": "https://stream.freepi.io/8312/live"
+            "audio": "https://stream.freepi.io/8312/live",
+            "gain": 0.74
           }
         ],
         "lat": 14.9107,
@@ -132,7 +138,8 @@
             "callSign": "XHDB",
             "stream": "http://extremotonala.com/",
             "programming": "Música Variada y Noticias",
-            "audio": "https://stream.freepi.io:8320/live"
+            "audio": "https://stream.freepi.io:8320/live",
+            "gain": 0.48
           }
         ],
         "lat": 16.0916,
@@ -149,7 +156,8 @@
             "callSign": "XHTG/XETG",
             "stream": "http://www.latg.mx/",
             "programming": "Música Pop en Español e Inglés, Noticias",
-            "audio": "https://stream.freepi.io/8302/live"
+            "audio": "https://stream.freepi.io/8302/live",
+            "gain": 0.21
           }
         ],
         "lat": 16.7536,
@@ -171,7 +179,8 @@
             "callSign": "XHDT",
             "stream": "http://www.likefm.com.mx/",
             "programming": "Música Moderna y Los Nuevos Clásicos en Español e Inglés",
-            "audio": "https://streamingcwsradio30.com:7085/stream"
+            "audio": "https://streamingcwsradio30.com:7085/stream",
+            "gain": 1.0
           }
         ],
         "lat": 28.4063,
@@ -188,7 +197,8 @@
             "callSign": "XHBN",
             "stream": "http://www.likefm.com.mx/",
             "programming": "Música Pop en Español e Inglés",
-            "audio": "https://streamingcwsradio30.com:7082/stream"
+            "audio": "https://streamingcwsradio30.com:7082/stream",
+            "gain": 0.42
           },
           {
             "name": "La Caliente",
@@ -196,7 +206,8 @@
             "callSign": "XHHM",
             "stream": "http://www.lacalientefm.com.mx/",
             "programming": "Música Regional Mexicana",
-            "audio": "https://streamingcwsradio30.com:7077/stream"
+            "audio": "https://streamingcwsradio30.com:7077/stream",
+            "gain": 0.61
           }
         ],
         "lat": 28.1901,
@@ -213,7 +224,8 @@
             "callSign": "XESW/XHESW",
             "stream": "http://www.radiomadera.com/",
             "programming": "Música Regional Mexicana",
-            "audio": "https://streamingcwsradio30.com:7113/stream"
+            "audio": "https://streamingcwsradio30.com:7113/stream",
+            "gain": 0.56
           }
         ],
         "lat": 29.1927,
@@ -230,7 +242,8 @@
             "callSign": "XHES",
             "stream": "https://antenafm.mx/",
             "programming": "Programas de Contenido Noticioso, Música Moderna en Español",
-            "audio": "https://streamingcwsradio30.com:7093/stream"
+            "audio": "https://streamingcwsradio30.com:7093/stream",
+            "gain": 0.74
           }
         ],
         "lat": 28.6353,
@@ -268,7 +281,8 @@
             "callSign": "XHBX",
             "stream": "http://radioxebx.com/",
             "programming": "Música Regional Mexicana",
-            "audio": "https://streamingcwsradio30.com:7112/stream"
+            "audio": "https://streamingcwsradio30.com:7112/stream",
+            "gain": 0.58
           },
           {
             "name": "LIKE FM",
@@ -276,7 +290,8 @@
             "callSign": "XHESCC",
             "stream": "http://www.likefm.com.mx/",
             "programming": "Música Moderna y los Nuevos Clásicos en Español e Inglés",
-            "audio": "https://streamingcwsradio30.com:7080/stream"
+            "audio": "https://streamingcwsradio30.com:7080/stream",
+            "gain": 0.72
           }
         ],
         "lat": 27.8559,
@@ -400,7 +415,8 @@
             "callSign": "XERNB",
             "stream": "http://promoradio.com.mx/radio-impacto-1450/",
             "programming": "Música Variada Tropical y Noticias",
-            "audio": "https://stream11.mexiserver.com:9026/stream"
+            "audio": "https://stream11.mexiserver.com:9026/stream",
+            "gain": 0.17
           }
         ],
         "lat": 20.057,
@@ -450,7 +466,8 @@
             "callSign": "XHQQQ",
             "stream": "http://radionucleo.com/player/kebuenavilla/",
             "programming": "Música Grupera, Tropical y Banda",
-            "audio": "https://stream.freepi.io:8328/live"
+            "audio": "https://stream.freepi.io:8328/live",
+            "gain": 0.79
           }
         ],
         "lat": 17.9862,

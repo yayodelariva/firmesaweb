@@ -20,6 +20,17 @@ stream, found by reading the station's own player page and verified twice — on
 HTTPS is not optional: the site is served over TLS, so a plain `http://` stream is blocked as
 mixed content, which is the only thing standing between XHFL (Guanajuato) and the other sixteen.
 
+**They are levelled, because broadcasters are not.** Measured with ffmpeg's EBU R128 meter,
+the seventeen streams span **18 dB** — Radio Impacto arrives at −2.7 LUFS and loudly clipped,
+KE BUENA Pichucalco at −23.1 — so stepping from one to the next without correction is a shout
+followed by a whisper. Every playable station carries a `gain` in `src/data/stations.json`: the
+attenuation that brings it to −18 LUFS, applied to the audio element along with the visitor's own
+volume setting, which is remembered. `scripts/measure-loudness.py` produces those numbers; it
+samples each stream three times and keeps the median, because a single sample of live radio
+disagreed with itself by 6 dB between two runs. The gain never exceeds 1.0 — an audio element can
+lower a signal but not raise it — so the quietest station sets the ceiling, and re-running the
+script is worth it whenever a station sounds out of step.
+
 The remaining eleven have no `audio` field and link out to the station instead. **Seven of those
 eleven links are dead** — carried over from the old WordPress site and never re-checked:
 
