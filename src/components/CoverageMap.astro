@@ -34,9 +34,10 @@ const totals = {
 ---
 
 <figure class="m-0">
-  <!-- Debajo de 40rem el mapa no se encoge: se desplaza. Un contorno de
-       México a lo ancho de un teléfono deja las plazas del centro una
-       encima de otra, y son justo las que hay que poder tocar. -->
+  <!-- El mapa no se encoge: se desplaza. Un contorno de México a lo ancho de
+       un teléfono deja las plazas del centro una encima de otra, y son justo
+       las que hay que poder tocar. La página sólo lo dibuja donde cabe
+       entero, así que este desplazamiento es una red por si acaso. -->
   <div class="overflow-x-auto">
     <svg
       viewBox={mapViewBox}
@@ -114,9 +115,7 @@ const totals = {
   </div>
 
   <figcaption class="mt-6">
-    <p class="text-xs text-white/45 md:hidden">Desliza el mapa para recorrer el país.</p>
-
-    <ul class="mt-6 flex flex-wrap items-center gap-x-7 gap-y-3 text-sm text-white/80 md:mt-2">
+    <ul class="mt-2 flex flex-wrap items-center gap-x-7 gap-y-3 text-sm text-white/80">
       <li class="flex items-center gap-2.5">
         <span class="h-3.5 w-3.5 rounded-sm bg-brand-500" aria-hidden="true"></span>
         Estados con representación

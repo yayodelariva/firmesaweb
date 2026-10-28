@@ -59,8 +59,14 @@ const band = (frequency: string) => {
       </ul>
 
       <!-- El mapa no crece con la página: pasado cierto ancho deja de leerse
-           mejor y sólo empuja el directorio fuera de la pantalla. -->
-      <div class="mt-14 max-w-4xl">
+           mejor y sólo empuja el directorio fuera de la pantalla.
+
+           Y por debajo de 768 px no se dibuja. El trazado mide 40 rem, y con
+           el margen de la página eso no cabe entero hasta los 680 px; más
+           estrecho habría que encogerlo —y las plazas del centro se amontonan
+           hasta volverse intocables— o dejarlo correr de lado. El directorio
+           de abajo dice lo mismo y se lee mejor en un teléfono. -->
+      <div class="mt-14 max-w-4xl max-md:hidden">
         <CoverageMap />
       </div>
     </div>
