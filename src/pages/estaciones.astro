@@ -164,20 +164,64 @@ const band = (frequency: string) => {
                   </p>
                   <p class="mt-4 flex-1 leading-relaxed text-ink-600">{station.programming}</p>
 
-                  <a
-                    href={station.stream}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="mt-6 inline-flex items-center gap-2 self-start text-xs font-bold uppercase tracking-[0.16em] text-brand-500 transition-colors hover:text-brand-700"
-                  >
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                      <path d="M8 5v14l11-7z" />
-                    </svg>
-                    Escuchar en vivo
-                    <span class="sr-only">
-                      — {station.name}, {city.city}
-                    </span>
-                  </a>
+                  {/* Diecisiete de las veintiocho emisoras tienen un flujo
+                      directo en HTTPS y suenan aquí mismo; las demás siguen
+                      abriendo el sitio de la estación, que es todo lo que
+                      publican. Sin JavaScript, todas abren su sitio. */}
+                  {station.audio ? (
+                    <Fragment>
+                      <button
+                        type="button"
+                        data-reproducir
+                        data-audio={station.audio}
+                        data-sitio={station.stream}
+                        data-nombre={station.name}
+                        data-ciudad={city.city}
+                        class="mt-6 inline-flex items-center gap-2 self-start text-xs font-bold uppercase tracking-[0.16em] text-brand-500 transition-colors hover:text-brand-700"
+                      >
+                        <svg
+                          width="14"
+                          height="14"
+                          viewBox="0 0 24 24"
+                          fill="currentColor"
+                          aria-hidden="true"
+                        >
+                          <path class="icono-reproducir" d="M8 5v14l11-7z" />
+                          <rect class="icono-detener" x="6" y="6" width="12" height="12" rx="1.5" />
+                        </svg>
+                        <span data-etiqueta>Escuchar en vivo</span>
+                        <span class="sr-only">
+                          — {station.name}, {city.city}
+                        </span>
+                      </button>
+                      <noscript>
+                        <a
+                          href={station.stream}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          class="mt-6 inline-flex items-center gap-2 self-start text-xs font-bold uppercase tracking-[0.16em] text-brand-500"
+                        >
+                          Escuchar en el sitio de la estación
+                        </a>
+                      </noscript>
+                    </Fragment>
+                  ) : (
+                    <a
+                      href={station.stream}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="mt-6 inline-flex items-center gap-2 self-start text-xs font-bold uppercase tracking-[0.16em] text-brand-500 transition-colors hover:text-brand-700"
+                    >
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                        <path d="M14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z" />
+                        <path d="M19 19H5V5h5V3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-5h-2v5z" />
+                      </svg>
+                      Escuchar en su sitio
+                      <span class="sr-only">
+                        — {station.name}, {city.city}
+                      </span>
+                    </a>
+                  )}
                 </li>
               )),
             )}
@@ -202,6 +246,35 @@ const band = (frequency: string) => {
       <a href={url('/contacto/')} class="btn btn-light">Hablemos de tu proyecto</a>
     </div>
   </section>
+
+  <!-- Barra de reproducción. Aparece sólo mientras algo suena: la señal sigue
+       al visitante por la página, que es como se oye el radio. -->
+  <div
+    id="reproductor"
+    hidden
+    class="fixed inset-x-0 bottom-0 z-40 border-t border-white/15 bg-brand-900/95 backdrop-blur"
+  >
+    <div class="wrapper flex items-center gap-4 py-3.5">
+      <span id="reproductor-pulso" class="relative flex h-2.5 w-2.5 shrink-0" aria-hidden="true">
+        <span class="absolute inline-flex h-full w-full rounded-full bg-brand-400 opacity-75"></span>
+        <span class="relative inline-flex h-2.5 w-2.5 rounded-full bg-brand-400"></span>
+      </span>
+
+      <p class="min-w-0 flex-1 truncate text-sm text-white" aria-live="polite">
+        <span id="reproductor-estado" class="text-white/55"></span>
+        <span id="reproductor-nombre" class="font-bold"></span>
+        <span id="reproductor-ciudad" class="text-white/55"></span>
+      </p>
+
+      <button
+        type="button"
+        id="reproductor-detener"
+        class="shrink-0 rounded-full border border-white/30 px-4 py-2 text-xs font-bold uppercase tracking-[0.16em] text-white transition-colors hover:bg-white/10"
+      >
+        Detener
+      </button>
+    </div>
+  </div>
 </Base>
 
 <script>
@@ -260,6 +333,106 @@ const band = (frequency: string) => {
       applyFilters();
     });
   }
+
+  /* ── Reproductor ──────────────────────────────────────────────────────── */
+
+  // Un solo elemento de audio para toda la página: dos señales a la vez no
+  // es algo que nadie quiera, y así cambiar de emisora cierra la anterior.
+  const audio = new Audio();
+  audio.preload = 'none';
+
+  const bar = document.getElementById('reproductor');
+  const barStatus = document.getElementById('reproductor-estado');
+  const barName = document.getElementById('reproductor-nombre');
+  const barCity = document.getElementById('reproductor-ciudad');
+  const barStop = document.getElementById('reproductor-detener');
+  const pulse = document.getElementById('reproductor-pulso');
+
+  let playing: HTMLButtonElement | null = null;
+
+  const label = (button: HTMLButtonElement, text: string) => {
+    const span = button.querySelector('[data-etiqueta]');
+    if (span) span.textContent = text;
+  };
+
+  function stop() {
+    audio.pause();
+    // Sin esto la conexión al flujo sigue abierta y la emisora sigue
+    // descargándose en silencio hasta que se cierra la pestaña.
+    audio.removeAttribute('src');
+    audio.load();
+
+    if (playing) {
+      playing.dataset.estado = '';
+      label(playing, 'Escuchar en vivo');
+      playing.setAttribute('aria-pressed', 'false');
+      playing = null;
+    }
+    showBar(false);
+  }
+
+  // La barra queda fija sobre el pie de página; sin este hueco taparía la
+  // última fila de fichas justo cuando se está eligiendo otra emisora.
+  function showBar(visible: boolean) {
+    bar?.toggleAttribute('hidden', !visible);
+    document.body.style.paddingBottom = visible ? `${bar?.offsetHeight ?? 0}px` : '';
+  }
+
+  function start(button: HTMLButtonElement) {
+    stop();
+    playing = button;
+    button.dataset.estado = 'cargando';
+    button.setAttribute('aria-pressed', 'true');
+    label(button, 'Conectando…');
+
+    if (barStatus) barStatus.textContent = 'Conectando con ';
+    if (barName) barName.textContent = button.dataset.nombre ?? '';
+    if (barCity) barCity.textContent = button.dataset.ciudad ? `· ${button.dataset.ciudad}` : '';
+    pulse?.removeAttribute('data-sonando');
+    showBar(true);
+
+    audio.src = button.dataset.audio ?? '';
+    audio.play().catch(() => fail(button));
+  }
+
+  // Una emisora puede estar fuera del aire, o haber movido su flujo. Cuando
+  // pasa, el botón deja de prometer sonido y ofrece el sitio de la emisora,
+  // que es lo que había antes de que esto existiera.
+  function fail(button: HTMLButtonElement) {
+    const site = button.dataset.sitio;
+    button.dataset.estado = 'error';
+    button.setAttribute('aria-pressed', 'false');
+    label(button, site ? 'Sin señal — abrir su sitio' : 'Sin señal por ahora');
+    if (playing === button) playing = null;
+    showBar(false);
+  }
+
+  audio.addEventListener('playing', () => {
+    if (!playing) return;
+    playing.dataset.estado = 'sonando';
+    label(playing, 'Detener');
+    if (barStatus) barStatus.textContent = 'Al aire: ';
+    pulse?.setAttribute('data-sonando', '');
+  });
+
+  audio.addEventListener('error', () => {
+    // El `src` vacío de `stop()` también dispara este evento; no es un fallo.
+    if (playing && audio.getAttribute('src')) fail(playing);
+  });
+
+  for (const button of document.querySelectorAll<HTMLButtonElement>('[data-reproducir]')) {
+    button.setAttribute('aria-pressed', 'false');
+    button.addEventListener('click', () => {
+      if (button.dataset.estado === 'error') {
+        if (button.dataset.sitio) window.open(button.dataset.sitio, '_blank', 'noopener');
+        return;
+      }
+      if (playing === button) stop();
+      else start(button);
+    });
+  }
+
+  barStop?.addEventListener('click', stop);
 </script>
 
 <style>
@@ -268,5 +441,36 @@ const band = (frequency: string) => {
   [data-station]:target {
     border-color: var(--color-brand-500);
     box-shadow: 0 0 0 3px rgb(149 25 54 / 0.12);
+  }
+
+  /* El icono sigue al estado del botón: triángulo en reposo, cuadro cuando
+     la señal ya está sonando. */
+  .icono-detener {
+    display: none;
+  }
+  [data-estado='sonando'] .icono-reproducir {
+    display: none;
+  }
+  [data-estado='sonando'] .icono-detener {
+    display: inline;
+  }
+  [data-estado='cargando'] {
+    opacity: 0.6;
+  }
+  [data-estado='error'] {
+    color: var(--color-ink-400);
+  }
+
+  /* El punto late sólo mientras hay señal, no mientras se está conectando. */
+  #reproductor-pulso[data-sonando] > span:first-child {
+    animation: ping 1.6s cubic-bezier(0, 0, 0.2, 1) infinite;
+  }
+
+  @keyframes ping {
+    75%,
+    100% {
+      transform: scale(2.2);
+      opacity: 0;
+    }
   }
 </style>

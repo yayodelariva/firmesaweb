@@ -1,24 +1,45 @@
 # Pending items
 
-## Station directory — parked, not lost
+## Station directory — back, with a map and a player
 
-The previous site published a directory of **28 radio stations across 22 cities and 10 states**,
-with frequency, call sign, programming, and a live-stream link for each. It was scraped from the
-old WordPress site, parsed into structured JSON, and shipped with per-state filtering and
-accent-insensitive search.
+`/estaciones/` publishes the **28 stations across 22 cities and 10 states** that the previous site
+listed: frequency, call sign, programming, and a way to listen. Two things about it are worth
+knowing before touching it.
 
-The brand presentation does not include it, so it was deliberately left out of this rebuild.
+**The map is generated, not hand-drawn.** `src/data/mexico-map.ts` holds 32 state outlines from
+Natural Earth 10m admin-1 (public domain), projected with a Lambert conformal conic and simplified
+to 2.6k points; `x`/`y` on every city in `src/data/stations.json` are GeoNames coordinates
+(CC BY 4.0) through the same projection, which is why dots and outlines cannot drift apart. Both
+files are committed and neither is edited by hand — `scripts/resolve-cities.py` and
+`scripts/make-map.py` rebuild them, and their headers carry the two download commands. They do not
+run in the build: the inputs are a 40 MB boundary file and a GeoNames dump.
 
-**It still exists**, on the `firmesa-alt` branch:
+**Seventeen of the 28 play in the page.** Each of those carries an `audio` field: a direct HTTPS
+stream, found by reading the station's own player page and verified twice — once with `curl` for
+`audio/mpeg` or `audio/aac`, once by opening it in a browser and waiting for the `playing` event.
+HTTPS is not optional: the site is served over TLS, so a plain `http://` stream is blocked as
+mixed content, which is the only thing standing between XHFL (Guanajuato) and the other sixteen.
 
-```sh
-git show firmesa-alt:src/data/stations.json     # the data
-git show firmesa-alt:src/pages/estaciones.astro # the filterable page
-```
+The remaining eleven have no `audio` field and link out to the station instead. **Seven of those
+eleven links are dead** — carried over from the old WordPress site and never re-checked:
 
-To bring it back, it would sit naturally under Medios Masivos — the deck's own line is
-"nuestra base es el radio". The data would need a freshness check first: it was captured in
-August 2026 and stations change frequency and branding.
+| Station | City | Link | Status |
+| :------ | :--- | :--- | :----- |
+| RADIANTE 89.1 (XHPSJC) | San José del Cabo | `loscabos.radiante.fm` | host does not resolve |
+| La Mera Ley (XHMDA) | Monclova | `grmradio.com.mx` | host does not resolve |
+| La Poderosa (XERY) | Arcelia | `radioarcelia1450.com` | host does not resolve |
+| XEXY "LA Y" | Ciudad Altamirano | `radioxexy780.com` | host does not resolve |
+| La 98.5 (XHZHO) | Ixtapa Zihuatanejo | `beatfm.mx` | host does not resolve |
+| FM Globo (XHUH) | Tuxtepec | `fmglobo.com/tuxtepec/` | 404 |
+| La Mejor FM (XHXP) | Tuxtepec | `lamejor.com.mx/tuxtepec/` | 404 |
+
+The other four resolve: the two Radiante signals and Radiante 98.3 share `radiante.fm`, which only
+publishes an HLS **video** stream, and Radio Variedades and F.L. Radio load but expose no stream a
+page can use directly.
+
+So the station data needs a freshness pass with Firmesa before this ships — it was scraped in
+August 2026, and both the links and the frequencies may have moved since. A station that gains an
+HTTPS stream only needs its `audio` field filled in; nothing else changes.
 
 ## Contact details
 
