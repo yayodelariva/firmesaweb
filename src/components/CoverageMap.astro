@@ -83,13 +83,16 @@ const totals = {
               data-city={city.city}
             >
               <title>{`${city.city}, ${city.state} — ${count(city.stations.length)}`}</title>
-              {/* Un disco translúcido amplía el blanco de 5 px a un objetivo
-                  que un dedo acierta, sin agrandar el punto que se ve. */}
-              <circle cx={city.x} cy={city.y} r="11" class="fill-white/0 hover:fill-white/20" />
+              {/* Un disco translúcido amplía el blanco de 6 px a un objetivo
+                  que un dedo acierta, sin agrandar el punto que se ve. Arcelia
+                  y Ciudad Altamirano están a 12.9 px una de otra: pasado ese
+                  radio, el disco de una taparía el centro de la otra y la
+                  dejaría fuera de alcance. */}
+              <circle cx={city.x} cy={city.y} r="12" class="fill-white/0 hover:fill-white/20" />
               <circle
                 cx={city.x}
                 cy={city.y}
-                r="5"
+                r="6"
                 class="fill-white stroke-brand-900"
                 stroke-width="1.5"
               />
