@@ -165,8 +165,10 @@ export const media = [
 /** Radio: el dato de cobertura y el proceso con que se compra. */
 export const radio = {
   text: 'Un medio que ha sido parte de nuestra historia y que sigue siendo parte del presente.',
-  figure: '+35',
+  figure: '+30',
   figureLabel: 'Emisoras a nivel nacional',
+  /** La tarifa publicada, servida desde `public/docs/`. */
+  rateCard: '/docs/firmesa-tarifas-radio-2025.pdf',
   steps: ['Planeación', 'Negociación', 'Compra', 'Ejecución', 'Seguimiento'],
 } as const;
 

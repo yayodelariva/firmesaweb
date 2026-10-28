@@ -89,13 +89,16 @@ import { url } from '../lib/links';
           </span>
         </p>
 
-        <a
-          href={url('/estaciones/')}
-          class="group mt-8 inline-flex items-center gap-3 text-xs font-bold uppercase tracking-[0.16em] text-white transition-colors hover:text-brand-300"
-        >
-          Ver el directorio de estaciones
-          <span aria-hidden="true" class="transition-transform group-hover:translate-x-1">→</span>
-        </a>
+        {/* Las dos cosas que pide quien llega aquí: dónde se oye y cuánto
+            cuesta. La tarifa se descarga; el navegador que no respete
+            `download` la abrirá en una pestaña, que tampoco está mal. */}
+        <div class="mt-10 flex flex-wrap gap-4">
+          <a href={url('/estaciones/')} class="btn btn-light">Cobertura</a>
+          <a href={url(radio.rateCard)} download class="btn btn-ghost">
+            Tarifas
+            <span class="sr-only">— hoja de tarifas de radio 2025, PDF</span>
+          </a>
+        </div>
       </div>
 
       <!-- How a radio buy is run, in the order the deck lists it. The sequence
