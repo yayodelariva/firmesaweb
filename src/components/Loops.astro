@@ -27,13 +27,22 @@ interface Props {
    * de 450 px se ve menos de la mitad del dibujo; en un hero, casi todo.
    */
   tilt?: number;
+  /**
+   * Tamaño, 1 = el que `cover` le da. Por debajo de 1 el dibujo se encoge y
+   * cabe entero dentro de la banda girada; por encima se agranda y la banda
+   * enseña sólo un trozo. Sin valor, el justo para que la caja girada siga
+   * cubriendo la banda.
+   */
+  scale?: number;
 }
-const { class: className = '', opacity = 0.28, tilt = 0 } = Astro.props;
+const { class: className = '', opacity = 0.28, tilt = 0, scale } = Astro.props;
 
-/* Girada, la caja deja esquinas de la banda sin cubrir; se agranda lo justo
-   para taparlas otra vez, y a 0° no se agranda nada. */
-const escala = 1 + Math.sin((Math.abs(tilt) * Math.PI) / 180) * 1.07;
-const giro = tilt ? `;transform:scale(${escala.toFixed(3)}) rotate(${tilt}deg)` : '';
+/* Girada, la caja deja esquinas de la banda sin cubrir; este es el tamaño
+   que vuelve a taparlas, y a 0° es exactamente 1. */
+const cobertura = 1 + Math.sin((Math.abs(tilt) * Math.PI) / 180) * 1.07;
+const escala = scale ?? cobertura;
+const giro =
+  tilt || escala !== 1 ? `;transform:scale(${+escala.toFixed(3)}) rotate(${tilt}deg)` : '';
 
 /* El lienzo del archivo es más ancho que el dibujo —2600 contra 1200, con el
    dibujo centrado—, porque las bandas del sitio son mucho más anchas que
