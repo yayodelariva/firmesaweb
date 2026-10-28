@@ -28,14 +28,12 @@ interface Props {
    */
   tilt?: number;
   /**
-   * Cuántas veces el ancho de la banda mide el dibujo. 1 = justo su ancho;
-   * 2 = el doble, y la banda enseña la mitad.
+   * Tamaño sobre el dibujo entero: 1 es la cadena completa, tan grande como
+   * quepa en la banda. Por debajo de 1 se encoge y deja aire alrededor; por
+   * encima se sale por los bordes y la banda enseña sólo un trozo.
    *
-   * Es `mask-size`, no `transform: scale`. Importa porque el encuadre
-   * reparte la diferencia entre dibujo y banda: con `cover` esa diferencia
-   * era cero en un eje —el porcentaje no movía nada— y pequeña en el otro.
-   * Ampliando la máscara, los dos ejes tienen recorrido y el encuadre llega
-   * a cualquier parte del dibujo.
+   * La base es el dibujo completo y no un recorte suyo, así que la banda ya
+   * no decide qué parte se ve: decide cuánto espacio tiene.
    */
   zoom?: number;
   /**
@@ -54,7 +52,8 @@ const {
   position = 'center',
 } = Astro.props;
 
-const giro = tilt ? `;transform:rotate(${tilt}deg)` : '';
+const giro =
+  tilt || zoom !== 1 ? `;transform:scale(${zoom}) rotate(${tilt}deg)` : '';
 
 /* El lienzo del archivo es más ancho que el dibujo —2600 contra 1200, con el
    dibujo centrado—, porque las bandas del sitio son mucho más anchas que
@@ -64,7 +63,7 @@ const cadena = url('/img/cadena-textura.png');
 
 <div
   class:list={['cadena pointer-events-none absolute inset-0', className]}
-  style={`opacity:${opacity};--cadena:url('${cadena}');--encuadre:${position};--zoom:${zoom * 100}%${giro}`}
+  style={`opacity:${opacity};--cadena:url('${cadena}');--encuadre:${position}${giro}`}
   aria-hidden="true"
 >
 </div>
@@ -74,9 +73,10 @@ const cadena = url('/img/cadena-textura.png');
     background-color: currentColor;
     -webkit-mask-image: var(--cadena);
     mask-image: var(--cadena);
-    /* El alto sale solo, del ancho: el dibujo nunca se deforma. */
-    -webkit-mask-size: var(--zoom) auto;
-    mask-size: var(--zoom) auto;
+    /* `contain`: la cadena entera dentro de la banda, sin deformarse. Lo que
+       la agranda o la encoge es el `scale` de cada sección. */
+    -webkit-mask-size: contain;
+    mask-size: contain;
     -webkit-mask-position: var(--encuadre);
     mask-position: var(--encuadre);
     -webkit-mask-repeat: no-repeat;
