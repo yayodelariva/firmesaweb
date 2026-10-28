@@ -1,0 +1,272 @@
+---
+import Base from '../layouts/Base.astro';
+import CoverageMap from '../components/CoverageMap.astro';
+import Loops from '../components/Loops.astro';
+import states from '../data/stations.json';
+import { url } from '../lib/links';
+import { normalize, slug } from '../lib/text';
+
+const totalStations = states.reduce(
+  (n, state) => n + state.cities.reduce((m, city) => m + city.stations.length, 0),
+  0,
+);
+const totalCities = states.reduce((n, state) => n + state.cities.length, 0);
+
+const figures = [
+  { figure: String(totalStations), label: 'Emisoras representadas' },
+  { figure: String(totalCities), label: 'Ciudades' },
+  { figure: String(states.length), label: 'Estados' },
+];
+
+/** `105.5 FM` → `FM`; la etiqueta corta que lleva cada tarjeta. */
+const band = (frequency: string) => {
+  const am = /\bAM\b/.test(frequency);
+  const fm = /\bFM\b/.test(frequency);
+  return am && fm ? 'AM · FM' : am ? 'AM' : 'FM';
+};
+---
+
+<Base
+  title="Nuestras estaciones"
+  path="/estaciones/"
+  description={`Directorio de las ${totalStations} radiodifusoras representadas por Firmesa en ${states.length} estados de México: mapa de cobertura, frecuencia, siglas, programación y transmisión en vivo.`}
+>
+  <!-- Cobertura -->
+  <section class="relative overflow-hidden bg-brand-900">
+    <Loops class="text-white" opacity={0.12} />
+
+    <div class="wrapper relative py-16 md:py-24">
+      <p class="pill w-fit text-white/75">Cobertura nacional</p>
+      <h1 class="statement mt-8 max-w-3xl text-2xl text-white md:text-4xl">
+        Nuestras estaciones
+      </h1>
+      <p class="mt-6 max-w-2xl text-lg leading-relaxed text-white/85">
+        El radio es el origen de la casa y sigue siendo su columna. Este es el mapa de las plazas
+        que representamos hoy, emisora por emisora.
+      </p>
+
+      <ul class="reveal mt-12 grid gap-6 sm:grid-cols-3">
+        {
+          figures.map(({ figure, label }, i) => (
+            <li class="border-l-2 border-brand-400 pl-5" style={`--i: ${i}`}>
+              <p class="text-5xl font-black text-white md:text-6xl">{figure}</p>
+              <p class="mt-2 text-sm font-bold uppercase tracking-[0.16em] text-white/80">
+                {label}
+              </p>
+            </li>
+          ))
+        }
+      </ul>
+
+      <!-- El mapa no crece con la página: pasado cierto ancho deja de leerse
+           mejor y sólo empuja el directorio fuera de la pantalla. -->
+      <div class="mt-14 max-w-4xl">
+        <CoverageMap />
+      </div>
+    </div>
+  </section>
+
+  <!-- Filtros -->
+  <section
+    id="directorio"
+    class="sticky top-[87px] z-30 scroll-mt-[87px] border-b border-brand-500/15 bg-white/95 backdrop-blur"
+  >
+    <div class="wrapper flex flex-wrap items-center gap-4 py-4">
+      <div class="min-w-56 flex-1">
+        <label for="buscar" class="sr-only">Buscar estación, ciudad o programación</label>
+        <input
+          id="buscar"
+          type="search"
+          placeholder="Buscar estación, ciudad, siglas o programación…"
+          autocomplete="off"
+          class="field mt-0 text-sm"
+        />
+      </div>
+
+      <div>
+        <label for="filtro-estado" class="sr-only">Filtrar por estado</label>
+        <select id="filtro-estado" class="field mt-0 w-auto text-sm font-semibold">
+          <option value="">Todos los estados</option>
+          {states.map((state) => <option value={state.state}>{state.state}</option>)}
+        </select>
+      </div>
+
+      <button
+        type="button"
+        id="limpiar"
+        hidden
+        class="rounded-full border border-brand-500/30 px-4 py-2.5 text-xs font-bold uppercase tracking-[0.16em] text-brand-500 transition-colors hover:bg-brand-50"
+      >
+        Limpiar
+      </button>
+
+      <p
+        id="conteo"
+        class="text-sm font-semibold uppercase tracking-[0.12em] text-ink-400"
+        aria-live="polite"
+      >
+        {totalStations} estaciones
+      </p>
+    </div>
+  </section>
+
+  <!-- Directorio -->
+  <div class="wrapper py-16 md:py-20">
+    {
+      states.map((state) => (
+        <section
+          id={`estado-${slug(state.state)}`}
+          data-state={state.state}
+          class="mb-16 scroll-mt-40 last:mb-0"
+        >
+          <h2 class="border-b border-brand-500/20 pb-4 text-xl font-extrabold uppercase tracking-[0.1em] text-brand-500 md:text-2xl">
+            {state.state}
+          </h2>
+
+          {/* Un solo tablero por estado, con la ciudad en cada ficha. Catorce
+              de las veintidós ciudades tienen una emisora: encabezarlas por
+              separado dejaba una tarjeta sola por renglón y estiraba la
+              página tres veces de más. */}
+          <ul class="mt-8 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+            {state.cities.flatMap((city) =>
+              city.stations.map((station, i) => (
+                <li
+                  id={i === 0 ? `ciudad-${slug(state.state)}-${slug(city.city)}` : undefined}
+                  data-station
+                  data-search={normalize(
+                    [
+                      station.name,
+                      station.callSign,
+                      station.frequency,
+                      station.programming,
+                      city.city,
+                      state.state,
+                    ].join(' '),
+                  )}
+                  class="flex h-full scroll-mt-40 flex-col rounded-3xl border border-brand-500/15 bg-white p-6 transition-colors hover:border-brand-500/40"
+                >
+                  <p class="text-xs font-bold uppercase tracking-[0.16em] text-ink-400">
+                    {city.city}
+                  </p>
+
+                  <div class="mt-3 flex items-start justify-between gap-4">
+                    <h3 class="text-lg font-extrabold leading-tight text-ink-900">
+                      {station.name}
+                    </h3>
+                    <span class="shrink-0 rounded-full bg-brand-50 px-3 py-1 text-[0.625rem] font-bold uppercase tracking-[0.16em] text-brand-700">
+                      {band(station.frequency)}
+                    </span>
+                  </div>
+
+                  <p class="mt-3 text-2xl font-black text-brand-500">{station.frequency}</p>
+                  <p class="mt-1 text-xs font-bold uppercase tracking-[0.16em] text-ink-400">
+                    {station.callSign}
+                  </p>
+                  <p class="mt-4 flex-1 leading-relaxed text-ink-600">{station.programming}</p>
+
+                  <a
+                    href={station.stream}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="mt-6 inline-flex items-center gap-2 self-start text-xs font-bold uppercase tracking-[0.16em] text-brand-500 transition-colors hover:text-brand-700"
+                  >
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                      <path d="M8 5v14l11-7z" />
+                    </svg>
+                    Escuchar en vivo
+                    <span class="sr-only">
+                      — {station.name}, {city.city}
+                    </span>
+                  </a>
+                </li>
+              )),
+            )}
+          </ul>
+        </section>
+      ))
+    }
+
+    <p id="sin-resultados" hidden class="py-16 text-center text-lg text-ink-400">
+      No encontramos estaciones con esos criterios. Pruebe con otra ciudad o tipo de programación.
+    </p>
+  </div>
+
+  <!-- Cierre -->
+  <section class="relative overflow-hidden bg-brand-900">
+    <Loops class="text-white" opacity={0.1} />
+
+    <div class="wrapper relative flex flex-wrap items-center justify-between gap-8 py-16 md:py-20">
+      <p class="statement max-w-xl text-base text-white md:text-2xl">
+        ¿No encuentra su plaza? Revisamos alternativas de cobertura
+      </p>
+      <a href={url('/contacto/')} class="btn btn-light">Hablemos de tu proyecto</a>
+    </div>
+  </section>
+</Base>
+
+<script>
+  import { normalize } from '../lib/text';
+
+  const search = document.getElementById('buscar') as HTMLInputElement | null;
+  const stateFilter = document.getElementById('filtro-estado') as HTMLSelectElement | null;
+  const clear = document.getElementById('limpiar');
+  const count = document.getElementById('conteo');
+  const empty = document.getElementById('sin-resultados');
+  // `section`, no `[data-state]` a secas: los enlaces del mapa llevan el
+  // mismo atributo, y ocultarlos borraría el mapa al primer filtro.
+  const sections = Array.from(document.querySelectorAll<HTMLElement>('section[data-state]'));
+
+  function applyFilters() {
+    const term = normalize(search?.value.trim() ?? '');
+    const state = stateFilter?.value ?? '';
+    let visible = 0;
+
+    for (const section of sections) {
+      const stateMatches = !state || section.dataset.state === state;
+      let inSection = 0;
+
+      for (const card of section.querySelectorAll<HTMLElement>('[data-station]')) {
+        const matches = stateMatches && (!term || (card.dataset.search ?? '').includes(term));
+        card.hidden = !matches;
+        if (matches) inSection++;
+      }
+
+      section.hidden = inSection === 0;
+      visible += inSection;
+    }
+
+    // El texto visible queda en español.
+    if (count) count.textContent = visible === 1 ? '1 estación' : `${visible} estaciones`;
+    if (empty) empty.hidden = visible > 0;
+    clear?.toggleAttribute('hidden', !term && !state);
+  }
+
+  search?.addEventListener('input', applyFilters);
+  stateFilter?.addEventListener('change', applyFilters);
+  clear?.addEventListener('click', () => {
+    if (search) search.value = '';
+    if (stateFilter) stateFilter.value = '';
+    applyFilters();
+    search?.focus();
+  });
+
+  // El mapa ya salta al bloque correcto por sí solo. Esto sólo añade el
+  // filtro, para que el estado elegido quede a solas en la página; el salto
+  // lo sigue haciendo el enlace, después de que el filtro se haya aplicado.
+  for (const link of document.querySelectorAll<SVGAElement>('svg a[data-state]')) {
+    link.addEventListener('click', () => {
+      if (stateFilter) stateFilter.value = link.dataset.state ?? '';
+      if (search) search.value = '';
+      applyFilters();
+    });
+  }
+</script>
+
+<style>
+  /* Llegar desde el mapa deja la ficha señalada: el salto por sí solo no
+     dice cuál de las tres tarjetas del renglón era la que se pidió. */
+  [data-station]:target {
+    border-color: var(--color-brand-500);
+    box-shadow: 0 0 0 3px rgb(149 25 54 / 0.12);
+  }
+</style>

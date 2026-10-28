@@ -1,0 +1,139 @@
+---
+/**
+ * Mapa de cobertura: los 32 estados en SVG, los que Firmesa representa
+ * marcados, y una plaza por ciudad con emisora.
+ *
+ * El mapa es navegación, no decoración: cada estado y cada ciudad es un
+ * enlace al bloque del directorio que le corresponde, así que funciona sin
+ * JavaScript. La página lo mejora después —el mismo clic ajusta el filtro—
+ * pero el salto ya existe sin ella.
+ */
+import { mapViewBox, mexicoStates } from '../data/mexico-map';
+import states from '../data/stations.json';
+import { slug } from '../lib/text';
+
+const count = (n: number) => `${n} ${n === 1 ? 'emisora' : 'emisoras'}`;
+
+/** Estado → cuántas emisoras tiene, para el texto accesible de cada enlace. */
+const covered = new Map(
+  states.map((state) => [
+    state.state,
+    state.cities.reduce((n, city) => n + city.stations.length, 0),
+  ]),
+);
+
+const cities = states.flatMap((state) =>
+  state.cities.map((city) => ({ ...city, state: state.state })),
+);
+
+const totals = {
+  stations: [...covered.values()].reduce((a, b) => a + b, 0),
+  cities: cities.length,
+  states: covered.size,
+};
+---
+
+<figure class="m-0">
+  <!-- Debajo de 40rem el mapa no se encoge: se desplaza. Un contorno de
+       México a lo ancho de un teléfono deja las plazas del centro una
+       encima de otra, y son justo las que hay que poder tocar. -->
+  <div class="overflow-x-auto">
+    <svg
+      viewBox={mapViewBox}
+      role="img"
+      aria-labelledby="mapa-titulo mapa-descripcion"
+      class="h-auto w-[40rem] min-w-full"
+    >
+      <title id="mapa-titulo">Mapa de cobertura de Firmesa</title>
+      <desc id="mapa-descripcion">
+        {`Contorno de México con ${totals.states} estados marcados, los que concentran las ${totals.stations} emisoras representadas en ${totals.cities} ciudades. El directorio completo aparece debajo del mapa.`}
+      </desc>
+
+      <!-- El resto del país, como referencia de la forma. -->
+      <g fill="none" class="stroke-white/15" stroke-width="1" stroke-linejoin="round">
+        {
+          mexicoStates
+            .filter((state) => !covered.has(state.name))
+            .map((state) => <path d={state.d} class="fill-white/5" />)
+        }
+      </g>
+
+      <g class="stroke-white/40" stroke-width="1" stroke-linejoin="round">
+        {
+          mexicoStates
+            .filter((state) => covered.has(state.name))
+            .map((state) => (
+              <a href={`#estado-${slug(state.name)}`} data-state={state.name}>
+                <title>{`${state.name} — ${count(covered.get(state.name)!)}`}</title>
+                <path
+                  d={state.d}
+                  class="fill-brand-500 transition-colors hover:fill-brand-400"
+                />
+              </a>
+            ))
+        }
+      </g>
+
+      <g>
+        {
+          cities.map((city) => (
+            <a
+              href={`#ciudad-${slug(city.state)}-${slug(city.city)}`}
+              data-state={city.state}
+              data-city={city.city}
+            >
+              <title>{`${city.city}, ${city.state} — ${count(city.stations.length)}`}</title>
+              {/* Un disco translúcido amplía el blanco de 5 px a un objetivo
+                  que un dedo acierta, sin agrandar el punto que se ve. */}
+              <circle cx={city.x} cy={city.y} r="11" class="fill-white/0 hover:fill-white/20" />
+              <circle
+                cx={city.x}
+                cy={city.y}
+                r="5"
+                class="fill-white stroke-brand-900"
+                stroke-width="1.5"
+              />
+            </a>
+          ))
+        }
+      </g>
+    </svg>
+  </div>
+
+  <figcaption class="mt-6">
+    <p class="text-xs text-white/45 md:hidden">Desliza el mapa para recorrer el país.</p>
+
+    <ul class="mt-6 flex flex-wrap items-center gap-x-7 gap-y-3 text-sm text-white/80 md:mt-2">
+      <li class="flex items-center gap-2.5">
+        <span class="h-3.5 w-3.5 rounded-sm bg-brand-500" aria-hidden="true"></span>
+        Estados con representación
+      </li>
+      <li class="flex items-center gap-2.5">
+        <span
+          class="h-3.5 w-3.5 rounded-full border-2 border-brand-900 bg-white"
+          aria-hidden="true"></span>
+        Ciudad con emisora
+      </li>
+    </ul>
+
+    {/* Natural Earth es de dominio público; GeoNames pide atribución (CC BY). */}
+    <p class="mt-6 text-xs leading-relaxed text-white/45">
+      <Fragment>Cartografía: Natural Earth (dominio público). Coordenadas de las ciudades: </Fragment>
+      <a
+        href="https://www.geonames.org/"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="underline decoration-white/30 underline-offset-2 hover:text-white/70"
+      >GeoNames</a><Fragment> (CC BY 4.0).</Fragment>
+    </p>
+  </figcaption>
+</figure>
+
+<style>
+  /* Los enlaces del SVG se enfocan como cualquier otro; sin esto el anillo
+     del navegador se dibuja en el borde del lienzo, no en el estado. */
+  svg a:focus-visible {
+    outline: 2px solid var(--color-white);
+    outline-offset: 2px;
+  }
+</style>

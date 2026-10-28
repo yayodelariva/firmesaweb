@@ -42,5 +42,6 @@ export const nav = [
   { href: '/quienes-somos/', label: '¿Quiénes somos?' },
   { href: '/firmesa-digital/', label: 'Firmesa Digital' },
   { href: '/medios-masivos/', label: 'Medios Masivos' },
+  { href: '/estaciones/', label: 'Estaciones' },
   { href: '/contacto/', label: 'Contacto' },
 ] as const;

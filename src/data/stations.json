@@ -1,0 +1,446 @@
+[
+  {
+    "state": "Baja California Sur",
+    "cities": [
+      {
+        "city": "La Paz",
+        "stations": [
+          {
+            "name": "Radio HZ",
+            "frequency": "105.5 FM",
+            "callSign": "XHHZ",
+            "stream": "http://www.xehz.com/jp.html",
+            "programming": "Música Variada Grupera"
+          },
+          {
+            "name": "Súper Stereo 96",
+            "frequency": "96.7 FM",
+            "callSign": "XHPAZ",
+            "stream": "http://www.superstereo96.com/jp.html",
+            "programming": "Música en Inglés y Español"
+          },
+          {
+            "name": "RADIANTE 91.1",
+            "frequency": "91.1 FM",
+            "callSign": "XHPLPZ",
+            "stream": "https://radiante.fm/radio",
+            "programming": "Música Variada"
+          }
+        ],
+        "lat": 24.1423,
+        "lon": -110.3132,
+        "x": 239.2,
+        "y": 312.8
+      },
+      {
+        "city": "San José del Cabo",
+        "stations": [
+          {
+            "name": "RADIANTE 89.1",
+            "frequency": "89.1 FM",
+            "callSign": "XHPSJC",
+            "stream": "https://loscabos.radiante.fm/radio",
+            "programming": "Noticieros, Programas Hablados, Música Variada"
+          }
+        ],
+        "lat": 23.0541,
+        "lon": -109.7037,
+        "x": 256.4,
+        "y": 351.4
+      }
+    ]
+  },
+  {
+    "state": "Chiapas",
+    "cities": [
+      {
+        "city": "Cintalapa de Figueroa",
+        "stations": [
+          {
+            "name": "Extremo",
+            "frequency": "89.9 FM",
+            "callSign": "XHEIN",
+            "stream": "http://extremocintalapa.com/player/extremocintalapa.html",
+            "programming": "Pop, Grupera, Banda y Tropical"
+          }
+        ],
+        "lat": 16.6839,
+        "lon": -93.7181,
+        "x": 776.6,
+        "y": 570.5
+      },
+      {
+        "city": "Pichucalco",
+        "stations": [
+          {
+            "name": "KE BUENA",
+            "frequency": "91.3 FM",
+            "callSign": "XHEOB",
+            "stream": "http://www.radionucleo.com/player/kebuenapichucalco.htm",
+            "programming": "Música Pop, Grupera, Banda, Tropical y Noticiero"
+          }
+        ],
+        "lat": 17.51,
+        "lon": -93.1159,
+        "x": 794.9,
+        "y": 540.6
+      },
+      {
+        "city": "San Cristóbal De Las Casas",
+        "stations": [
+          {
+            "name": "Suprema 64",
+            "frequency": "95.3 FM",
+            "callSign": "XHWM",
+            "stream": "http://supremaradio.com/reproduceWM.html",
+            "programming": "Música Variada y Noticias"
+          }
+        ],
+        "lat": 16.7301,
+        "lon": -92.6382,
+        "x": 812.4,
+        "y": 566.7
+      },
+      {
+        "city": "Tapachula",
+        "stations": [
+          {
+            "name": "KE BUENA",
+            "frequency": "94.7 FM",
+            "callSign": "XHETS",
+            "stream": "http://kebuenatapachula.com/",
+            "programming": "Música Grupero, Banda y Tropical"
+          }
+        ],
+        "lat": 14.9107,
+        "lon": -92.2645,
+        "x": 829.1,
+        "y": 629.1
+      },
+      {
+        "city": "Tonalá",
+        "stations": [
+          {
+            "name": "Extremo",
+            "frequency": "101.5 FM",
+            "callSign": "XHDB",
+            "stream": "http://extremotonala.com/",
+            "programming": "Música Variada y Noticias"
+          }
+        ],
+        "lat": 16.0916,
+        "lon": -93.7522,
+        "x": 776.7,
+        "y": 591.1
+      },
+      {
+        "city": "Tuxtla Gutiérrez",
+        "stations": [
+          {
+            "name": "TG La Grande",
+            "frequency": "90.3 FM",
+            "callSign": "XHTG/XETG",
+            "stream": "http://www.latg.mx/",
+            "programming": "Música Pop en Español e Inglés, Noticias"
+          }
+        ],
+        "lat": 16.7536,
+        "lon": -93.1158,
+        "x": 796.5,
+        "y": 566.9
+      }
+    ]
+  },
+  {
+    "state": "Chihuahua",
+    "cities": [
+      {
+        "city": "Ciudad Cuauhtémoc",
+        "stations": [
+          {
+            "name": "LIKE FM",
+            "frequency": "98.3 FM",
+            "callSign": "XHDT",
+            "stream": "http://www.likefm.com.mx/",
+            "programming": "Música Moderna y Los Nuevos Clásicos en Español e Inglés"
+          }
+        ],
+        "lat": 28.4063,
+        "lon": -106.8667,
+        "x": 352.7,
+        "y": 170.5
+      },
+      {
+        "city": "Ciudad Delicias",
+        "stations": [
+          {
+            "name": "LIKE FM",
+            "frequency": "101.3 FM",
+            "callSign": "XHBN",
+            "stream": "http://www.likefm.com.mx/",
+            "programming": "Música Pop en Español e Inglés"
+          },
+          {
+            "name": "La Caliente",
+            "frequency": "90.5 FM",
+            "callSign": "XHHM",
+            "stream": "http://www.lacalientefm.com.mx/",
+            "programming": "Música Regional Mexicana"
+          }
+        ],
+        "lat": 28.1901,
+        "lon": -105.4701,
+        "x": 395.0,
+        "y": 179.2
+      },
+      {
+        "city": "Ciudad Madera",
+        "stations": [
+          {
+            "name": "Radio Madera",
+            "frequency": "970 AM / 96.1 FM",
+            "callSign": "XESW/XHESW",
+            "stream": "http://www.radiomadera.com/",
+            "programming": "Música Regional Mexicana"
+          }
+        ],
+        "lat": 29.1927,
+        "lon": -108.1433,
+        "x": 315.0,
+        "y": 141.7
+      },
+      {
+        "city": "Chihuahua",
+        "stations": [
+          {
+            "name": "Antena 102.5",
+            "frequency": "102.5 FM",
+            "callSign": "XHES",
+            "stream": "https://antenafm.mx/",
+            "programming": "Programas de Contenido Noticioso, Música Moderna en Español"
+          }
+        ],
+        "lat": 28.6353,
+        "lon": -106.0889,
+        "x": 376.6,
+        "y": 163.3
+      }
+    ]
+  },
+  {
+    "state": "Coahuila",
+    "cities": [
+      {
+        "city": "Monclova",
+        "stations": [
+          {
+            "name": "La Mera Ley 104.9",
+            "frequency": "104.9 FM",
+            "callSign": "XHMDA",
+            "stream": "http://grmradio.com.mx/",
+            "programming": "Música Variada Grupera"
+          }
+        ],
+        "lat": 26.9069,
+        "lon": -101.4206,
+        "x": 518.8,
+        "y": 224.9
+      },
+      {
+        "city": "Sabinas",
+        "stations": [
+          {
+            "name": "La Primera, Voz de la Región Carbonífera",
+            "frequency": "105.9 FM",
+            "callSign": "XHBX",
+            "stream": "http://radioxebx.com/",
+            "programming": "Música Regional Mexicana"
+          },
+          {
+            "name": "LIKE FM",
+            "frequency": "97.7 FM",
+            "callSign": "XHESCC",
+            "stream": "http://www.likefm.com.mx/",
+            "programming": "Música Moderna y los Nuevos Clásicos en Español e Inglés"
+          }
+        ],
+        "lat": 27.8559,
+        "lon": -101.1174,
+        "x": 528.0,
+        "y": 192.0
+      }
+    ]
+  },
+  {
+    "state": "Guanajuato",
+    "cities": [
+      {
+        "city": "Guanajuato",
+        "stations": [
+          {
+            "name": "F.L. Radio de Contenido",
+            "frequency": "1500 AM / 90.7 FM",
+            "callSign": "XHFL / XEFL",
+            "stream": "http://radiosantafe.mx/",
+            "programming": "Balada Pop en Español, Noticieros, Entrevistas"
+          }
+        ],
+        "lat": 21.0186,
+        "lon": -101.2591,
+        "x": 524.9,
+        "y": 428.2
+      }
+    ]
+  },
+  {
+    "state": "Guerrero",
+    "cities": [
+      {
+        "city": "Arcelia",
+        "stations": [
+          {
+            "name": "La Poderosa Voz del Sur",
+            "frequency": "1450 AM",
+            "callSign": "XERY",
+            "stream": "https://www.radioarcelia1450.com/",
+            "programming": "Música Variada"
+          }
+        ],
+        "lat": 18.3177,
+        "lon": -100.282,
+        "x": 557.5,
+        "y": 521.4
+      },
+      {
+        "city": "Ciudad Altamirano",
+        "stations": [
+          {
+            "name": "XEXY “LA Y”",
+            "frequency": "780 AM",
+            "callSign": "XEXY",
+            "stream": "https://www.radioxexy780.com/",
+            "programming": "Música Variada"
+          }
+        ],
+        "lat": 18.3566,
+        "lon": -100.6697,
+        "x": 544.7,
+        "y": 520.2
+      },
+      {
+        "city": "Ixtapa Zihuatanejo",
+        "stations": [
+          {
+            "name": "Radio Variedades",
+            "frequency": "101.9 FM",
+            "callSign": "XHUQ",
+            "stream": "https://variedadesfm.com.mx/",
+            "programming": "Música Variada"
+          },
+          {
+            "name": "La 98.5 FM… Siente el Beat",
+            "frequency": "98.5 FM",
+            "callSign": "XHZHO",
+            "stream": "http://beatfm.mx/",
+            "programming": "Música Rock, Pop Inglés y Español 80’s, 90’s y 2000’s"
+          }
+        ],
+        "lat": 17.6434,
+        "lon": -101.5521,
+        "x": 515.8,
+        "y": 545.1
+      }
+    ]
+  },
+  {
+    "state": "Jalisco",
+    "cities": [
+      {
+        "city": "Puerto Vallarta",
+        "stations": [
+          {
+            "name": "Radiante 98.3",
+            "frequency": "98.3 FM",
+            "callSign": "XHPVBB",
+            "stream": "https://radiante.fm/radio",
+            "programming": "Música Variada, Noticieros, Programas Hablados"
+          }
+        ],
+        "lat": 20.617,
+        "lon": -105.2302,
+        "x": 396.5,
+        "y": 441.0
+      }
+    ]
+  },
+  {
+    "state": "Michoacán",
+    "cities": [
+      {
+        "city": "Sahuayo",
+        "stations": [
+          {
+            "name": "Radio Impacto",
+            "frequency": "1450 AM",
+            "callSign": "XERNB",
+            "stream": "http://promoradio.com.mx/radio-impacto-1450/",
+            "programming": "Música Variada Tropical y Noticias"
+          }
+        ],
+        "lat": 20.057,
+        "lon": -102.7164,
+        "x": 477.7,
+        "y": 461.4
+      }
+    ]
+  },
+  {
+    "state": "Oaxaca",
+    "cities": [
+      {
+        "city": "Tuxtepec",
+        "stations": [
+          {
+            "name": "FM Globo",
+            "frequency": "96.9 FM",
+            "callSign": "XHUH",
+            "stream": "https://fmglobo.com/tuxtepec/",
+            "programming": "Música Juvenil, Noticias"
+          },
+          {
+            "name": "La Mejor FM",
+            "frequency": "96.9 FM",
+            "callSign": "XHXP",
+            "stream": "https://lamejor.com.mx/tuxtepec/",
+            "programming": "Música Grupera, Tropical"
+          }
+        ],
+        "lat": 18.0883,
+        "lon": -96.1253,
+        "x": 694.6,
+        "y": 525.7
+      }
+    ]
+  },
+  {
+    "state": "Tabasco",
+    "cities": [
+      {
+        "city": "Villahermosa",
+        "stations": [
+          {
+            "name": "KE BUENA",
+            "frequency": "89.3 FM",
+            "callSign": "XHQQQ",
+            "stream": "http://radionucleo.com/player/kebuenavilla/",
+            "programming": "Música Grupera, Tropical y Banda"
+          }
+        ],
+        "lat": 17.9862,
+        "lon": -92.9393,
+        "x": 799.7,
+        "y": 523.8
+      }
+    ]
+  }
+]
