@@ -38,6 +38,11 @@ const cadena = url('/img/cadena-textura.png');
 
 <style>
   .cadena {
+    /* Ladeada y algo más grande: así las cintas cruzan la banda en diagonal
+       en vez de quedar paralelas al borde, y ninguna sección la enseña desde
+       el mismo ángulo. Todas las secciones que la llevan recortan lo que se
+       sale, así que girarla no empuja la página a lo ancho. */
+    transform: scale(1.5) rotate(28deg);
     background-color: currentColor;
     -webkit-mask-image: var(--cadena);
     mask-image: var(--cadena);
