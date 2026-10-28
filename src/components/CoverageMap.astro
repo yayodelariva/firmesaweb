@@ -81,18 +81,28 @@ const totals = {
               href={`#ciudad-${slug(city.state)}-${slug(city.city)}`}
               data-state={city.state}
               data-city={city.city}
+              class="group"
             >
               <title>{`${city.city}, ${city.state} — ${count(city.stations.length)}`}</title>
-              {/* Un disco translúcido amplía el blanco de 6 px a un objetivo
+              {/* Un disco translúcido amplía el blanco de 7 px a un objetivo
                   que un dedo acierta, sin agrandar el punto que se ve. Arcelia
                   y Ciudad Altamirano están a 12.9 px una de otra: pasado ese
                   radio, el disco de una taparía el centro de la otra y la
-                  dejaría fuera de alcance. */}
-              <circle cx={city.x} cy={city.y} r="12" class="fill-white/0 hover:fill-white/20" />
+                  dejaría fuera de alcance.
+
+                  El halo responde al enlace entero, no al disco: el punto
+                  blanco va encima, y con `hover:` propio el halo se apagaba
+                  justo al llegar al centro, que es donde se apunta. */}
               <circle
                 cx={city.x}
                 cy={city.y}
-                r="6"
+                r="12"
+                class="fill-white/0 group-hover:fill-white/20 group-focus-visible:fill-white/20"
+              />
+              <circle
+                cx={city.x}
+                cy={city.y}
+                r="7"
                 class="fill-white stroke-brand-900"
                 stroke-width="1.5"
               />
