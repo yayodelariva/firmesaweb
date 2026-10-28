@@ -3,6 +3,22 @@
     "state": "Baja California Sur",
     "cities": [
       {
+        "city": "Ciudad Constitución",
+        "stations": [
+          {
+            "name": "La Señal del Progreso 97.5",
+            "frequency": "97.5 FM",
+            "callSign": "XHVSD",
+            "stream": "https://xhvsd.com/",
+            "programming": "Variada"
+          }
+        ],
+        "lat": 25.0321,
+        "lon": -111.6626,
+        "x": 198.9,
+        "y": 279.5
+      },
+      {
         "city": "La Paz",
         "stations": [
           {
@@ -51,6 +67,21 @@
         "lon": -109.7037,
         "x": 256.4,
         "y": 351.4
+      },
+      {
+        "city": "Santa Rosalía",
+        "stations": [
+          {
+            "name": "Radio Cachanía",
+            "frequency": "1320 AM / 91.7 FM",
+            "callSign": "XESR/XHESR",
+            "programming": "Variada"
+          }
+        ],
+        "lat": 27.3404,
+        "lon": -112.2671,
+        "x": 185.7,
+        "y": 198.6
       }
     ]
   },
@@ -319,6 +350,21 @@
         "lon": -101.2591,
         "x": 524.9,
         "y": 428.2
+      },
+      {
+        "city": "Salamanca",
+        "stations": [
+          {
+            "name": "La Estación que se Escucha",
+            "frequency": "1260 AM",
+            "callSign": "XEZH",
+            "programming": "Español-Grupera"
+          }
+        ],
+        "lat": 20.5698,
+        "lon": -101.1977,
+        "x": 526.9,
+        "y": 443.7
       }
     ]
   },
@@ -441,7 +487,7 @@
           },
           {
             "name": "La Mejor FM",
-            "frequency": "96.9 FM",
+            "frequency": "106.5 FM",
             "callSign": "XHXP",
             "stream": "https://lamejor.com.mx/tuxtepec/",
             "programming": "Música Grupera, Tropical"
@@ -474,6 +520,71 @@
         "lon": -92.9393,
         "x": 799.7,
         "y": 523.8
+      }
+    ]
+  },
+  {
+    "state": "Tamaulipas",
+    "cities": [
+      {
+        "city": "Tampico",
+        "stations": [
+          {
+            "name": "La Mexicana",
+            "frequency": "101.7 FM",
+            "callSign": "XHAR",
+            "stream": "https://grupoasradio.com/estacion?sigla=XHAR",
+            "programming": "Folklórico-Ranchera"
+          },
+          {
+            "name": "Boom FM",
+            "frequency": "104.7 FM",
+            "callSign": "XHERP",
+            "stream": "https://grupoasradio.com/estacion?sigla=XHERP",
+            "programming": "Inglés de Catálogo"
+          }
+        ],
+        "lat": 22.2852,
+        "lon": -97.8778,
+        "x": 632.7,
+        "y": 382.6
+      }
+    ]
+  },
+  {
+    "state": "Veracruz",
+    "cities": [
+      {
+        "city": "Boca del Río",
+        "stations": [
+          {
+            "name": "MAR FM",
+            "frequency": "99.7 FM",
+            "callSign": "XHPB",
+            "stream": "https://www.marfm.com/",
+            "programming": "Éxitos Clásicos en Inglés"
+          }
+        ],
+        "lat": 19.1046,
+        "lon": -96.1041,
+        "x": 693.8,
+        "y": 490.5
+      },
+      {
+        "city": "Tuxpan",
+        "stations": [
+          {
+            "name": "SOY FM",
+            "frequency": "93.9 FM",
+            "callSign": "XHTXA",
+            "stream": "https://www.soyfm.com/",
+            "programming": "Pop Inglés y Español"
+          }
+        ],
+        "lat": 20.9578,
+        "lon": -97.4081,
+        "x": 649.1,
+        "y": 428.0
       }
     ]
   }

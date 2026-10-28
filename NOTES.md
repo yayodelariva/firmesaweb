@@ -2,9 +2,9 @@
 
 ## Station directory — back, with a map and a player
 
-`/estaciones/` publishes the **28 stations across 22 cities and 10 states** that the previous site
-listed: frequency, call sign, programming, and a way to listen. Two things about it are worth
-knowing before touching it.
+`/estaciones/` publishes **35 stations across 28 cities and 12 states**: frequency, call sign,
+programming, and a way to listen. Every count on the page is derived from `src/data/stations.json`,
+so adding a station moves all of them. Three things are worth knowing before touching it.
 
 **The map is generated, not hand-drawn.** `src/data/mexico-map.ts` holds 32 state outlines from
 Natural Earth 10m admin-1 (public domain), projected with a Lambert conformal conic and simplified
@@ -14,7 +14,7 @@ files are committed and neither is edited by hand — `scripts/resolve-cities.py
 `scripts/make-map.py` rebuild them, and their headers carry the two download commands. They do not
 run in the build: the inputs are a 40 MB boundary file and a GeoNames dump.
 
-**Seventeen of the 28 play in the page.** Each of those carries an `audio` field: a direct HTTPS
+**Seventeen of the 35 play in the page.** Each of those carries an `audio` field: a direct HTTPS
 stream, found by reading the station's own player page and verified twice — once with `curl` for
 `audio/mpeg` or `audio/aac`, once by opening it in a browser and waiting for the `playing` event.
 HTTPS is not optional: the site is served over TLS, so a plain `http://` stream is blocked as
@@ -31,8 +31,10 @@ disagreed with itself by 6 dB between two runs. The gain never exceeds 1.0 — a
 lower a signal but not raise it — so the quietest station sets the ceiling, and re-running the
 script is worth it whenever a station sounds out of step.
 
-The remaining eleven have no `audio` field and link out to the station instead. **Seven of those
-eleven links are dead** — carried over from the old WordPress site and never re-checked:
+Sixteen more link out to the station, and two publish nothing at all — Radio Cachanía in Santa
+Rosalía and XEZH in Salamanca — so their cards say *Sólo al aire* rather than offer a button that
+goes nowhere. **Seven of the sixteen links are dead**, carried over from the old WordPress site and
+never re-checked:
 
 | Station | City | Link | Status |
 | :------ | :--- | :--- | :----- |
@@ -48,9 +50,22 @@ The other four resolve: the two Radiante signals and Radiante 98.3 share `radian
 publishes an HLS **video** stream, and Radio Variedades and F.L. Radio load but expose no stream a
 page can use directly.
 
-So the station data needs a freshness pass with Firmesa before this ships — it was scraped in
-August 2026, and both the links and the frequencies may have moved since. A station that gains an
-HTTPS stream only needs its `audio` field filled in; nothing else changes.
+**The list was reconciled against Firmesa's published 2025 rate sheet** (kept out of this repo,
+with the rest of the commercial material). That sheet carries 33 stations; the site had 28. Seven
+of its stations were missing here and are now in — XHVSD in Ciudad Constitución, XESR/XHESR in
+Santa Rosalía, XEZH in Salamanca, XHAR and XHERP in Tampico, XHTXA in Tuxpan and XHPB in Boca del
+Río, the last four being the whole of Tamaulipas and Veracruz. The sheet also corrected XHXP in
+Tuxtepec, which the old site had on 96.9 FM, the same frequency as XHUH next door; it is 106.5.
+
+Two questions are left for Firmesa, both unanswerable from here:
+
+- **XHMDA (Monclova) and XHZHO (Ixtapa Zihuatanejo) are on the site but not on the rate sheet**, and
+  both are among the seven with dead websites. Dropped, or just missing from the sheet?
+- The sheet is dated **October 2024**, so a freshness pass is still owed: names, frequencies and
+  links all drift. It also lists transmitter power per station, which the site does not show.
+
+A station that gains an HTTPS stream only needs its `audio` field filled in, and a `gain` from
+`scripts/measure-loudness.py`; nothing else changes.
 
 ## Contact details
 

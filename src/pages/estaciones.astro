@@ -2,7 +2,7 @@
 import Base from '../layouts/Base.astro';
 import CoverageMap from '../components/CoverageMap.astro';
 import Loops from '../components/Loops.astro';
-import states from '../data/stations.json';
+import { stations as states } from '../data/stations';
 import { url } from '../lib/links';
 import { normalize, slug } from '../lib/text';
 
@@ -123,10 +123,10 @@ const band = (frequency: string) => {
             {state.state}
           </h2>
 
-          {/* Un solo tablero por estado, con la ciudad en cada ficha. Catorce
-              de las veintidós ciudades tienen una emisora: encabezarlas por
-              separado dejaba una tarjeta sola por renglón y estiraba la
-              página tres veces de más. */}
+          {/* Un solo tablero por estado, con la ciudad en cada ficha.
+              Veintidós de las veintiocho ciudades tienen una sola emisora:
+              encabezarlas por separado dejaba una tarjeta sola por renglón y
+              estiraba la página tres veces de más. */}
           <ul class="mt-8 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
             {state.cities.flatMap((city) =>
               city.stations.map((station, i) => (
@@ -164,10 +164,11 @@ const band = (frequency: string) => {
                   </p>
                   <p class="mt-4 flex-1 leading-relaxed text-ink-600">{station.programming}</p>
 
-                  {/* Diecisiete de las veintiocho emisoras tienen un flujo
-                      directo en HTTPS y suenan aquí mismo; las demás siguen
-                      abriendo el sitio de la estación, que es todo lo que
-                      publican. Sin JavaScript, todas abren su sitio. */}
+                  {/* Diecisiete de las treinta y cinco tienen un flujo en HTTPS y
+                      suenan aquí mismo; las demás abren el sitio de la
+                      estación, que es todo lo que publican, y dos no publican
+                      ninguno: esas lo dicen en lugar de ofrecer un botón que
+                      no lleva a nada. Sin JavaScript, todas abren su sitio. */}
                   {station.audio ? (
                     <Fragment>
                       <button
@@ -222,6 +223,15 @@ const band = (frequency: string) => {
                         — {station.name}, {city.city}
                       </span>
                     </a>
+                  )}
+
+                  {!station.audio && !station.stream && (
+                    <p class="mt-6 self-start text-xs font-bold uppercase tracking-[0.16em] text-ink-400">
+                      Sólo al aire
+                      <span class="sr-only">
+                        — {station.name} no transmite por internet.
+                      </span>
+                    </p>
                   )}
                 </li>
               )),
