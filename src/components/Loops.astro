@@ -28,14 +28,27 @@ interface Props {
    */
   tilt?: number;
   /**
-   * Tamaño, 1 = el que `cover` le da. Por debajo de 1 el dibujo se encoge y
-   * cabe entero dentro de la banda girada; por encima se agranda y la banda
-   * enseña sólo un trozo. Sin valor, el justo para que la caja girada siga
+   * Tamaño, 1 = el que `cover` le da. Por encima de 1 la banda enseña un
+   * trozo del dibujo en grande, que es de lo que se trata: el recorte es el
+   * recurso, no un defecto. Sin valor, el justo para que la caja girada siga
    * cubriendo la banda.
    */
   scale?: number;
+  /**
+   * Qué parte del dibujo queda en el centro de la banda, como
+   * `mask-position`. Ampliadas y todas centradas, las doce secciones
+   * enseñarían el mismo par de círculos; moviendo el encuadre, cada una se
+   * queda con un tramo distinto —un remate, un cruce, una cinta—.
+   */
+  position?: string;
 }
-const { class: className = '', opacity = 0.28, tilt = 0, scale } = Astro.props;
+const {
+  class: className = '',
+  opacity = 0.28,
+  tilt = 0,
+  scale,
+  position = 'center',
+} = Astro.props;
 
 /* Girada, la caja deja esquinas de la banda sin cubrir; este es el tamaño
    que vuelve a taparlas, y a 0° es exactamente 1. */
@@ -52,7 +65,7 @@ const cadena = url('/img/cadena-textura.png');
 
 <div
   class:list={['cadena pointer-events-none absolute inset-0', className]}
-  style={`opacity:${opacity};--cadena:url('${cadena}')${giro}`}
+  style={`opacity:${opacity};--cadena:url('${cadena}');--encuadre:${position}${giro}`}
   aria-hidden="true"
 >
 </div>
@@ -64,8 +77,8 @@ const cadena = url('/img/cadena-textura.png');
     mask-image: var(--cadena);
     -webkit-mask-size: cover;
     mask-size: cover;
-    -webkit-mask-position: center;
-    mask-position: center;
+    -webkit-mask-position: var(--encuadre);
+    mask-position: var(--encuadre);
     -webkit-mask-repeat: no-repeat;
     mask-repeat: no-repeat;
   }
