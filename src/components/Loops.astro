@@ -28,12 +28,16 @@ interface Props {
    */
   tilt?: number;
   /**
-   * Tamaño, 1 = el que `cover` le da. Por encima de 1 la banda enseña un
-   * trozo del dibujo en grande, que es de lo que se trata: el recorte es el
-   * recurso, no un defecto. Sin valor, el justo para que la caja girada siga
-   * cubriendo la banda.
+   * Cuántas veces el ancho de la banda mide el dibujo. 1 = justo su ancho;
+   * 2 = el doble, y la banda enseña la mitad.
+   *
+   * Es `mask-size`, no `transform: scale`. Importa porque el encuadre
+   * reparte la diferencia entre dibujo y banda: con `cover` esa diferencia
+   * era cero en un eje —el porcentaje no movía nada— y pequeña en el otro.
+   * Ampliando la máscara, los dos ejes tienen recorrido y el encuadre llega
+   * a cualquier parte del dibujo.
    */
-  scale?: number;
+  zoom?: number;
   /**
    * Qué parte del dibujo queda en el centro de la banda, como
    * `mask-position`. Ampliadas y todas centradas, las doce secciones
@@ -46,16 +50,11 @@ const {
   class: className = '',
   opacity = 0.28,
   tilt = 0,
-  scale,
+  zoom = 1,
   position = 'center',
 } = Astro.props;
 
-/* Girada, la caja deja esquinas de la banda sin cubrir; este es el tamaño
-   que vuelve a taparlas, y a 0° es exactamente 1. */
-const cobertura = 1 + Math.sin((Math.abs(tilt) * Math.PI) / 180) * 1.07;
-const escala = scale ?? cobertura;
-const giro =
-  tilt || escala !== 1 ? `;transform:scale(${+escala.toFixed(3)}) rotate(${tilt}deg)` : '';
+const giro = tilt ? `;transform:rotate(${tilt}deg)` : '';
 
 /* El lienzo del archivo es más ancho que el dibujo —2600 contra 1200, con el
    dibujo centrado—, porque las bandas del sitio son mucho más anchas que
@@ -65,7 +64,7 @@ const cadena = url('/img/cadena-textura.png');
 
 <div
   class:list={['cadena pointer-events-none absolute inset-0', className]}
-  style={`opacity:${opacity};--cadena:url('${cadena}');--encuadre:${position}${giro}`}
+  style={`opacity:${opacity};--cadena:url('${cadena}');--encuadre:${position};--zoom:${zoom * 100}%${giro}`}
   aria-hidden="true"
 >
 </div>
@@ -75,8 +74,9 @@ const cadena = url('/img/cadena-textura.png');
     background-color: currentColor;
     -webkit-mask-image: var(--cadena);
     mask-image: var(--cadena);
-    -webkit-mask-size: cover;
-    mask-size: cover;
+    /* El alto sale solo, del ancho: el dibujo nunca se deforma. */
+    -webkit-mask-size: var(--zoom) auto;
+    mask-size: var(--zoom) auto;
     -webkit-mask-position: var(--encuadre);
     mask-position: var(--encuadre);
     -webkit-mask-repeat: no-repeat;
