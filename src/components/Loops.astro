@@ -1,58 +1,51 @@
 ---
 /**
- * La «cadena para textura» del manual de identidad: la marca dibujada en
- * contorno, para tenderla detrás del contenido.
+ * La «cadena para textura» del manual de identidad, página 16: la marca en
+ * contorno, tendida detrás del contenido.
  *
- * No está trazada a mano. El manual la define con arcos de circunferencia, y
- * eso es lo que hay aquí: doce arcos medidos sobre la página 16 —centro,
- * radio y tramo— más los tres remates redondos que cierran las cintas. El
- * dibujo original es vectorial pero vive dentro de un grupo de transparencia
- * que ningún conversor disponible sabe abrir sin aplanarlo, así que se midió
- * del render y se volvió a levantar con esos números.
+ * Es el dibujo del manual, no una reconstrucción. Se intentó levantarlo como
+ * geometría —doce arcos medidos sobre la página— y reproducía el 79.5% del
+ * trazo original, con un 4% dibujado donde el manual no tiene nada. Para la
+ * marca de la casa eso no alcanza, así que aquí va el dibujo mismo.
  *
- * Decorativa: va detrás, a poca opacidad, y toma el color de quien la pinta.
+ * Entra como máscara, no como imagen, para que siga tomando el color de quien
+ * la pinta: el archivo es blanco con el trazo en el canal alfa, y lo que se
+ * ve es `currentColor` recortado por él.
+ *
+ * Decorativa: va detrás, a poca opacidad.
  */
+import { url } from '../lib/links';
+
 interface Props {
   class?: string;
   /** Opacidad del trazo, 0–1. */
   opacity?: number;
 }
 const { class: className = '', opacity = 0.28 } = Astro.props;
+
+/* El lienzo del archivo es más ancho que el dibujo —2600 contra 1200, con el
+   dibujo centrado—, porque las bandas del sitio son mucho más anchas que
+   altas y `cover` se comería las cintas en vez del aire. */
+const cadena = url('/img/cadena-textura.png');
 ---
 
-<!-- El dibujo mide 1200x834, pero las bandas del sitio son mucho más anchas
-     que altas. Con el lienzo ensanchado a los lados —el dibujo sigue centrado
-     en x=600— `slice` recorta aire en vez de comerse las cintas. -->
-<svg
-  class:list={['pointer-events-none absolute inset-0 h-full w-full', className]}
-  viewBox="-700 0 2600 834"
-  preserveAspectRatio="xMidYMid slice"
-  fill="none"
+<div
+  class:list={['cadena pointer-events-none absolute inset-0', className]}
+  style={`opacity:${opacity};--cadena:url('${cadena}')`}
   aria-hidden="true"
-  focusable="false"
 >
-  {/* `slice` escala el dibujo distinto en cada banda, y con él engordaría
-      o adelgazaría el trazo. Sin escalar, la línea mide lo mismo en todas. */}
-  <g
-    stroke="currentColor"
-    stroke-width="1.25"
-    vector-effect="non-scaling-stroke"
-    opacity={opacity}
-  >
-    <path d="M31 12A1045 1045 0 0 1 605 108" />
-    <path d="M652 78A1106 1106 0 0 1 1164 6" />
-    <path d="M82 127A870 870 0 0 1 608 264" />
-    <path d="M664 218A963 963 0 0 1 1147 121" />
-    <path d="M720 206A285 285 0 0 1 710 638" />
-    <path d="M489 635A284 284 0 0 1 474 212" />
-    <path d="M476 201A652 652 0 0 1 716 57" />
-    <path d="M604 563A176 176 0 0 1 603 271" />
-    <path d="M609 282A172 172 0 0 1 609 553" />
-    <path d="M1144 711A1200 1200 0 0 1 717 637" />
-    <path d="M489 640A1362 1362 0 0 1 49 718" />
-    <path d="M1071 825A1145 1145 0 0 1 597 720" />
-    <path d="M30 12A63 63 0 0 0 82 126" />
-    <path d="M1164 6A58 58 0 0 1 1147 121" />
-    <path d="M1144 711A68 68 0 0 1 1071 825" />
-  </g>
-</svg>
+</div>
+
+<style>
+  .cadena {
+    background-color: currentColor;
+    -webkit-mask-image: var(--cadena);
+    mask-image: var(--cadena);
+    -webkit-mask-size: cover;
+    mask-size: cover;
+    -webkit-mask-position: center;
+    mask-position: center;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+  }
+</style>
