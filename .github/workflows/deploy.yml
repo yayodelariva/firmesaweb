@@ -16,10 +16,12 @@ concurrency:
   cancel-in-progress: false
 
 env:
-  # The curation branch, published beside main so the two can be compared in a
-  # browser. This workflow never merges it — it only builds it.
-  PREVIEW_BRANCH: edits/seleccion-v4
-  PREVIEW_DIR: v4
+  # The curation branches, published beside main so the versions can be
+  # compared in a browser. This workflow never merges them — it only builds
+  # them. One per line: the branch, then the subdirectory it is served from.
+  PREVIEWS: |
+    edits/seleccion-v4 v4
+    edits/estaciones-v5 v5
 
 jobs:
   build:
@@ -27,7 +29,7 @@ jobs:
     steps:
       - uses: actions/checkout@v7
         with:
-          # The preview build checks out a second branch, so not a shallow clone.
+          # The previews check out other branches, so not a shallow clone.
           fetch-depth: 0
 
       - uses: actions/setup-node@v7
@@ -39,21 +41,26 @@ jobs:
       - run: npm run check
       - run: npm run build
 
-      # The preview builds in its own worktree, with its own install, so neither
-      # branch can see the other's files. `base` has to carry the subdirectory,
-      # or every link and asset in the preview would point at main's copy.
+      # Each preview builds in its own worktree, with its own install, so no
+      # branch can see another's files. `base` has to carry the subdirectory,
+      # or every link and asset in a preview would point at main's copy.
       #
       # A broken preview must not stop main from shipping, hence
       # continue-on-error: the step is flagged in the run, main deploys anyway,
-      # and /v4/ is simply absent until the next build succeeds.
-      - name: Build the preview branch
+      # and that version is simply absent until the next build succeeds.
+      - name: Build the preview branches
         continue-on-error: true
         run: |
-          git worktree add ../preview "origin/$PREVIEW_BRANCH"
-          cd ../preview
-          npm ci
-          BASE_PATH="/${GITHUB_REPOSITORY#*/}/$PREVIEW_DIR/" \
-            npm run build -- --outDir "$GITHUB_WORKSPACE/dist/$PREVIEW_DIR"
+          echo "$PREVIEWS" | while read -r rama dir; do
+            [ -n "$rama" ] || continue
+            echo "::group::$rama → /$dir/"
+            git worktree add "../preview-$dir" "origin/$rama"
+            ( cd "../preview-$dir"
+              npm ci
+              BASE_PATH="/${GITHUB_REPOSITORY#*/}/$dir/" \
+                npm run build -- --outDir "$GITHUB_WORKSPACE/dist/$dir" )
+            echo "::endgroup::"
+          done
 
       - uses: actions/upload-pages-artifact@v5
         with:
