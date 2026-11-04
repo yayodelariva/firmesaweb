@@ -110,6 +110,17 @@ tipografía del sitio.
 
 **Sections, in order:** Cobertura · Filtros · Directorio · Cierre
 
+### Cobertura — `<Loops class="text-white" opacity={0.12} tilt={-34} zoom={0.82} …>`
+
+The framing reads oddly — `761px calc(50% + 75px)` — because `mask-position` moves the drawing
+in the element's own axes, and the element is then turned 34° and scaled to 0.82. A number added
+to the first value alone travels up and to the right, not along the page. The pair above is the
+local offset that comes out as a straight 110 px to the right once the transform is applied:
+`0.82 · R(-34°) · (111, 75) = (110, 0)`.
+
+So: to slide this one sideways by *n* page pixels, add `1.21n` to the first value and `0.82n` to
+the second. Tilt it differently and those two factors change with it.
+
 ### Cobertura — `<div class="mt-14 max-w-4xl max-md:hidden">`
 
 El mapa no crece con la página: pasado cierto ancho deja de leerse mejor y sólo empuja el
