@@ -43,6 +43,22 @@ interface Props {
    * queda con un tramo distinto —un remate, un cruce, una cinta—.
    */
   position?: string;
+  /**
+   * Corrimiento del dibujo entero sobre la banda, en los ejes de la página:
+   * `'110px'` lo lleva 110 px a la derecha, `'0 -40px'` lo sube.
+   *
+   * Es otra cosa que `position`. El encuadre mueve el dibujo dentro de su
+   * caja, y la caja lo recorta: con `contain` el dibujo queda tan ancho como
+   * la banda, así que correrlo de lado le come por un borde lo que le deja
+   * libre por el otro. Esto mueve la caja con el dibujo dentro, de modo que
+   * el trazo llega entero a su nuevo sitio —hasta donde la sección, que sí
+   * recorta, se lo permita—.
+   *
+   * Va primero en la lista de transformaciones, que es como se aplica al
+   * final: así son píxeles de la página y no del dibujo ladeado, y el
+   * corrimiento no cambia al cambiar la inclinación.
+   */
+  offset?: string;
 }
 const {
   class: className = '',
@@ -50,10 +66,13 @@ const {
   tilt = 0,
   zoom = 1,
   position = 'center',
+  offset = '',
 } = Astro.props;
 
+const mudanza = offset ? `translate(${offset})` : '';
+const postura = tilt || zoom !== 1 ? `scale(${zoom}) rotate(${tilt}deg)` : '';
 const giro =
-  tilt || zoom !== 1 ? `;transform:scale(${zoom}) rotate(${tilt}deg)` : '';
+  mudanza || postura ? `;transform:${[mudanza, postura].filter(Boolean).join(' ')}` : '';
 
 /* El lienzo del archivo es más ancho que el dibujo —2600 contra 1200, con el
    dibujo centrado—, porque las bandas del sitio son mucho más anchas que

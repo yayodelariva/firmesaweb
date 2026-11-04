@@ -110,16 +110,17 @@ tipografía del sitio.
 
 **Sections, in order:** Cobertura · Filtros · Directorio · Cierre
 
-### Cobertura — `<Loops class="text-white" opacity={0.12} tilt={-34} zoom={0.82} …>`
+### Cobertura — `<Loops class="text-white" opacity={0.12} tilt={-34} zoom={0.82} offset="110px" />`
 
-The framing reads oddly — `761px calc(50% + 75px)` — because `mask-position` moves the drawing
-in the element's own axes, and the element is then turned 34° and scaled to 0.82. A number added
-to the first value alone travels up and to the right, not along the page. The pair above is the
-local offset that comes out as a straight 110 px to the right once the transform is applied:
-`0.82 · R(-34°) · (111, 75) = (110, 0)`.
+It is moved with `offset`, not with `position`, and the two are not interchangeable. `position`
+slides the drawing inside its own box, and the box is what paints it: with `mask-size: contain`
+the drawing comes out exactly as wide as the band, so sliding it sideways by *n* loses *n* of it
+off one edge and leaves *n* blank on the other. At `650px` less than half the trace survived.
+`offset` moves the box and the drawing together, so the whole trace arrives at its new place —
+as far as the section, which does clip, allows.
 
-So: to slide this one sideways by *n* page pixels, add `1.21n` to the first value and `0.82n` to
-the second. Tilt it differently and those two factors change with it.
+A sliver still runs off the top, about 25 px of the drawing's corner. `offset="110px 25px"`
+would clear it; the bottom has 80 px to spare.
 
 ### Cobertura — `<div class="mt-14 max-w-4xl max-md:hidden">`
 
