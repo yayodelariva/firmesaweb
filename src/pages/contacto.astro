@@ -31,15 +31,23 @@ const primaryEmail = site.emails[0] ?? '';
 
   <section class="bg-white">
     <div class="wrapper grid gap-14 py-16 md:py-24 lg:grid-cols-[1fr_1.15fr]">
-      <!-- Datos directos -->
-      <div>
+      <!-- Datos directos. Misma caja que el formulario de al lado: el mismo
+           borde, el mismo fondo y el mismo acolchado. Así los dos títulos
+           arrancan a la misma altura por construcción y no por un número
+           puesto a mano, que se desalinearía en cuanto cambie el acolchado
+           de uno de los dos.
+
+           `self-start` para que no se estire hasta el alto del formulario:
+           tres datos no llenan ocho campos, y la rejilla dejaría media
+           tarjeta vacía. -->
+      <div class="self-start rounded-3xl border border-ink-200 bg-field/50 p-8 md:p-10">
         <h2 class="text-2xl font-extrabold text-ink-900">Atención directa</h2>
 
         <!-- Los tres datos pesan lo mismo: `text-xs` en la etiqueta y
              `text-xl font-bold` en el valor. Un teléfono más grande que un
              correo sugiere que uno importa más que el otro, y aquí los tres
              son la misma invitación. -->
-        <dl class="mt-10 space-y-9">
+        <dl class="mt-8 space-y-9">
           <div>
             <dt class="text-xs font-bold uppercase tracking-[0.2em] text-ink-400">Teléfono</dt>
             <dd class="mt-3 space-y-1">
