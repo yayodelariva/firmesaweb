@@ -23,7 +23,12 @@ export const site = {
   /** Pendiente: la presentación deja el campo de WhatsApp en blanco. */
   whatsapp: '',
   location: 'Av. Ejército Nacional 552, Polanco, CDMX',
-  facebook: 'https://www.facebook.com/firmesaoficial/',
+  /**
+   * Pendiente: @firmesaoficial, que publicaba el sitio anterior, no es de la
+   * casa. En cuanto haya perfiles propios vuelven aquí y al `sameAs` del
+   * JSON-LD, que es donde un buscador los da por suyos.
+   */
+  social: [] as readonly string[],
   /** Form endpoint (Formspree, Netlify, etc.). Empty => falls back to the visitor's mail client. */
   formEndpoint: '',
 } as const;

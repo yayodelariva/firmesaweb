@@ -77,6 +77,10 @@ A station that gains an HTTPS stream only needs its `audio` field filled in, and
   addresses. If the second should also be published, add it to `site.emails` — the page renders
   the list, so nothing else changes. The first entry is also what the contact form's mail-client
   fallback sends to.
+- **Social profiles:** the `@firmesaoficial` Facebook page the old site linked is **not Firmesa's**,
+  so it is gone from `/contacto` and from the `sameAs` key of the `Base.astro` structured data —
+  `sameAs` is what tells a search engine a profile belongs to the organisation, which is precisely
+  the claim that was wrong. `site.social` is an empty list waiting for the real accounts.
 - **WhatsApp** is a labelled field in the deck but was left blank there, and no number exists in
   any earlier material. `site.whatsapp` is empty and nothing renders. Provide a number and it can
   be added to the contact page.
