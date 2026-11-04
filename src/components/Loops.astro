@@ -45,7 +45,8 @@ interface Props {
   position?: string;
   /**
    * Corrimiento del dibujo entero sobre la banda, en los ejes de la página:
-   * `'110px'` lo lleva 110 px a la derecha, `'0 -40px'` lo sube.
+   * `'110px'` lo lleva 110 px a la derecha, `'0 -40px'` lo sube. Se escribe
+   * separado por espacios, como `position`.
    *
    * Es otra cosa que `position`. El encuadre mueve el dibujo dentro de su
    * caja, y la caja lo recorta: con `contain` el dibujo queda tan ancho como
@@ -69,7 +70,11 @@ const {
   offset = '',
 } = Astro.props;
 
-const mudanza = offset ? `translate(${offset})` : '';
+/* `translate()` separa sus dos valores con coma; aquí se escriben con un
+   espacio, como en `position`, y la coma se pone al vuelo. Sin ella la
+   declaración entera es inválida y el navegador la tira completa: se van
+   también el `scale` y el `rotate`, sin aviso ninguno. */
+const mudanza = offset ? `translate(${offset.trim().split(/\s+/).join(', ')})` : '';
 const postura = tilt || zoom !== 1 ? `scale(${zoom}) rotate(${tilt}deg)` : '';
 const giro =
   mudanza || postura ? `;transform:${[mudanza, postura].filter(Boolean).join(' ')}` : '';

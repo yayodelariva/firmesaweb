@@ -110,7 +110,7 @@ tipografía del sitio.
 
 **Sections, in order:** Cobertura · Filtros · Directorio · Cierre
 
-### Cobertura — `<Loops class="text-white" opacity={0.12} tilt={-34} zoom={0.82} offset="110px" />`
+### Cobertura — `<Loops class="text-white" opacity={0.12} tilt={-34} zoom={0.82} offset="410px -300px" />`
 
 It is moved with `offset`, not with `position`, and the two are not interchangeable. `position`
 slides the drawing inside its own box, and the box is what paints it: with `mask-size: contain`
@@ -119,8 +119,13 @@ off one edge and leaves *n* blank on the other. At `650px` less than half the tr
 `offset` moves the box and the drawing together, so the whole trace arrives at its new place —
 as far as the section, which does clip, allows.
 
-A sliver still runs off the top, about 25 px of the drawing's corner. `offset="110px 25px"`
-would clear it; the bottom has 80 px to spare.
+Up and to the right as it now sits, the section does cut it: the trace reaches both the top
+edge and the right one, and 0.46% of the band is inked against 0.58% with the drawing whole.
+That is the cost of this framing, not a mistake — there is no room above the band to move into.
+
+The two values are written with a space, as in `position`; `Loops` puts in the comma that
+`translate()` needs. Without it the declaration is invalid and the browser drops the whole
+thing — `scale` and `rotate` included — in silence.
 
 ### Cobertura — `<div class="mt-14 max-w-4xl max-md:hidden">`
 
