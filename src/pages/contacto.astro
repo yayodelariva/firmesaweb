@@ -35,6 +35,10 @@ const primaryEmail = site.emails[0] ?? '';
       <div>
         <h2 class="text-2xl font-extrabold text-ink-900">Atención directa</h2>
 
+        <!-- Los tres datos pesan lo mismo: `text-xs` en la etiqueta y
+             `text-xl font-bold` en el valor. Un teléfono más grande que un
+             correo sugiere que uno importa más que el otro, y aquí los tres
+             son la misma invitación. -->
         <dl class="mt-10 space-y-9">
           <div>
             <dt class="text-xs font-bold uppercase tracking-[0.2em] text-ink-400">Teléfono</dt>
@@ -43,7 +47,7 @@ const primaryEmail = site.emails[0] ?? '';
                 site.phones.map((phone) => (
                   <a
                     href={telHref(phone)}
-                    class="block text-2xl font-extrabold text-ink-900 transition-colors hover:text-brand-500"
+                    class="block text-xl font-bold text-ink-900 transition-colors hover:text-brand-500"
                   >
                     {phone}
                   </a>
@@ -61,7 +65,7 @@ const primaryEmail = site.emails[0] ?? '';
                 site.emails.map((email) => (
                   <a
                     href={mailtoHref(email)}
-                    class="block break-all text-lg text-ink-900 transition-colors hover:text-brand-500"
+                    class="block break-words text-xl font-bold text-ink-900 transition-colors hover:text-brand-500"
                   >
                     {email}
                   </a>
@@ -72,7 +76,7 @@ const primaryEmail = site.emails[0] ?? '';
 
           <div>
             <dt class="text-xs font-bold uppercase tracking-[0.2em] text-ink-400">Ubicación</dt>
-            <dd class="mt-3 text-lg font-bold text-ink-900">{site.location}</dd>
+            <dd class="mt-3 text-xl font-bold text-ink-900">{site.location}</dd>
           </div>
         </dl>
       </div>
