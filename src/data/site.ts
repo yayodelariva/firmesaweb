@@ -15,17 +15,14 @@ export const site = {
   description:
     'Firmesa es la central de medios y partner estratégico que posiciona marcas con precisión. Más de 50 años integrando medios masivos y digitales en un solo sistema.',
   /**
-   * Pendientes de confirmar: los números y correos que debe publicar la nueva
-   * marca. Vacíos a propósito — las páginas conservan el hueco y los enlaces
-   * reaparecen solos en cuanto se llenen estas dos listas. El tipo se declara
-   * explícitamente para que los consumidores sigan compilando mientras están
-   * vacías.
+   * Los números y el correo que publica la casa. Se escriben con espacios,
+   * como se leen; `telHref` los convierte a E.164 para el enlace.
    */
-  phones: [] as readonly string[],
-  emails: [] as readonly string[],
+  phones: ['55 5250 7788', '55 5254 5937'] as readonly string[],
+  emails: ['nacho@firmesa.com.mx'] as readonly string[],
   /** Pendiente: la presentación deja el campo de WhatsApp en blanco. */
   whatsapp: '',
-  location: 'Polanco, CDMX',
+  location: 'Av. Ejército Nacional 552, Polanco, CDMX',
   facebook: 'https://www.facebook.com/firmesaoficial/',
   /** Form endpoint (Formspree, Netlify, etc.). Empty => falls back to the visitor's mail client. */
   formEndpoint: '',

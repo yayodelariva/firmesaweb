@@ -69,14 +69,17 @@ A station that gains an HTTPS stream only needs its `audio` field filled in, and
 
 ## Contact details
 
-- **Phone numbers** (`55 5250 7788`, `55 5254 5937`) and the two `@firmesa.com.mx` addresses are
-  carried over from the site that is live today. The presentation leaves TELÉFONO blank, so
-  confirm these are the numbers the new brand should publish.
+- **Phone numbers, email and address are confirmed** and published: `55 5250 7788`,
+  `55 5254 5937`, `nacho@firmesa.com.mx`, Av. Ejército Nacional 552, Polanco, CDMX. They live in
+  `site.phones`, `site.emails` and `site.location`, and `/contacto` plus the `Base.astro`
+  structured data (`streetAddress`, `email`, two `ContactPoint`s) read from there.
+- Only **one address** was confirmed, where the site live today shows two `@firmesa.com.mx`
+  addresses. If the second should also be published, add it to `site.emails` — the page renders
+  the list, so nothing else changes. The first entry is also what the contact form's mail-client
+  fallback sends to.
 - **WhatsApp** is a labelled field in the deck but was left blank there, and no number exists in
   any earlier material. `site.whatsapp` is empty and nothing renders. Provide a number and it can
   be added to the contact page.
-- **Address:** only "Polanco, CDMX" appears in the deck. A street address would improve the
-  local-SEO structured data in `Base.astro`.
 
 ## Media
 

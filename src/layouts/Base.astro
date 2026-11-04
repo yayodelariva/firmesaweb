@@ -80,10 +80,12 @@ const canonical = absolute(path);
         sameAs: [site.facebook],
         address: {
           '@type': 'PostalAddress',
+          streetAddress: 'Av. Ejército Nacional 552',
           addressLocality: 'Polanco',
           addressRegion: 'Ciudad de México',
           addressCountry: 'MX',
         },
+        ...(site.emails.length > 0 && { email: site.emails[0] }),
         // Omitted entirely while no phones are published: an empty
         // `contactPoint` array is worse structured data than no key at all.
         ...(site.phones.length > 0 && {
