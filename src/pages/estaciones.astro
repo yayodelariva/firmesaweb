@@ -31,7 +31,6 @@ const band = (frequency: string) => {
   path="/estaciones/"
   description={`Directorio de las ${totalStations} radiodifusoras representadas por Firmesa en ${states.length} estados de México: mapa de cobertura, frecuencia, siglas, programación y transmisión en vivo.`}
 >
-  <!-- Cobertura -->
   <section class="relative overflow-hidden bg-brand-900">
     <Loops class="text-white" opacity={0.12} tilt={-34} zoom={0.82} position="650px 50%" />
 
@@ -58,21 +57,12 @@ const band = (frequency: string) => {
         }
       </ul>
 
-      <!-- El mapa no crece con la página: pasado cierto ancho deja de leerse
-           mejor y sólo empuja el directorio fuera de la pantalla.
-
-           Y por debajo de 768 px no se dibuja. El trazado mide 40 rem, y con
-           el margen de la página eso no cabe entero hasta los 680 px; más
-           estrecho habría que encogerlo —y las plazas del centro se amontonan
-           hasta volverse intocables— o dejarlo correr de lado. El directorio
-           de abajo dice lo mismo y se lee mejor en un teléfono. -->
       <div class="mt-14 max-w-4xl max-md:hidden">
         <CoverageMap />
       </div>
     </div>
   </section>
 
-  <!-- Filtros -->
   <section
     id="directorio"
     class="sticky top-[87px] z-30 scroll-mt-[87px] border-b border-brand-500/15 bg-white/95 backdrop-blur"
@@ -116,7 +106,6 @@ const band = (frequency: string) => {
     </div>
   </section>
 
-  <!-- Directorio -->
   <div class="wrapper py-16 md:py-20">
     {
       states.map((state) => (
@@ -129,10 +118,6 @@ const band = (frequency: string) => {
             {state.state}
           </h2>
 
-          {/* Un solo tablero por estado, con la ciudad en cada ficha.
-              Veintidós de las veintiocho ciudades tienen una sola emisora:
-              encabezarlas por separado dejaba una tarjeta sola por renglón y
-              estiraba la página tres veces de más. */}
           <ul class="mt-8 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
             {state.cities.flatMap((city) =>
               city.stations.map((station, i) => (
@@ -170,11 +155,6 @@ const band = (frequency: string) => {
                   </p>
                   <p class="mt-4 flex-1 leading-relaxed text-ink-600">{station.programming}</p>
 
-                  {/* Diecisiete de las treinta y cinco tienen un flujo en HTTPS y
-                      suenan aquí mismo; las demás abren el sitio de la
-                      estación, que es todo lo que publican, y dos no publican
-                      ninguno: esas lo dicen en lugar de ofrecer un botón que
-                      no lleva a nada. Sin JavaScript, todas abren su sitio. */}
                   {station.audio ? (
                     <Fragment>
                       <button
@@ -252,7 +232,6 @@ const band = (frequency: string) => {
     </p>
   </div>
 
-  <!-- Cierre -->
   <section class="relative overflow-hidden bg-brand-900">
     <div class="wrapper relative flex flex-wrap items-center justify-between gap-8 py-16 md:py-20">
       <p class="statement max-w-xl text-base text-white md:text-2xl">
@@ -262,8 +241,6 @@ const band = (frequency: string) => {
     </div>
   </section>
 
-  <!-- Barra de reproducción. Aparece sólo mientras algo suena: la señal sigue
-       al visitante por la página, que es como se oye el radio. -->
   <div
     id="reproductor"
     hidden

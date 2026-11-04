@@ -34,10 +34,6 @@ const totals = {
 ---
 
 <figure class="m-0">
-  <!-- El mapa no se encoge: se desplaza. Un contorno de México a lo ancho de
-       un teléfono deja las plazas del centro una encima de otra, y son justo
-       las que hay que poder tocar. La página sólo lo dibuja donde cabe
-       entero, así que este desplazamiento es una red por si acaso. -->
   <div class="overflow-x-auto">
     <svg
       viewBox={mapViewBox}
@@ -50,7 +46,6 @@ const totals = {
         {`Contorno de México con ${totals.states} estados marcados, los que concentran las ${totals.stations} emisoras representadas en ${totals.cities} ciudades. El directorio completo aparece debajo del mapa.`}
       </desc>
 
-      <!-- El resto del país, como referencia de la forma. -->
       <g fill="none" class="stroke-white/15" stroke-width="1" stroke-linejoin="round">
         {
           mexicoStates
@@ -85,15 +80,6 @@ const totals = {
               class="group"
             >
               <title>{`${city.city}, ${city.state} — ${count(city.stations.length)}`}</title>
-              {/* Un disco translúcido amplía el blanco de 7 px a un objetivo
-                  que un dedo acierta, sin agrandar el punto que se ve. Arcelia
-                  y Ciudad Altamirano están a 12.9 px una de otra: pasado ese
-                  radio, el disco de una taparía el centro de la otra y la
-                  dejaría fuera de alcance.
-
-                  El halo responde al enlace entero, no al disco: el punto
-                  blanco va encima, y con `hover:` propio el halo se apagaba
-                  justo al llegar al centro, que es donde se apunta. */}
               <circle
                 cx={city.x}
                 cy={city.y}
@@ -128,7 +114,6 @@ const totals = {
       </li>
     </ul>
 
-    {/* Natural Earth es de dominio público; GeoNames pide atribución (CC BY). */}
     <p class="mt-6 text-xs leading-relaxed text-white/45">
       <Fragment>Cartografía: Natural Earth (dominio público). Coordenadas de las ciudades: </Fragment>
       <a

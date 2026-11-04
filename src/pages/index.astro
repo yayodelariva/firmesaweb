@@ -10,7 +10,6 @@ import { url } from '../lib/links';
 ---
 
 <Base title="Inicio" path="/">
-  <!-- Hero -->
   <section class="relative overflow-hidden bg-brand-900">
     <Backdrop
       image="/img/hero-inicio.jpg"
@@ -23,7 +22,6 @@ import { url } from '../lib/links';
     <div class="wrapper relative py-24 text-center md:py-32">
       <p class="pill mx-auto text-white/70">Desde 1972</p>
 
-      <!-- Outlined wordmark, as in the deck -->
       <Wordmark
         class="mt-10 select-none text-[3.5rem] font-black tracking-[0.02em] text-white/90 sm:text-8xl lg:text-[9rem]"
       />
@@ -55,7 +53,6 @@ import { url } from '../lib/links';
     </div>
   </section>
 
-  <!-- Positioning statement -->
   <section class="bg-white">
     <div class="wrapper max-w-4xl py-20 text-center md:py-24">
       <p class="statement text-xl text-ink-900 md:text-3xl">
@@ -79,7 +76,6 @@ import { url } from '../lib/links';
     </div>
   </section>
 
-  <!-- Lo mejor de dos mundos -->
   <section class="relative overflow-hidden bg-brand-900">
     <Backdrop image="/img/textura-acustica.jpg" imageClass="opacity-25" overlayClass="bg-brand-900/70 opacity-70" />
 
@@ -112,14 +108,12 @@ import { url } from '../lib/links';
     </div>
   </section>
 
-  <!-- Clientes -->
   <section class="bg-field">
     <div class="wrapper py-16 text-center md:py-20">
       <p class="pill mx-auto border-ink-300 text-ink-800">Marcas que han confiado en nosotros</p>
       <p class="mx-auto mt-8 max-w-2xl text-xl text-ink-800">
         Diferentes industrias, un mismo objetivo: conectar con las personas.
       </p>
-      {/* Nombres, no logotipos: las marcas de terceros necesitan su permiso. */}
       <ul class="mt-10 flex flex-wrap justify-center gap-3">
         {
           clients.map((client) => (
@@ -136,7 +130,6 @@ import { url } from '../lib/links';
     <BandHeading as="p" loops={false}>Nuestro trabajo es que esa decisión funcione</BandHeading>
   </section>
 
-  <!-- Cierre -->
   <section class="relative overflow-hidden bg-brand-900">
     <Backdrop image="/img/cierre-tablet.jpg" imageClass="opacity-35" overlayClass="bg-brand-900/60" />
 

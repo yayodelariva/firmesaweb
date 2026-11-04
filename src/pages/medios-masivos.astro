@@ -21,7 +21,6 @@ import { url } from '../lib/links';
   path="/medios-masivos/"
   description="Nuestra base es el radio y nuestra capacidad es mucho mayor: campañas en radio con presencia nacional, parabuses y exterior, aviones, autobuses e impresos."
 >
-  <!-- Hero -->
   <section class="relative overflow-hidden bg-brand-800">
     <Loops class="text-white" opacity={0.2} tilt={-20} zoom={0.7} position="18% 50%" />
     <div class="absolute inset-0 band opacity-95"></div>
@@ -36,18 +35,10 @@ import { url } from '../lib/links';
     </div>
   </section>
 
-  <!-- Nuestros medios -->
   <section class="bg-white">
     <div class="wrapper py-16 md:py-20">
-      <!-- The Servicios list at the foot of the page, inverted: the same rule,
-           rhythm and alternating weights, in crimson on white. `.pill` borders
-           in currentColor, so the one colour class sets both. -->
       <p class="pill w-fit text-brand-500">Nuestros medios</p>
 
-      <!-- Every medium jumps to the section that develops it, all of them
-           further down this page — hence an arrow that points down rather than
-           along. The weight alternates on the title alone, so the arrow keeps
-           one weight down the column. -->
       <ul class="reveal mt-10 max-w-3xl space-y-3">
         {
           media.map(({ title, section }, i) => (
@@ -71,7 +62,6 @@ import { url } from '../lib/links';
     </div>
   </section>
 
-  <!-- Radio -->
   <section id="radio" class="relative scroll-mt-24 overflow-hidden bg-brand-900">
     <Backdrop image="/img/bs-radio.jpg" imageClass="opacity-25" overlayClass="bg-brand-900/70" />
 
@@ -89,9 +79,6 @@ import { url } from '../lib/links';
           </span>
         </p>
 
-        {/* Las dos cosas que pide quien llega aquí: dónde se oye y cuánto
-            cuesta. La tarifa se descarga; el navegador que no respete
-            `download` la abrirá en una pestaña, que tampoco está mal. */}
         <div class="mt-10 flex flex-wrap gap-4">
           <a href={url('/estaciones/')} class="btn btn-light">Cobertura</a>
           <a href={url(radio.rateCard)} download class="btn btn-ghost">
@@ -101,9 +88,6 @@ import { url } from '../lib/links';
         </div>
       </div>
 
-      <!-- How a radio buy is run, in the order the deck lists it. The sequence
-           is carried by the staggered reveal instead of printed numerals, and by
-           the <ol> itself for anyone who never sees it run. -->
       <ol class="reveal grid gap-3 sm:grid-cols-2">
         {
           radio.steps.map((step, i) => (
@@ -116,15 +100,8 @@ import { url } from '../lib/links';
     </div>
   </section>
 
-  <!-- Medios en movimiento -->
   <section id="medios-en-movimiento" class="scroll-mt-24 bg-field">
     <div class="wrapper py-16 md:py-20">
-      <!-- Same outlined display heading as Radio, in crimson: the white
-           outline of the Radio version would vanish on this light field. -->
-      <!-- Two lines at every width: one line of this length would run past the
-           gutter from md down. The extra step below sm keeps the longer of the
-           two inside the narrowest phones, where SVG text would overflow
-           rather than wrap. -->
       <h2 class="text-[2.5rem] font-black uppercase tracking-tight text-brand-500 sm:text-5xl md:text-7xl">
         <Outline text={'Medios en\nmovimiento'} width={1.5} />
       </h2>
@@ -133,14 +110,6 @@ import { url } from '../lib/links';
         Llevamos a las marcas más lejos, en cada etapa del viaje.
       </p>
 
-      <!-- Each medium carries its own photograph. Both are bright and busy, so
-           the card goes dark and the type turns over it: the flat tint carries
-           the luminance contrast, and `on-photo` below carries the edges,
-           which is the half a photograph's own texture takes away.
-
-           Each list reveals its own formats in turn, at the same pace as the
-           radio steps. The two are separate groups, so each starts when its
-           own card is reached rather than both firing off the first one. -->
       <div class="mt-12 grid gap-6 md:grid-cols-2">
         {
           movingMedia.map(({ title, image, formats }) => (
@@ -169,7 +138,6 @@ import { url } from '../lib/links';
     </div>
   </section>
 
-  <!-- Formatos -->
   <section id="exterior-impresos" class="scroll-mt-24 bg-white">
     <div class="wrapper py-16 md:py-20">
       <div class="grid gap-6 md:grid-cols-2">
@@ -199,7 +167,6 @@ import { url } from '../lib/links';
     </div>
   </section>
 
-  <!-- Best sellers masivos -->
   <section class="bg-field">
     <BandHeading class="py-6" headingClass="text-sm md:text-xl">Best sellers masivos</BandHeading>
 
@@ -223,7 +190,6 @@ import { url } from '../lib/links';
     </div>
   </section>
 
-  <!-- Servicios -->
   <section class="relative overflow-hidden bg-brand-900">
     <Backdrop image="/img/consola.jpg" imageClass="opacity-30" overlayClass="bg-brand-900/60" />
 
@@ -246,7 +212,6 @@ import { url } from '../lib/links';
     </div>
   </section>
 
-  <!-- Cierre -->
   <section class="bg-field">
     <div class="wrapper py-16 text-center md:py-20">
       <p class="statement text-base text-ink-900 md:text-2xl">Cada espacio tiene un propósito</p>
@@ -257,8 +222,6 @@ import { url } from '../lib/links';
       <p class="statement mt-12 text-base text-ink-900 md:text-2xl">
         Cuando una marca necesita escala
       </p>
-      {/* El logotipo va en su archivo de marca: el manual lo fija en Avenir
-          Next Heavy, no en la tipografía del sitio. */}
       <img
         src={url('/img/logo-firmesa.png')}
         alt="Firmesa"

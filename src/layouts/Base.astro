@@ -40,8 +40,6 @@ const canonical = absolute(path);
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
     {noindex && <meta name="robots" content="noindex, follow" />}
-    {/* El .ico lo pide el navegador por su cuenta, pero en un subdirectorio
-        lo buscaría en la raíz del dominio, así que se declara con `base`. */}
     <link rel="icon" href={url('/favicon.ico')} sizes="16x16 32x32 48x48" />
     <link rel="icon" href={url('/img/marca.png')} type="image/png" sizes="512x512" />
     <link rel="apple-touch-icon" href={url('/apple-touch-icon.png')} />

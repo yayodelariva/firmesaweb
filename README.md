@@ -96,3 +96,8 @@ current WordPress.com site offline.
 ## Open items
 
 See `NOTES.md`.
+
+## Why the markup looks like this
+
+See `MARKUP-NOTES.md`, filed by page and by element. The templates carry no comments: an
+HTML comment in an `.astro` template is served to the browser.

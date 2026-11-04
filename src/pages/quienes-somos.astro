@@ -12,9 +12,7 @@ import { url } from '../lib/links';
   path="/quienes-somos/"
   description={`Firmesa nace desde el entendimiento profundo de los medios. ${years()} años trabajando con marcas que necesitan algo más que visibilidad.`}
 >
-  <!-- Nuestra historia -->
   <section class="bg-white">
-    <!-- Heading band: the page's dark entry point, carried over from the old intro. -->
     <div class="relative overflow-hidden bg-brand-800">
       <Backdrop
         image="/img/diferentes.jpg"
@@ -39,8 +37,6 @@ import { url } from '../lib/links';
     </div>
 
     <div class="wrapper grid items-center gap-12 py-16 md:py-24 lg:grid-cols-2">
-      <!-- The only in-flow image without a fixed height: the intrinsic size
-           reserves its space so the column does not jump on load. -->
       <img
         src={url('/img/historia.jpg')}
         alt=""
@@ -82,7 +78,6 @@ import { url } from '../lib/links';
     </div>
   </section>
 
-  <!-- Evolución -->
   <section class="relative overflow-hidden bg-ink-900">
     <Backdrop
       image="/img/evolucion.jpg"
@@ -108,7 +103,6 @@ import { url } from '../lib/links';
     </div>
   </section>
 
-  <!-- Qué nos define -->
   <section class="bg-field">
     <div class="wrapper py-16 md:py-20">
       <p class="pill mx-auto block w-fit border-ink-300 text-ink-800">Qué nos define</p>
