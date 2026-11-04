@@ -1,7 +1,7 @@
 ---
 import Loops from './Loops.astro';
 import { nav, site, decades } from '../data/site';
-import { url, telHref, mailtoHref } from '../lib/links';
+import { url } from '../lib/links';
 
 const year = new Date().getFullYear();
 ---
@@ -36,38 +36,6 @@ const year = new Date().getFullYear();
             </li>
           ))
         }
-      </ul>
-    </div>
-
-    <div>
-      <h2 class="text-xs font-bold uppercase tracking-[0.2em] text-ink-400">Contacto</h2>
-      <ul class="mt-5 space-y-3">
-        {
-          site.phones.map((phone) => (
-            <li>
-              <a href={telHref(phone)} class="text-sm text-white hover:text-brand-200">
-                {phone}
-              </a>
-            </li>
-          ))
-        }
-        {
-          site.emails.map((email) => (
-            <li>
-              <a href={mailtoHref(email)} class="text-sm break-all text-white hover:text-brand-200">
-                {email}
-              </a>
-            </li>
-          ))
-        }
-        {/* Holds the gap while the phones and emails are pending. */}
-        {site.phones.length + site.emails.length === 0 && <li class="h-20" aria-hidden="true" />}
-        <li class="pt-1 text-sm text-ink-300">{site.location}</li>
-        <li class="pt-2">
-          <a href={site.facebook} rel="noopener noreferrer" target="_blank" class="text-sm text-white hover:text-brand-200">
-            Facebook
-          </a>
-        </li>
       </ul>
     </div>
   </div>
