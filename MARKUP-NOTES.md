@@ -96,6 +96,12 @@ Each medium carries its own photograph. Both are bright and busy, so the card go
 the type turns over it: the flat tint carries the luminance contrast, and `on-photo` below
 carries the edges, which is the half a photograph's own texture takes away.
 
+El velo es gris —`ink-900`, el oscuro neutro—, no guinda. Las dos fotografías tienen bastante
+color propio, y el guinda encima se lo discutía; en gris se leen como son. Es el mismo velo que
+cierra Firmesa Digital y Contacto, así que no es un gris de paso sino el que ya usa la casa
+sobre fotografía. El tono de la tarjeta va igual, porque la imagen entra al 55% y lo que queda
+debajo también tiñe.
+
 Each list reveals its own formats in turn, at the same pace as the radio steps. The two are
 separate groups, so each starts when its own card is reached rather than both firing off the
 first one.
